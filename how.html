@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Как это работает</title>
+<meta name="description" content="Amir Agro Industries: как подключить спутниковые снимки по API и как устроена съёмка дроном — от вылета до ленты поля. На настоящих снимках этого сезона.">
+<style>
+:root{
+  --bg:#f5f3ec; --surface:#ffffff; --surface-2:#eeeae0; --text:#1d271d; --muted:#5b6459;
+  --line:#dcd6c8; --accent:#2c7a30; --accent-2:#1f5b23; --accent-soft:#e2efd9;
+  --warn:#9a5a06; --warn-soft:#faeed6; --hero-1:#1f4d22; --hero-2:#3d7a2f; --on-hero:#f4f8ef; --on-hero-muted:#cfe0c6;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121611; --surface:#1a2019; --surface-2:#222a21; --text:#e7ebe3; --muted:#a2ac9e;
+    --line:#2e372c; --accent:#7cc47f; --accent-2:#9fd8a1; --accent-soft:#1e321f;
+    --warn:#f0b357; --warn-soft:#3a2c14; --hero-1:#16301a; --hero-2:#25481f; --on-hero:#eef5ea; --on-hero-muted:#b7cdb0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121611; --surface:#1a2019; --surface-2:#222a21; --text:#e7ebe3; --muted:#a2ac9e;
+  --line:#2e372c; --accent:#7cc47f; --accent-2:#9fd8a1; --accent-soft:#1e321f;
+  --warn:#f0b357; --warn-soft:#3a2c14; --hero-1:#16301a; --hero-2:#25481f; --on-hero:#eef5ea; --on-hero-muted:#b7cdb0;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+img{max-width:100%;display:block}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
+p{margin:0 0 14px}
+h2{font-size:clamp(24px,4.6vw,32px);line-height:1.2;margin:0 0 10px;letter-spacing:-.01em}
+h3{font-size:19px;line-height:1.35;margin:0 0 8px}
+.sub{color:var(--muted)}
+.small{font-size:14.5px}
+.hero{background:linear-gradient(135deg,var(--hero-1),var(--hero-2));color:var(--on-hero);padding:44px 0 36px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;background:repeating-linear-gradient(-8deg,transparent 0 26px,#fff 26px 28px)}
+.hero .wrap{position:relative;z-index:1}
+.eyebrow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.eyebrow span{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:3px 11px}
+.hero h1{font-size:clamp(30px,6vw,46px);line-height:1.12;margin:0 0 16px;letter-spacing:-.02em;max-width:780px}
+.hero .lead{font-size:19px;color:var(--on-hero-muted);max-width:720px;margin:0}
+.hero a{color:var(--on-hero)}
+.toc{display:flex;gap:8px;overflow-x:auto;padding:14px 0;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:0 0 auto;text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14.5px}
+.toc a b{color:var(--accent);margin-right:4px}
+.topbar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+section{padding-top:56px}
+.part{margin-top:56px;padding:6px 0 0;border-top:3px solid var(--accent)}
+.part-title{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:12px 0 0}
+.sec-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:6px}
+.sec-num{flex:0 0 auto;min-width:40px;height:40px;padding:0 8px;border-radius:12px;background:var(--accent);color:var(--bg);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:17px;margin-top:2px}
+.sec-head p{margin:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:14px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.card .k{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--accent)}
+.card .v{font-size:20px;font-weight:700;line-height:1.25;margin:4px 0}
+.card p{color:var(--muted);font-size:15.5px;margin:0}
+.big{font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.1;color:var(--accent)}
+.callout{background:var(--accent-soft);border-radius:16px;padding:16px 18px;margin-top:16px}
+.callout p{margin:0}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:10px;padding:14px 16px;margin:16px 0 0}
+.note p{margin:0}
+/* viewer */
+.viewer-top{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:10px}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;color:var(--text);font:inherit;font-size:14.5px;padding:6px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--bg);font-weight:600}
+.frame{max-width:620px;margin:0 auto;position:relative;border-radius:12px;overflow:hidden;background:var(--surface-2);aspect-ratio:435/451}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;left:10px;top:10px;background:rgba(0,0,0,.55);color:#fff;font-weight:700;font-size:15px;border-radius:10px;padding:4px 10px}
+.badge2{position:absolute;right:10px;bottom:10px;background:rgba(0,0,0,.5);color:#fff;font-size:12px;border-radius:8px;padding:3px 8px}
+.dates{display:flex;gap:6px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}
+.dates::-webkit-scrollbar{display:none}
+.dates button{flex:0 0 auto;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:14px;font-weight:600;border-radius:10px;padding:5px 10px;cursor:pointer}
+.dates button small{display:block;font-weight:500;font-size:11.5px;color:var(--muted)}
+.dates button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.dates button[aria-pressed="true"] small{color:var(--bg);opacity:.85}
+#dateRange{display:block;max-width:620px;margin-left:auto;margin-right:auto;width:100%;margin-top:8px;accent-color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13.5px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.strip,.chart{width:100%;height:auto;display:block}
+.svg-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:640px){.svg-scroll .chart{min-width:620px}.svg-scroll .strip{min-width:560px}}
+.two{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.figure{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.figure img{width:100%;height:auto}
+.figure .cap{padding:10px 14px 12px;font-size:14.5px;color:var(--muted)}
+.figure .cap b{color:var(--text);display:block;font-size:15.5px}
+.steps{list-style:none;padding:0;margin:14px 0 0;counter-reset:s}
+.steps li{position:relative;padding:0 0 16px 50px;counter-increment:s}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--bg);font-weight:700;display:flex;align-items:center;justify-content:center}
+.steps li b{display:block}
+.steps li span{color:var(--muted);font-size:15.5px}
+.table-scroll{overflow-x:auto;border-radius:16px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:15.5px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line)}
+th{background:var(--surface-2);font-size:13.5px;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+td small{color:var(--muted);display:block;font-size:13.5px}
+.pill{display:inline-block;font-size:12.5px;font-weight:600;border-radius:999px;padding:1px 9px;white-space:nowrap}
+.ok{background:var(--accent-soft);color:var(--accent)}
+.free{background:var(--accent);color:var(--bg)}
+.no{background:var(--surface-2);color:var(--muted)}
+td .pill{white-space:normal}
+.stack{display:grid;gap:8px;margin-top:14px}
+.layer{display:grid;grid-template-columns:170px 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;align-items:start}
+.layer b{font-size:15.5px}
+.layer span{color:var(--muted);font-size:15px}
+.layer em{font-style:normal;font-size:12.5px;font-weight:700;color:var(--accent);display:block;text-transform:uppercase;letter-spacing:.04em}
+.cta{background:linear-gradient(135deg,var(--hero-1),var(--hero-2));color:var(--on-hero);border-radius:20px;padding:24px;margin-top:24px}
+.cta h3{font-size:22px}
+.cta p{color:var(--on-hero-muted);margin:0 0 10px}
+.cta a{color:var(--on-hero);font-weight:600;display:block;margin-top:4px}
+.pm{list-style:none;padding:0;margin:0;font-size:15px}
+.pm li{padding:4px 0 4px 22px;position:relative;color:var(--muted)}
+.pm li.p::before{content:"+";position:absolute;left:4px;color:var(--accent);font-weight:800}
+.pm li.m::before{content:"−";position:absolute;left:4px;color:var(--warn);font-weight:800}
+details.tech{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+details.tech summary{cursor:pointer;font-weight:600}
+details.tech pre{background:var(--surface-2);border-radius:10px;padding:12px;overflow-x:auto;font-size:13.5px;line-height:1.5;margin:12px 0}
+footer{color:var(--muted);font-size:14px;padding:56px 0 40px}
+footer ul{padding-left:18px;margin:8px 0 0}
+footer li{margin-bottom:4px;word-break:break-word}
+@media (max-width:640px){
+  .two{grid-template-columns:1fr}
+  .layer{grid-template-columns:1fr;gap:2px}
+  .resp table,.resp tbody,.resp tr,.resp td{display:block;width:100%}
+  .resp thead{display:none}
+  .resp tr{padding:12px 14px;border-bottom:1px solid var(--line)}
+  .resp tr:last-child{border-bottom:0}
+  .resp td{border:0;padding:2px 0}
+  .resp td:first-child{font-size:17px}
+  .resp td[data-l]{font-size:14.5px;color:var(--muted)}
+  .resp td[data-l]::before{content:attr(data-l) ": ";font-weight:600;color:var(--text)}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span>Amir Agro Industries</span><span>Как это работает</span><span>На настоящих снимках</span></div>
+    <h1>Спутник по API и съёмка дроном: от снимка до ленты поля</h1>
+    <p class="lead">Откуда берутся снимки, как часто приходят, сколько стоят, кто летает, кто анализирует и где всё хранится. Примеры ниже — настоящие снимки этого сезона, которые мы бесплатно скачали и обработали для этой страницы.</p>
+  </div>
+</header>
+
+<div class="topbar"><div class="wrap"><nav class="toc">
+  <a href="#primer"><b>С1</b>Живой пример</a>
+  <a href="#chastota"><b>С2</b>Как часто</a>
+  <a href="#analiz"><b>С3</b>Что считается само</a>
+  <a href="#api"><b>С4</b>API и тарифы</a>
+  <a href="#ceny"><b>С5</b>Если покупать</a>
+  <a href="#roli"><b>Д1</b>Кто что делает</a>
+  <a href="#zadanie"><b>Д2</b>Полёт по заданию</a>
+  <a href="#foto"><b>Д3</b>Что делают с фото</a>
+  <a href="#kadry"><b>Д3+</b>По кадрам?</a>
+  <a href="#ii"><b>Д4</b>Кто анализирует</a>
+  <a href="#hranenie"><b>Д5</b>Где всё лежит</a>
+</nav></div></div>
+
+<main class="wrap">
+
+<div class="part"><p class="part-title">Часть 1 · Спутник</p></div>
+
+<section id="primer" style="padding-top:20px">
+  <div class="sec-head"><div class="sec-num">С1</div><div><h2>Живой пример: поля за сезон по датам</h2><p class="sub">Настоящие снимки Sentinel-2, апрель–октябрь 2026. Поля в Тамбовском районе Амурской области — одном из главных соевых регионов. Участок около 4 × 4 км.</p></div></div>
+  <div class="panel">
+    <div class="viewer-top">
+      <div class="seg" role="group" aria-label="Режим">
+        <button type="button" data-mode="rgb" aria-pressed="true">Как видит глаз</button>
+        <button type="button" data-mode="ndvi" aria-pressed="false">Индекс вегетации</button>
+      </div>
+      <span class="sub small">Потяните ползунок или нажмите дату</span>
+    </div>
+    <div class="frame">
+      <img id="frameImg" src="img/s2/rgb_2026-08-07.jpg" alt="Спутниковый снимок полей">
+      <span class="badge" id="frameDate">07.08.2026</span>
+      <span class="badge2">Copernicus Sentinel-2</span>
+    </div>
+    <input type="range" id="dateRange" min="0" max="7" value="4" aria-label="Дата снимка">
+    <div class="dates" id="dates"></div>
+    <div class="legend" id="legend" hidden>
+      <span><i style="background:#965a32"></i>голая земля</span><span><i style="background:#ebd75a"></i>слабая растительность</span><span><i style="background:#a0c850"></i>средняя</span><span><i style="background:#14591e"></i>мощные посевы</span>
+    </div>
+  </div>
+  <p class="sub small" style="margin-top:10px">Видно весь сезон: пашня весной, всходы в июне, максимум в августе, созревание и уборка к октябрю. Нижнее поле убрано уже в начале августа. Так же будет выглядеть лента по вашим полям — только с контурами, номерами полей и вашими отметками.</p>
+</section>
+
+<section id="chastota">
+  <div class="sec-head"><div class="sec-num">С2</div><div><h2>Как часто приходят снимки</h2><p class="sub">Посчитали по этому участку за сезон, с 1 апреля по 16 октября 2026.</p></div></div>
+  <div class="grid" style="margin-top:14px">
+    <div class="card"><div class="big">91</div><p>дат съёмки — новый снимок в среднем раз в 2,2 дня. Сейчас летают три спутника Sentinel-2.</p></div>
+    <div class="card"><div class="big">27</div><p>из них почти без облаков (меньше 20%) — примерно раз в неделю. Остальные частично облачные.</p></div>
+    <div class="card"><div class="big">0 ₽</div><p>все эти снимки бесплатные. Облачные система отбрасывает сама.</p></div>
+  </div>
+  <div class="panel">
+    <div class="svg-scroll"><svg viewBox="0 0 880 54" class="strip" role="img" aria-label="Даты съёмки Sentinel-2 с апреля по октябрь 2026"><title>Даты съёмки: серые — все, зелёные — ясные</title><line x1="8" y1="24" x2="872" y2="24" stroke="var(--line)" stroke-width="2"/><rect x="6.5" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="10.9" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="19.6" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="32.7" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="41.4" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="54.5" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="63.2" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="76.3" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="85.0" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="93.8" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="98.1" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="106.9" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="120.0" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="128.7" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="141.8" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="150.5" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="163.6" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="172.3" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="181.0" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="185.4" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="194.1" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="207.2" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="216.0" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="229.0" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="237.8" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="250.9" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="259.6" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="268.3" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="272.7" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="281.4" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="294.5" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="303.2" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="316.3" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="325.0" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="338.1" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="346.9" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="355.6" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="360.0" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="368.7" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="381.8" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="390.5" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="403.6" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="412.3" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="425.4" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="434.1" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="442.9" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="447.2" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="456.0" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="469.0" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="477.8" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="486.5" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="490.9" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="499.6" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="512.7" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="521.4" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="534.5" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="543.2" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="556.3" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="565.0" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="573.8" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="578.1" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="586.9" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="600.0" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="608.7" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="621.8" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="630.5" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="643.6" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="652.3" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="661.0" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="665.4" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="674.1" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="687.2" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="696.0" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="709.0" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="717.8" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="730.9" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="739.6" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="748.3" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="752.7" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="761.4" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="774.5" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="783.2" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="796.3" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="805.0" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="818.1" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="826.9" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="835.6" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><rect x="840.0" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="848.7" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="861.8" y="15" width="3" height="18" rx="1.5" fill="var(--muted)" opacity=".45"/><rect x="870.5" y="8" width="3" height="32" rx="1.5" fill="var(--accent)" opacity="1"/><text x="8.0" y="52" font-size="12" fill="var(--muted)">апр</text><text x="138.9" y="52" font-size="12" fill="var(--muted)">май</text><text x="274.2" y="52" font-size="12" fill="var(--muted)">июн</text><text x="405.1" y="52" font-size="12" fill="var(--muted)">июл</text><text x="540.4" y="52" font-size="12" fill="var(--muted)">авг</text><text x="675.6" y="52" font-size="12" fill="var(--muted)">сен</text><text x="806.5" y="52" font-size="12" fill="var(--muted)">окт</text></svg></div>
+    <div class="legend"><span><i style="background:var(--muted);opacity:.45"></i>снимок с облаками</span><span><i style="background:var(--accent)"></i>ясный снимок</span></div>
+  </div>
+  <div class="callout"><p><b>Хватит ли взять снимки один-два раза?</b> Нет — смысл в регулярности: весь сезон приходят новые снимки, и видно, как меняется каждое поле. Но это не ручная работа: один раз настраиваем — дальше сервер сам каждый день проверяет, есть ли новый снимок над вашими полями, и обновляет страницу.</p></div>
+</section>
+
+<section id="analiz">
+  <div class="sec-head"><div class="sec-num">С3</div><div><h2>Что считается автоматически</h2><p class="sub">Из тех же бесплатных снимков — без участия человека.</p></div></div>
+  <div class="panel">
+    <h3>График поля за сезон</h3>
+    <p class="sub small">Индекс вегетации одного поля (верхнее справа на снимке) по всем ясным датам: 31 точек. По форме кривой похоже на сою: всходы в июне, максимум в июле–августе, созревание с середины сентября. Культуру на месте мы не проверяли.</p>
+    <div class="svg-scroll"><svg viewBox="0 0 880 260" class="chart" role="img" aria-label="Индекс вегетации поля за сезон"><title>Индекс вегетации (NDVI) поля по датам</title><line x1="44" y1="226" x2="864" y2="226" stroke="var(--line)" stroke-width="1"/><text x="36" y="230" font-size="12" fill="var(--muted)" text-anchor="end">0.00</text><line x1="44" y1="173.5" x2="864" y2="173.5" stroke="var(--line)" stroke-width="1"/><text x="36" y="177.5" font-size="12" fill="var(--muted)" text-anchor="end">0.25</text><line x1="44" y1="121.0" x2="864" y2="121.0" stroke="var(--line)" stroke-width="1"/><text x="36" y="125.0" font-size="12" fill="var(--muted)" text-anchor="end">0.50</text><line x1="44" y1="68.5" x2="864" y2="68.5" stroke="var(--line)" stroke-width="1"/><text x="36" y="72.5" font-size="12" fill="var(--muted)" text-anchor="end">0.75</text><line x1="44" y1="16.0" x2="864" y2="16.0" stroke="var(--line)" stroke-width="1"/><text x="36" y="20.0" font-size="12" fill="var(--muted)" text-anchor="end">1.00</text><text x="44.0" y="250" font-size="12" fill="var(--muted)">апр</text><text x="168.2" y="250" font-size="12" fill="var(--muted)">май</text><text x="296.6" y="250" font-size="12" fill="var(--muted)">июн</text><text x="420.9" y="250" font-size="12" fill="var(--muted)">июл</text><text x="549.3" y="250" font-size="12" fill="var(--muted)">авг</text><text x="677.6" y="250" font-size="12" fill="var(--muted)">сен</text><text x="801.9" y="250" font-size="12" fill="var(--muted)">окт</text><rect x="267.6" y="16" width="107.69999999999999" height="210" fill="var(--accent-soft)" opacity=".7"/><rect x="714.9" y="16" width="103.5" height="210" fill="var(--warn-soft)" opacity=".9"/><text x="275.9" y="32" font-size="12.5" fill="var(--accent-2)" font-weight="700">всходы</text><text x="499.6" y="32" font-size="12.5" fill="var(--accent-2)" font-weight="700">максимум</text><text x="723.2" y="32" font-size="12.5" fill="var(--warn)" font-weight="700">созревание</text><polyline fill="none" stroke="var(--accent)" stroke-width="3" stroke-linejoin="round" points="56.4,176.0 77.1,177.1 139.3,190.9 151.7,178.3 193.1,178.8 201.4,180.2 242.8,169.3 275.9,183.6 304.9,179.2 338.0,169.9 346.3,164.5 400.2,143.9 408.4,139.5 503.7,42.0 553.4,47.7 565.8,33.8 574.1,35.7 607.2,31.3 648.6,36.2 690.1,47.1 710.8,41.8 719.1,50.2 731.5,99.6 748.0,106.9 760.5,113.0 772.9,134.4 801.9,150.4 814.3,155.9 822.6,159.6 830.9,159.4 864.0,169.7"/><circle cx="56.4" cy="176.0" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>04.04 — 0.24</title></circle><circle cx="77.1" cy="177.1" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>09.04 — 0.23</title></circle><circle cx="139.3" cy="190.9" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>24.04 — 0.17</title></circle><circle cx="151.7" cy="178.3" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>27.04 — 0.23</title></circle><circle cx="193.1" cy="178.8" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>07.05 — 0.23</title></circle><circle cx="201.4" cy="180.2" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>09.05 — 0.22</title></circle><circle cx="242.8" cy="169.3" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>19.05 — 0.27</title></circle><circle cx="275.9" cy="183.6" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>27.05 — 0.20</title></circle><circle cx="304.9" cy="179.2" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>03.06 — 0.22</title></circle><circle cx="338.0" cy="169.9" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>11.06 — 0.27</title></circle><circle cx="346.3" cy="164.5" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>13.06 — 0.29</title></circle><circle cx="400.2" cy="143.9" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>26.06 — 0.39</title></circle><circle cx="408.4" cy="139.5" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>28.06 — 0.41</title></circle><circle cx="503.7" cy="42.0" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>21.07 — 0.88</title></circle><circle cx="553.4" cy="47.7" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>02.08 — 0.85</title></circle><circle cx="565.8" cy="33.8" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>05.08 — 0.92</title></circle><circle cx="574.1" cy="35.7" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>07.08 — 0.91</title></circle><circle cx="607.2" cy="31.3" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>15.08 — 0.93</title></circle><circle cx="648.6" cy="36.2" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>25.08 — 0.90</title></circle><circle cx="690.1" cy="47.1" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>04.09 — 0.85</title></circle><circle cx="710.8" cy="41.8" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>09.09 — 0.88</title></circle><circle cx="719.1" cy="50.2" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>11.09 — 0.84</title></circle><circle cx="731.5" cy="99.6" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>14.09 — 0.60</title></circle><circle cx="748.0" cy="106.9" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>18.09 — 0.57</title></circle><circle cx="760.5" cy="113.0" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>21.09 — 0.54</title></circle><circle cx="772.9" cy="134.4" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>24.09 — 0.44</title></circle><circle cx="801.9" cy="150.4" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>01.10 — 0.36</title></circle><circle cx="814.3" cy="155.9" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>04.10 — 0.33</title></circle><circle cx="822.6" cy="159.6" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>06.10 — 0.32</title></circle><circle cx="830.9" cy="159.4" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>08.10 — 0.32</title></circle><circle cx="864.0" cy="169.7" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"><title>16.10 — 0.27</title></circle></svg></div>
+  </div>
+  <div class="two" style="margin-top:14px">
+    <div class="figure"><img src="img/s2/zones_2026-08-07.jpg" alt="Карта зон вегетации" loading="lazy"><div class="cap"><b>Зоны внутри полей, 07.08.2026</b>Красные и оранжевые зоны — посевы слабее, чем на остальной площади. Именно такую карту показывает Cropio. Это повод съездить или облететь дроном.</div></div>
+    <div class="figure"><img src="img/s2/ndvi_2026-08-07.jpg" alt="Индекс вегетации" loading="lazy"><div class="cap"><b>Индекс вегетации, та же дата</b>Исходная карта, из которой считаются зоны и график. Детализация 10 м: один пиксель — квадрат 10 × 10 м.</div></div>
+  </div>
+  <ol class="steps">
+    <li><b>Контуры ваших полей</b><span>заводим один раз — из кадастра или рисуем по снимку</span></li>
+    <li><b>Каждый день сервер спрашивает API: «есть новый снимок над этими полями?»</b><span>скрипт по расписанию, без участия человека</span></li>
+    <li><b>Берёт только кусок над полями и проверяет облака</b><span>облачные снимки отбрасывает, целые сцены по сотне километров не скачивает</span></li>
+    <li><b>Считает индекс, зоны и среднее по каждому полю</b><span>как на картинках выше</span></li>
+    <li><b>Кладёт в базу с датой</b><span>история копится весь сезон и из года в год</span></li>
+    <li><b>Страница и уведомления</b><span>ползунок по датам, график поля, сообщение в Telegram, если поле резко «просело»</span></li>
+  </ol>
+</section>
+
+<section id="api">
+  <div class="sec-head"><div class="sec-num">С4</div><div><h2>Какие API, как часто и сколько стоит</h2><p class="sub">Для одного хозяйства платные тарифы не нужны. Пример выше сделан через первый вариант.</p></div></div>
+  <div class="table-scroll resp" style="margin-top:14px"><table>
+    <thead><tr><th>API</th><th>Что даёт</th><th>Как часто</th><th>Бесплатно</th><th>Платно</th><th>Нам нужно?</th></tr></thead>
+    <tbody>
+      <tr><td><b>Earth Search</b><small>открытые данные на AWS</small></td><td data-l="Что даёт">Sentinel-2, Landsat, Sentinel-1</td><td data-l="Как часто">каждые 2–3 дня</td><td data-l="Бесплатно"><span class="pill free">всё, без регистрации</span></td><td data-l="Платно">нет тарифов</td><td data-l="Нужно"><span class="pill ok">основной</span></td></tr>
+      <tr><td><b>Copernicus Data Space</b><small>Sentinel Hub, openEO</small></td><td data-l="Что даёт">Те же снимки и готовые индексы по контуру поля</td><td data-l="Как часто">каждые 2–3 дня</td><td data-l="Бесплатно"><span class="pill free">месячная квота</span></td><td data-l="Платно">коммерческие тарифы Sentinel Hub</td><td data-l="Нужно"><span class="pill ok">запасной</span></td></tr>
+      <tr><td><b>Microsoft Planetary Computer</b></td><td data-l="Что даёт">Тот же каталог открытых данных</td><td data-l="Как часто">каждые 2–3 дня</td><td data-l="Бесплатно"><span class="pill free">да</span></td><td data-l="Платно">нет</td><td data-l="Нужно"><span class="pill ok">запасной</span></td></tr>
+      <tr><td><b>Агромониторинг</b><small>OpenWeather</small></td><td data-l="Что даёт">Контур поля → готовый NDVI, снимки и погода</td><td data-l="Как часто">как приходят снимки</td><td data-l="Бесплатно"><span class="pill free">до 1000 га</span></td><td data-l="Платно">£20/мес — 4000 га, £200/мес — 20 000 га</td><td data-l="Нужно"><span class="pill no">если не писать обработку самим</span></td></tr>
+      <tr><td><b>Open-Meteo</b></td><td data-l="Что даёт">Погода и история осадков по координатам поля</td><td data-l="Как часто">каждый час</td><td data-l="Бесплатно"><span class="pill free">некоммерческое</span></td><td data-l="Платно">недорогой коммерческий тариф</td><td data-l="Нужно"><span class="pill ok">да</span></td></tr>
+      <tr><td><b>Google Earth Engine</b></td><td data-l="Что даёт">Мощная обработка архивов</td><td data-l="Как часто">—</td><td data-l="Бесплатно">только некоммерческое</td><td data-l="Платно">коммерческое — платно</td><td data-l="Нужно"><span class="pill no">нет</span></td></tr>
+      <tr><td><b>Planet</b></td><td data-l="Что даёт">Снимки ~3 м</td><td data-l="Как часто">ежедневно</td><td data-l="Бесплатно">нет</td><td data-l="Платно">дорого</td><td data-l="Нужно"><span class="pill no">не на старте</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><p><b>Ограничение спутника:</b> 10 м на пиксель. Слабую зону на поле он покажет, но отдельный очаг сорняков в пару метров — нет. Для этого нужен дрон — о нём дальше.</p></div>
+</section>
+
+<section id="ceny">
+  <div class="sec-head"><div class="sec-num">С5</div><div><h2>Если покупать: цены платных API и снимков</h2><p class="sub">На случай, если бесплатного станет мало или нужен будет снимок детальнее. Цены — с сайтов поставщиков и агрегаторов на октябрь 2026, могут меняться.</p></div></div>
+  <div class="table-scroll resp" style="margin-top:14px"><table>
+    <thead><tr><th>Сервис</th><th>Что покупаем</th><th>Цена</th><th>Когда имеет смысл</th></tr></thead>
+    <tbody>
+      <tr><td><b>Агромониторинг</b><small>OpenWeather</small></td><td data-l="Что">Готовый NDVI, снимки и погода по контурам полей</td><td data-l="Цена">до 1000 га — бесплатно; Starter — £20/мес до 4000 га; Small Kit — £200/мес до 20 000 га</td><td data-l="Когда">Если не хотим держать свою обработку снимков</td></tr>
+      <tr><td><b>Open-Meteo</b></td><td data-l="Что">Погода, прогноз и история по полям</td><td data-l="Цена">Standard — $29/мес (1 млн запросов); Professional — $99/мес (5 млн запросов + история и климат)</td><td data-l="Когда">Коммерческий сервис для нескольких хозяйств</td></tr>
+      <tr><td><b>Sentinel Hub</b><small>теперь Planet Insights Platform</small></td><td data-l="Что">Обработка Sentinel и других снимков на их серверах</td><td data-l="Цена">Старые тарифы: Basic ~$1100/год (70 тыс. единиц обработки в месяц), Enterprise Small ~$5500/год. Сейчас Planet переходит на «кредиты мониторинга», точные цены по запросу</td><td data-l="Когда">Сотни хозяйств; нам не нужно</td></tr>
+      <tr><td><b>EOSDA</b></td><td data-l="Что">Crop Monitoring и Agriculture API: 15+ индексов, влажность почвы, погода</td><td data-l="Цена">Crop Monitoring ~$20–300+/мес (оценка агрегатора), API — по запросу; пробное поле до 300 га</td><td data-l="Когда">Готовая платформа целиком; работа в России под вопросом</td></tr>
+      <tr><td><b>PlanetScope</b><small>Planet</small></td><td data-l="Что">Снимки ~3 м ежедневно</td><td data-l="Цена">Пакет Agriculture Premium для площадей до 300 км², минимум 5 км² (500 га); цена по запросу</td><td data-l="Когда">Если нужно чаще и детальнее Sentinel-2</td></tr>
+      <tr><td><b>SkySat</b><small>через SkyWatch</small></td><td data-l="Что">Разовый снимок ~0,5 м под заказ</td><td data-l="Цена">$10–12 за км², минимум 25 км² — от ~$250–300 за снимок</td><td data-l="Когда">Разовые события: ущерб от града, спор о площади</td></tr>
+      <tr><td><b>Роскосмос</b><small>через интеграторов, напр. «Совзонд»</small></td><td data-l="Что">Российские снимки 1–2 м под задачу</td><td data-l="Цена">от ~5 000 ₽ за проект</td><td data-l="Когда">Если нужна российская съёмка</td></tr>
+      <tr><td><b>Google Earth Engine</b></td><td data-l="Что">Обработка любых архивов на серверах Google</td><td data-l="Цена">Коммерческое: абонплата + ~$0,40 за час вычислений</td><td data-l="Когда">Большие исследования; нам не нужно</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid" style="margin-top:14px">
+    <div class="card"><div class="k">Реальный бюджет на данные</div><div class="v">0 ₽ + до $29/мес</div><p>Спутник бесплатно через Earth Search, погода — бесплатно или Standard Open-Meteo, если сервис коммерческий.</p></div>
+    <div class="card"><div class="k">Если лень писать обработку</div><div class="v">£20/мес</div><p>Агромониторинг Starter: до 4000 га с готовым NDVI.</p></div>
+    <div class="card"><div class="k">Наш сервер</div><div class="v">от нескольких тыс. ₽/мес</div><p>Хранение и обработка. Мощный сервер для склейки съёмки с дрона арендуем по часам — только на время обработки.</p></div>
+  </div>
+  <details class="tech">
+    <summary>Для технарей: как выглядит запрос, которым сделан пример выше</summary>
+    <pre>POST https://earth-search.aws.element84.com/v1/search
+{
+  "collections": ["sentinel-2-l2a"],
+  "bbox": [127.94, 50.06, 128.00, 50.10],
+  "datetime": "2026-04-01T00:00:00Z/2026-10-17T00:00:00Z",
+  "query": { "eo:cloud_cover": { "lt": 40 } }
+}</pre>
+    <p class="sub small">В ответе — список снимков со ссылками на каналы (красный, ближний инфракрасный, маска облаков). Скрипт читает из каждого файла только кусок над полями, считает NDVI = (NIR − Red) / (NIR + Red) и сохраняет картинку и среднее по полю. Ключ и регистрация не нужны.</p>
+  </details>
+</section>
+
+<div class="part"><p class="part-title">Часть 2 · Дрон</p></div>
+
+<section id="roli" style="padding-top:20px">
+  <div class="sec-head"><div class="sec-num">Д1</div><div><h2>Кто что делает</h2><p class="sub">Четыре роли — и у каждой понятная задача.</p></div></div>
+  <div class="two" style="margin-top:14px">
+    <div class="figure"><img src="img/drone/pilot.jpg" alt="Фермер управляет дроном над соевым полем" loading="lazy"><div class="cap"><b>Дронщик в поле</b>Приезжает, запускает полёт по заданию, меняет батареи. Фото: United Soybean Board, CC BY 2.0.</div></div>
+    <div class="figure"><img src="img/drone/over-soy.jpg" alt="Дрон над соей" loading="lazy"><div class="cap"><b>Дрон над соей</b>Летит сам по маршруту и делает сотни снимков с координатами. Фото: United Soybean Board, CC BY 2.0.</div></div>
+  </div>
+  <div class="grid" style="margin-top:14px">
+    <div class="card"><div class="k">1 · Дронщик</div><div class="v">летает</div><p>Получает задание с контуром поля, запускает полёт, загружает фото в систему.</p></div>
+    <div class="card"><div class="k">2 · Сервер</div><div class="v">склеивает</div><p>Сам собирает из фото карту поля, индексы и рельеф. Человек не нужен.</p></div>
+    <div class="card"><div class="k">3 · Аналитик + нейросеть</div><div class="v">находят проблемы</div><p>Нейросеть ищет сорняки и пропуски, аналитик проверяет и пишет вывод.</p></div>
+    <div class="card"><div class="k">4 · Вы</div><div class="v">решаете</div><p>Смотрите ленту поля в телефоне, едете на точку, записываете, что сделали.</p></div>
+  </div>
+</section>
+
+<section id="zadanie">
+  <div class="sec-head"><div class="sec-num">Д2</div><div><h2>Как дрон летит «по заданию» и почему не будет бардака</h2></div></div>
+  <ol class="steps">
+    <li><b>Из нашей системы выгружаем контур поля</b><span>файл с границами (KML) — тот же контур, что на карте</span></li>
+    <li><b>Дронщик загружает его в приложение дрона</b><span>например, DJI Pilot 2 для профессиональных DJI или аналогичные программы</span></li>
+    <li><b>Программа сама строит маршрут «змейкой»</b><span>задаём высоту и перекрытие снимков 70–80% — от этого зависит детализация</span></li>
+    <li><b>Дрон взлетает и летит сам</b><span>снимает по сетке, возвращается на смену батареи и продолжает с того же места</span></li>
+    <li><b>Загрузка: поле + дата</b><span>фото загружаются в систему через страницу; в каждом снимке уже записаны координаты и время</span></li>
+  </ol>
+  <div class="callout"><p><b>Порядок держит система, а не человек.</b> По координатам в снимках видно, над каким полем они сделаны, а дата берётся из самих снимков. Дронщику не нужно ничего подписывать вручную — облёт сам ляжет в ленту нужного поля.</p></div>
+</section>
+
+<section id="foto">
+  <div class="sec-head"><div class="sec-num">Д3</div><div><h2>Что делают с фотографиями: не скриншоты, а карта</h2><p class="sub">Сотни отдельных фото склеиваются в ортофотоплан — одну точную картинку поля с координатами.</p></div></div>
+  <div class="two" style="margin-top:14px">
+    <div class="figure"><img src="img/drone/raw-frame.jpg" alt="Один снимок с дрона сверху" loading="lazy"><div class="cap"><b>До: один кадр с дрона</b>Кусок поля сверху, таких кадров сотни. Фото: Dietmar Rabich, CC BY-SA 4.0.</div></div>
+    <div class="figure"><img src="img/drone/orthophoto.jpg" alt="Ортофотоплан поля из WebODM" loading="lazy"><div class="cap"><b>После: ортофотоплан</b>Склеено бесплатной программой WebODM. Можно приблизить до сантиметров, измерить площадь, наложить на спутник и прошлый облёт. Изображение: Micsmi2110, CC BY-SA 4.0.</div></div>
+  </div>
+  <div class="table-scroll resp" style="margin-top:14px"><table>
+    <thead><tr><th>Программа склейки</th><th>Что получаем</th><th>Цена</th></tr></thead>
+    <tbody>
+      <tr><td><b>WebODM</b><small>открытый код, на нашем сервере</small></td><td data-l="Что получаем">Ортофотоплан, индексы (с мультиспектральной камерой), рельеф, 3D</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
+      <tr><td><b>Agisoft Metashape</b></td><td data-l="Что получаем">То же, точнее и быстрее на больших объёмах</td><td data-l="Цена">~$3499 навсегда (Professional)</td></tr>
+      <tr><td><b>DJI Terra, PIX4Dfields</b></td><td data-l="Что получаем">Быстрая агро-склейка, индексы, зоны</td><td data-l="Цена">лицензия, ~$2000 в год у PIX4Dfields</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sub small" style="margin-top:10px">Склейка поля занимает от десятков минут до нескольких часов на сервере — в зависимости от числа фото.</p>
+</section>
+
+<section id="kadry">
+  <div class="sec-head"><div class="sec-num">Д3+</div><div><h2>А можно без склейки — нейросетью по кадрам и сразу на спутник?</h2><p class="sub">Можно. Есть два способа, и лучше всего работает их сочетание.</p></div></div>
+  <div class="two" style="margin-top:14px">
+    <div class="card">
+      <div class="k">Способ А</div><div class="v">Сначала склейка, потом анализ</div>
+      <p style="margin-bottom:8px">Фото склеиваются в ортофотоплан, нейросеть смотрит на готовую карту поля кусками.</p>
+      <ul class="pm">
+        <li class="p">Точная геометрия: площади очагов до квадратного метра</li>
+        <li class="p">Единая карта — шторка «было → стало» с прошлым облётом</li>
+        <li class="p">Ложится на спутник и кадастр сама — у неё есть координаты</li>
+        <li class="m">Нужно перекрытие кадров 70–80% — больше фото и полётного времени</li>
+        <li class="m">Склейка — часы на сервере</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k">Способ Б</div><div class="v">Нейросеть по каждому кадру</div>
+      <p style="margin-bottom:8px">Нейросеть находит сорняк на отдельном фото. По координатам дрона, высоте и углу камеры вычисляем, где это на земле, и ставим метку на карту поверх спутника.</p>
+      <ul class="pm">
+        <li class="p">Быстро — метки можно получить в день вылета</li>
+        <li class="p">Меньше фото, подходит обычная камера</li>
+        <li class="m">Погрешность — обычно несколько метров, если у дрона нет RTK</li>
+        <li class="m">Площади примерные, один очаг на соседних кадрах нужно не посчитать дважды</li>
+        <li class="m">Нет единой картинки поля для сравнения</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout"><p><b>Как сделаем мы:</b> в день вылета — быстрые метки по кадрам, чтобы вы сразу видели, куда ехать. Потом полная склейка — для точных площадей, архива и сравнения с прошлым облётом.</p></div>
+
+  <h3 style="margin-top:24px">Насколько точно ляжет на спутник</h3>
+  <div class="table-scroll resp"><table>
+    <thead><tr><th>Вариант</th><th>Точность привязки</th><th>Что это значит</th></tr></thead>
+    <tbody>
+      <tr><td><b>Обычный GPS дрона</b></td><td data-l="Точность">обычно 1–3 м</td><td data-l="Что значит">Для меток «очаг здесь» и сравнения со спутником (пиксель 10 м) достаточно</td></tr>
+      <tr><td><b>Привязка по опорным точкам</b></td><td data-l="Точность">десятки сантиметров</td><td data-l="Что значит">Совмещаем по углам поля, дорогам или прошлому облёту — делается при обработке</td></tr>
+      <tr><td><b>Дрон с RTK</b></td><td data-l="Точность">несколько сантиметров</td><td data-l="Что значит">Облёты разных дат совпадают сами, шторка «было → стало» точна до растения</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="ii">
+  <div class="sec-head"><div class="sec-num">Д4</div><div><h2>Кто анализирует и какая нейросеть</h2><p class="sub">Разные задачи — разные инструменты. Честно о каждом.</p></div></div>
+  <div class="table-scroll resp" style="margin-top:14px"><table>
+    <thead><tr><th>Задача</th><th>Чем делается</th><th>Кто</th></tr></thead>
+    <tbody>
+      <tr><td><b>Склеить фото в карту</b></td><td data-l="Чем">Фотограмметрия в WebODM или Metashape — точная геометрия, а не нейросеть</td><td data-l="Кто">автоматически</td></tr>
+      <tr><td><b>Индексы и зоны</b></td><td data-l="Чем">Формулы по каналам камеры, как в примере со спутником выше</td><td data-l="Кто">автоматически</td></tr>
+      <tr><td><b>Найти сорняки, пропуски, посчитать растения</b></td><td data-l="Чем">Нейросеть компьютерного зрения (семейства YOLO, U-Net), обученная на размеченных примерах сорняков и сои</td><td data-l="Кто">нейросеть, дообучаем мы</td></tr>
+      <tr><td><b>Разметить примеры для обучения</b></td><td data-l="Чем">Бесплатные программы разметки CVAT или Label Studio; модель Segment Anything обводит объект по клику</td><td data-l="Кто">наш аналитик</td></tr>
+      <tr><td><b>Проверить и написать вывод</b></td><td data-l="Чем">Карта, площади очагов, сравнение с прошлым облётом</td><td data-l="Кто">наш аналитик или агроном</td></tr>
+      <tr><td><b>Решить, что делать на поле</b></td><td data-l="Чем">Лента поля, точки на карте, журнал</td><td data-l="Кто">вы</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid" style="margin-top:14px">
+    <div class="card"><div class="k">Claude Code</div><div class="v">пишет систему</div><p>Это инструмент для программистов. Им мы быстро строим и поддерживаем саму систему: загрузку, обработку, базу, страницы. Сам снимки он не анализирует.</p></div>
+    <div class="card"><div class="k">Языковые модели</div><div class="v">помогают с текстом</div><p>Claude и подобные модели могут по готовым цифрам написать понятный отчёт по полю. Мерить площади и считать сорняки должна специализированная нейросеть.</p></div>
+    <div class="card"><div class="k">Готовые альтернативы</div><div class="v">если не обучать своё</div><p>«АссистАгро» от Геомира распознаёт около 150 видов сорняков, в том числе в сое; за рубежом — Agremo. Можно сравнить их результат с нашим.</p></div>
+  </div>
+  <div class="note"><p><b>Первый сезон:</b> нейросеть нужно подстроить под ваши поля — разметить несколько сотен примеров и проверить спорные места на земле. Дальше распознавание работает заметно точнее, а аналитик тратит на поле минуты, а не часы.</p></div>
+</section>
+
+<section id="hranenie">
+  <div class="sec-head"><div class="sec-num">Д5</div><div><h2>Где всё это лежит</h2><p class="sub">Revit — программа для зданий. Для полей есть свой класс программ — ГИС, геоинформационные системы. Всё ниже — бесплатный открытый код.</p></div></div>
+  <div class="stack">
+    <div class="layer"><div><em>Файлы</em><b>Хранилище снимков</b></div><span>Ортофотопланы и спутниковые слои в формате COG (GeoTIFF, который открывается кусками). Облачное хранилище, можно в российском облаке — Yandex Cloud, VK Cloud.</span></div>
+    <div class="layer"><div><em>База</em><b>PostgreSQL + PostGIS</b></div><span>Поля и контуры, очаги сорняков с площадями, отметки с фото, журнал работ.</span></div>
+    <div class="layer"><div><em>Каталог</em><b>STAC</b></div><span>Опись всех слоёв: какое поле, какая дата, откуда — дрон или спутник. На ней и держится лента «было → стало».</span></div>
+    <div class="layer"><div><em>Раздача</em><b>TiTiler</b></div><span>Отдаёт карту кусочками, как Яндекс Карты, — огромный ортофотоплан открывается в телефоне мгновенно.</span></div>
+    <div class="layer"><div><em>Ваш экран</em><b>Веб-карта MapLibre</b></div><span>Страница в телефоне: поля, слои, шкала дат, шторка «было → стало», отметки.</span></div>
+    <div class="layer"><div><em>Аналитик</em><b>QGIS</b></div><span>Рабочее место: проверка разметки, замеры, файлы для техники.</span></div>
+  </div>
+  <div class="callout"><p><b>Итого — так это и делается:</b> фото с дрона → склейка в карту → нейросеть и аналитик → слой с датой в базе → вы открываете поле и ползунком листаете даты. Спутник ложится в ту же ленту сам, каждые несколько дней.</p></div>
+
+  <div class="cta">
+    <h3>Ещё по теме</h3>
+    <p>Предложение и аналитическая справка — на соседних страницах.</p>
+    <a href="./">Предложение: что можем сделать дроном и в телефоне →</a>
+    <a href="software.html">Аналитическая справка: программы, рынок, бесплатные данные →</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p>Спутниковые снимки: содержит изменённые данные Copernicus Sentinel 2026, получены через Earth Search (AWS Open Data) и обработаны нами. Частота и число снимков посчитаны по этому участку; для другого места цифры будут близкими, но не такими же.</p>
+  <p>Фото:</p>
+  <ul>
+    <li><a href="https://commons.wikimedia.org/wiki/File:Farmer_Flying_Drone_(48750244718).jpg">Farmer Flying Drone</a> и <a href="https://commons.wikimedia.org/wiki/File:Drone_in_Soybean_Field_(48750573146).jpg">Drone in Soybean Field</a> — United Soybean Board / Soybean Checkoff, CC BY 2.0</li>
+    <li><a href="https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Kirchspiel,_Dernekamp,_Getreidefeld_--_2024_--_0003.jpg">Dülmen, Getreidefeld</a> — Dietmar Rabich, CC BY-SA 4.0</li>
+    <li><a href="https://commons.wikimedia.org/wiki/File:Odm_orthophoto.png">Odm orthophoto</a> — Micsmi2110, CC BY-SA 4.0</li>
+  </ul>
+  <p>Источники по тарифам: <a href="https://agromonitoring.com/price">Агромониторинг</a>, <a href="https://openmeteo.substack.com/p/api-subscriptions-for-commercial">Open-Meteo</a>, <a href="https://planet.com/pricing">Planet / Sentinel Hub</a>, <a href="https://support.planet.com/hc/en-us/articles/38619684446365">Planet — варианты покупки</a>, <a href="https://skywatch.com/geospatial-data-providers/planet/">SkyWatch</a>, <a href="https://softwarefinder.com/agriculture-software/eosda-crop-monitoring">EOSDA (оценка)</a>, <a href="https://eos.com/agriculture-api/">EOSDA Agriculture API</a>, <a href="https://documentation.dataspace.copernicus.eu/FAQ.html">Copernicus Data Space</a>, <a href="https://cloud.google.com/earth-engine/pricing">Google Earth Engine</a>, <a href="https://www.comnews.ru/digital-economy/content/230464/2023-11-29/2023-w48/1012/drony-nauchilis-raspoznavat-sornyaki">Геомир «Агроскаут»</a>.</p>
+</footer>
+
+<script>
+(function(){
+  var dates=["2026-04-14","2026-05-07","2026-06-13","2026-06-28","2026-08-07","2026-09-09","2026-09-24","2026-10-16"];
+  var notes=["пашня","до всходов","всходы","рост","максимум","начало созревания","созревание","после уборки"];
+  var mode="rgb", idx=4;
+  var img=document.getElementById("frameImg"), badge=document.getElementById("frameDate"),
+      range=document.getElementById("dateRange"), box=document.getElementById("dates"), legend=document.getElementById("legend");
+  function fmt(d){return d.slice(8,10)+"."+d.slice(5,7)+"."+d.slice(0,4)}
+  dates.forEach(function(d,i){
+    var b=document.createElement("button"); b.type="button";
+    b.innerHTML=d.slice(8,10)+"."+d.slice(5,7)+"<small>"+notes[i]+"</small>";
+    b.addEventListener("click",function(){idx=i;render()}); box.appendChild(b);
+    ["rgb","ndvi"].forEach(function(m){var p=new Image(); p.src="img/s2/"+m+"_"+d+".jpg";});
+  });
+  function render(){
+    img.src="img/s2/"+mode+"_"+dates[idx]+".jpg"; badge.textContent=fmt(dates[idx]); range.value=idx;
+    Array.prototype.forEach.call(box.children,function(b,i){b.setAttribute("aria-pressed",i===idx?"true":"false")});
+    legend.hidden = mode!=="ndvi";
+  }
+  range.addEventListener("input",function(){idx=+range.value;render()});
+  document.querySelectorAll(".seg button").forEach(function(b){
+    b.addEventListener("click",function(){mode=b.dataset.mode;
+      document.querySelectorAll(".seg button").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")}); render();});
+  });
+  render();
+})();
+</script>
+</body>
+</html>
