@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Что нужно от Амира</title>
+<meta name="description" content="Amir Agro Industries: задание — как прислать поля (контуры, точки, кадастровые номера) и данные по ним, чтобы мы собрали мониторинг по вашим полям.">
+<style>
+:root{
+  --bg:#f5f3ec; --surface:#ffffff; --surface-2:#eeeae0; --text:#1d271d; --muted:#5b6459;
+  --line:#dcd6c8; --accent:#2c7a30; --accent-2:#1f5b23; --accent-soft:#e2efd9;
+  --warn:#9a5a06; --warn-soft:#faeed6; --hero-1:#1f4d22; --hero-2:#3d7a2f; --on-hero:#f4f8ef; --on-hero-muted:#cfe0c6;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121611; --surface:#1a2019; --surface-2:#222a21; --text:#e7ebe3; --muted:#a2ac9e;
+    --line:#2e372c; --accent:#7cc47f; --accent-2:#9fd8a1; --accent-soft:#1e321f;
+    --warn:#f0b357; --warn-soft:#3a2c14; --hero-1:#16301a; --hero-2:#25481f; --on-hero:#eef5ea; --on-hero-muted:#b7cdb0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121611; --surface:#1a2019; --surface-2:#222a21; --text:#e7ebe3; --muted:#a2ac9e;
+  --line:#2e372c; --accent:#7cc47f; --accent-2:#9fd8a1; --accent-soft:#1e321f;
+  --warn:#f0b357; --warn-soft:#3a2c14; --hero-1:#16301a; --hero-2:#25481f; --on-hero:#eef5ea; --on-hero-muted:#b7cdb0;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+img{max-width:100%;display:block}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+p{margin:0 0 14px}
+h2{font-size:clamp(24px,4.6vw,31px);line-height:1.2;margin:0 0 10px;letter-spacing:-.01em}
+h3{font-size:19px;line-height:1.35;margin:0 0 8px}
+.sub{color:var(--muted)}
+.small{font-size:14.5px}
+.hero{background:linear-gradient(135deg,var(--hero-1),var(--hero-2));color:var(--on-hero);padding:44px 0 36px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;background:repeating-linear-gradient(-8deg,transparent 0 26px,#fff 26px 28px)}
+.hero .wrap{position:relative;z-index:1}
+.eyebrow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.eyebrow span{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:3px 11px}
+.hero h1{font-size:clamp(31px,6.4vw,48px);line-height:1.1;margin:0 0 16px;letter-spacing:-.02em}
+.hero .lead{font-size:19px;color:var(--on-hero-muted);max-width:700px;margin:0}
+.toc{display:flex;gap:8px;overflow-x:auto;padding:14px 0;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:0 0 auto;text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14.5px}
+.toc a b{color:var(--accent);margin-right:4px}
+.topbar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+section{padding-top:52px}
+.sec-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:6px}
+.sec-num{flex:0 0 auto;width:40px;height:40px;border-radius:12px;background:var(--accent);color:var(--bg);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:18px;margin-top:2px}
+.sec-head p{margin:0}
+.levels{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:14px}
+.level{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.level.best{border:2px solid var(--accent)}
+.level .tag{display:inline-block;font-size:13px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 10px;margin-bottom:8px}
+.level ul{margin:0;padding-left:20px;color:var(--muted);font-size:15.5px}
+.level li{margin-bottom:4px}
+.figure{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:14px}
+.figure img{width:100%;height:auto}
+.figure .cap{padding:12px 16px;font-size:15px;color:var(--muted)}
+.figure .cap b{color:var(--text)}
+.ways{display:grid;gap:14px;margin-top:14px}
+.way{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px}
+.way.rec{border:2px solid var(--accent)}
+.way-head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline;margin-bottom:8px}
+.way-head h3{margin:0}
+.badge{font-size:12.5px;font-weight:700;border-radius:999px;padding:2px 10px}
+.b-rec{background:var(--accent);color:var(--bg)}
+.b-easy{background:var(--accent-soft);color:var(--accent)}
+.b-add{background:var(--surface-2);color:var(--muted)}
+.steps{margin:6px 0 0;padding-left:22px;font-size:16px}
+.steps li{margin-bottom:6px}
+.steps li::marker{color:var(--accent);font-weight:700}
+.result{margin-top:10px;font-size:15px;color:var(--muted)}
+.result b{color:var(--text)}
+code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;background:var(--surface-2);border-radius:6px;padding:1px 6px}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px;margin-top:12px}
+table{border-collapse:collapse;background:var(--surface);border:1px solid var(--line);font-size:14.5px;min-width:760px;width:100%}
+th,td{text-align:left;vertical-align:top;padding:9px 11px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+th{background:var(--surface-2);font-size:13px;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+td.empty{color:var(--line)}
+.btn{display:inline-block;background:var(--accent);color:var(--bg);text-decoration:none;font-weight:700;border-radius:12px;padding:10px 18px;margin-top:14px}
+.list{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px 18px;margin-top:14px}
+.list ul{list-style:none;margin:0;padding:0}
+.list li{padding:11px 0 11px 30px;border-bottom:1px solid var(--line);position:relative}
+.list li:last-child{border-bottom:0}
+.list li::before{content:"";position:absolute;left:2px;top:17px;width:14px;height:14px;border:2px solid var(--accent);border-radius:4px}
+.list li small{display:block;color:var(--muted);font-size:14.5px}
+.callout{background:var(--accent-soft);border-radius:16px;padding:16px 18px;margin-top:16px}
+.callout p{margin:0}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:10px;padding:14px 16px;margin-top:16px}
+.note p{margin:0}
+.timeline{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:14px}
+.tl{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;padding:14px}
+.tl b{display:block}
+.tl span{color:var(--muted);font-size:15px}
+.cta{background:linear-gradient(135deg,var(--hero-1),var(--hero-2));color:var(--on-hero);border-radius:20px;padding:24px;margin-top:24px}
+.cta h3{font-size:22px}
+.cta p{color:var(--on-hero-muted);margin:0 0 8px}
+.cta a{color:var(--on-hero);font-weight:600;display:block;margin-top:4px}
+footer{color:var(--muted);font-size:14px;padding:48px 0 40px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span>Amir Agro Industries</span><span>Что нужно от Амира</span></div>
+    <h1>Пришлите ваши поля</h1>
+    <p class="lead">Чтобы собрать мониторинг именно по вашим полям, нам нужно знать, где они и что на них растёт. Ниже — что прислать и как это сделать за вечер. Подойдёт любой способ, а чем больше пришлёте, тем точнее получится.</p>
+  </div>
+</header>
+
+<div class="topbar"><div class="wrap"><nav class="toc">
+  <a href="#chto"><b>1</b>Что прислать</a>
+  <a href="#primer"><b>2</b>Пример</a>
+  <a href="#kak"><b>3</b>Как обвести поля</a>
+  <a href="#tablica"><b>4</b>Таблица</a>
+  <a href="#esche"><b>5</b>Что ещё пригодится</a>
+  <a href="#otpravit"><b>6</b>Как отправить</a>
+</nav></div></div>
+
+<main class="wrap">
+
+<section id="chto" style="padding-top:36px">
+  <div class="sec-head"><div class="sec-num">1</div><div><h2>Что прислать</h2><p class="sub">Три уровня — выберите, на что хватит времени.</p></div></div>
+  <div class="levels">
+    <div class="level"><span class="tag">минимум · 15 минут</span><h3>Точка в каждом поле</h3>
+      <ul><li>одна точка (координаты) в середине каждого поля</li><li>как вы называете поле</li><li>что на нём в этом году</li></ul></div>
+    <div class="level best"><span class="tag">хорошо · вечер</span><h3>Обведённые поля</h3>
+      <ul><li>каждое поле обведено по границе на спутниковой карте</li><li>подпись: название и культура</li><li>таблица по полям — шаблон ниже</li></ul></div>
+    <div class="level"><span class="tag">идеально</span><h3>Всё, что есть</h3>
+      <ul><li>обведённые поля и кадастровые номера</li><li>культуры за прошлые годы, урожайность</li><li>журнал обработок, проблемные места</li></ul></div>
+  </div>
+  <div class="callout"><p><b>Контуры можно не рисовать идеально.</b> Достаточно примерно, по краю поля. Точную границу мы подправим по спутниковым снимкам, а вы потом проверите её на карте.</p></div>
+</section>
+
+<section id="primer">
+  <div class="sec-head"><div class="sec-num">2</div><div><h2>Как это должно выглядеть</h2><p class="sub">Пример на настоящем снимке: три поля обведены, два отмечены точками.</p></div></div>
+  <div class="figure">
+    <img src="img/zadanie-primer.jpg" alt="Пример: поля обведены на спутниковой карте и подписаны, два поля отмечены точками">
+    <div class="cap"><b>Обведено и подписано «Поле 1 — соя»</b> — лучший вариант. <b>Точка с названием</b> («Поле 4») — тоже годится, если обвести некогда: контур мы найдём по снимку сами. Пример, не ваши поля. Снимок: Copernicus Sentinel-2, 07.08.2026.</div>
+  </div>
+</section>
+
+<section id="kak">
+  <div class="sec-head"><div class="sec-num">3</div><div><h2>Как обвести или отметить поля</h2><p class="sub">Любой из способов. Обводить удобнее на компьютере, точки — можно с телефона.</p></div></div>
+  <div class="ways">
+
+    <div class="way rec">
+      <div class="way-head"><h3>А. Яндекс Конструктор карт</h3><span class="badge b-rec">рекомендуем</span><span class="badge b-easy">на компьютере</span></div>
+      <ol class="steps">
+        <li>Откройте <a href="https://yandex.ru/map-constructor/">yandex.ru/map-constructor</a> и войдите в Яндекс ID (та же учётная запись, что для Яндекс Почты или Такси).</li>
+        <li>Нажмите «Создать карту». Найдите своё место поиском и включите вид <b>«Спутник»</b>, чтобы были видны поля.</li>
+        <li>Выберите инструмент <b>«Многоугольники»</b> и кликайте по углам поля по очереди. Замкните контур, кликнув по первой точке.</li>
+        <li>В появившемся окошке напишите название и культуру: <span class="mono">Поле 3 — соя</span>. Сохраните. Повторите для каждого поля.</li>
+        <li>Сохраните карту, затем выберите <b>«Экспорт»</b> и формат <b>KML</b> или <b>GeoJSON</b> — скачается файл.</li>
+      </ol>
+      <p class="result"><b>Что прислать:</b> скачанный файл (.kml или .geojson). Если с экспортом не получилось — пришлите ссылку на карту.</p>
+    </div>
+
+    <div class="way">
+      <div class="way-head"><h3>Б. Google Мои карты</h3><span class="badge b-easy">на компьютере</span></div>
+      <ol class="steps">
+        <li>Откройте <a href="https://www.google.com/maps/d/">Google Мои карты</a> и войдите в Google-аккаунт. Нажмите «Создать карту».</li>
+        <li>Внизу слева в «Базовая карта» выберите <b>«Спутник»</b>. Найдите своё место поиском.</li>
+        <li>Нажмите значок <b>«Нарисовать линию»</b> → «Добавить линию или фигуру». Кликайте по углам поля и замкните контур на первой точке.</li>
+        <li>Назовите фигуру: <span class="mono">Поле 3 — соя</span>. Повторите для каждого поля.</li>
+        <li>В меню карты (три точки рядом с названием) выберите <b>«Экспорт в KML/KMZ»</b> и скачайте файл.</li>
+      </ol>
+      <p class="result"><b>Что прислать:</b> файл .kml или .kmz.</p>
+    </div>
+
+    <div class="way">
+      <div class="way-head"><h3>В. Только точки — с телефона</h3><span class="badge b-easy">5 минут на поле</span></div>
+      <ol class="steps">
+        <li><b>Яндекс Карты:</b> включите вид «Спутник», нажмите и подержите палец на середине поля → «Что здесь?» → появятся координаты, скопируйте их.</li>
+        <li><b>Google Карты:</b> нажмите и подержите палец на середине поля → появится метка, а координаты — в строке поиска сверху. Скопируйте их.</li>
+        <li>Запишите рядом название поля и культуру — прямо в сообщении или в таблице ниже.</li>
+      </ol>
+      <p class="result"><b>Что прислать:</b> список строк вида <span class="mono">Поле 4 — соя — 50.0812, 127.9734</span>. Сначала широта, потом долгота — так их и копируют карты.</p>
+    </div>
+
+    <div class="way">
+      <div class="way-head"><h3>Г. Кадастровые номера</h3><span class="badge b-add">отлично в дополнение</span></div>
+      <p style="margin:0">Номера участков вида <span class="mono">28:23:010101:123</span> — из свидетельств или выписок ЕГРН, договоров аренды, документов на паи. По ним мы получим официальные границы.</p>
+      <p class="result"><b>Важно:</b> участок по документам и поле часто не совпадают — одно поле бывает на нескольких участках и наоборот. Поэтому рядом с номером укажите, к какому полю он относится.</p>
+    </div>
+
+    <div class="way">
+      <div class="way-head"><h3>Д. Файлы с техники и из программ</h3><span class="badge b-add">если есть</span></div>
+      <p style="margin:0">Если поля уже заведены в навигаторе трактора или комбайна, у агронома, в программе учёта или у подрядчика по агрохимии — пришлите файлы как есть: <span class="mono">.shp</span> (вместе со всеми файлами рядом, лучше одним архивом), <span class="mono">.kml</span>, <span class="mono">.xml</span>, <span class="mono">.zip</span>. Разберёмся сами.</p>
+    </div>
+
+    <div class="way">
+      <div class="way-head"><h3>Е. Скриншот с обведёнными полями</h3><span class="badge b-add">как подсказка</span></div>
+      <p style="margin:0">Сфотографируйте экран карты и обведите поля пальцем в редакторе фото, подпишите номера. Само по себе неточно, но вместе с точками или кадастровыми номерами очень помогает.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tablica">
+  <div class="sec-head"><div class="sec-num">4</div><div><h2>Таблица по полям</h2><p class="sub">Одна строка — одно поле. Заполните, что знаете, пустые клетки — не страшно.</p></div></div>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Поле</th><th>Кадастровые номера</th><th>Точка в поле</th><th>Площадь, га</th><th>Культура 2026</th><th>Сорт</th><th>Посев 2026</th><th>Культура 2025</th><th>Культура 2024</th><th>Урожай 2025, ц/га</th><th>Проблемы в этом году</th></tr></thead>
+    <tbody>
+      <tr><td><b>Поле 1</b></td><td>28:23:010101:123</td><td>50.0912, 127.9934</td><td>180</td><td>соя</td><td>Алена</td><td>20.05</td><td>пшеница</td><td>соя</td><td>22</td><td>очаг осота у дороги, вымочка в низине</td></tr>
+      <tr><td><b>Поле 2</b></td><td>28:23:010101:124, …:125</td><td>50.0835, 127.9701</td><td>95</td><td>соя</td><td></td><td>25.05</td><td>соя</td><td>кукуруза</td><td></td><td></td></tr>
+      <tr><td class="empty">…</td><td class="empty">…</td><td class="empty">…</td><td class="empty">…</td><td class="empty">…</td><td class="empty">…</td><td class="empty">…</td><td class="empty">…</td><td class="empty">…</td><td class="empty">…</td><td class="empty">…</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sub small" style="margin-top:8px">Значения в примере выдуманы — для образца.</p>
+  <a class="btn" href="polya-shablon.csv" download>Скачать шаблон для Excel</a>
+  <p class="sub small" style="margin-top:8px">Файл открывается в Excel, Google Таблицах и «Мой Офис». Можно и просто написать то же самое сообщением — как удобнее.</p>
+</section>
+
+<section id="esche">
+  <div class="sec-head"><div class="sec-num">5</div><div><h2>Что ещё пригодится</h2><p class="sub">Не обязательно, но чем больше — тем полезнее будет система с первого дня.</p></div></div>
+  <div class="list"><ul>
+    <li>Культуры по полям за прошлые 3–5 лет<small>сразу построим историю севооборота; снимки за прошлые годы у спутника уже есть</small></li>
+    <li>Урожайность по полям за прошлые годы<small>сравним со снимками — увидим, где поле стабильно недодаёт</small></li>
+    <li>Журнал обработок — хоть фото тетради<small>перенесём в историю полей</small></li>
+    <li>Где в этом году были очаги сорняков, вымочки, полегание<small>точками на карте или словами: «поле 3, у лесополосы»</small></li>
+    <li>Какая техника и есть ли на ней навигация<small>марка и модель — поймём, можно ли потом делать карты для внесения</small></li>
+    <li>Кто будет смотреть систему и с каких телефонов<small>вы, агроном, механизаторы; есть ли у всех Telegram</small></li>
+  </ul></div>
+</section>
+
+<section id="otpravit">
+  <div class="sec-head"><div class="sec-num">6</div><div><h2>Как отправить</h2></div></div>
+  <div class="list"><ul>
+    <li>Файлы с полями (.kml, .kmz, .geojson) или ссылка на карту — или список точек</li>
+    <li>Таблица по полям — файлом или текстом</li>
+    <li>Кадастровые номера с пометкой, к какому полю относятся — если есть</li>
+    <li>Всё остальное из раздела 5 — фото, скриншоты, файлы как есть</li>
+  </ul></div>
+  <div class="callout"><p><b>Куда:</b> всё одним сообщением тому, кто прислал вам эту ссылку. Если что-то непонятно — просто спросите, подскажем.</p></div>
+  <div class="note"><p><b>Безопасность:</b> на этой странице ваших данных нет и не будет. Присланные файлы мы используем только для вашей системы.</p></div>
+
+  <h3 style="margin-top:28px">Что будет дальше</h3>
+  <div class="timeline">
+    <div class="tl"><b>Заводим поля</b><span>уточняем контуры по снимкам, сверяем с вами</span></div>
+    <div class="tl"><b>Подтягиваем спутник</b><span>все снимки сезона 2026 по каждому полю — история с весны уже есть</span></div>
+    <div class="tl"><b>Присылаем ссылку</b><span>ваши поля по датам, графики, зоны — примерно через 1–2 недели</span></div>
+    <div class="tl"><b>Дальше обновляется само</b><span>новые снимки появляются каждые несколько дней</span></div>
+  </div>
+
+  <div class="cta">
+    <h3>Посмотреть, как это будет выглядеть</h3>
+    <p>Пример на настоящих снимках и объяснение, как всё устроено:</p>
+    <a href="how.html">Как это работает: поля по датам, графики, зоны →</a>
+    <a href="./">Предложение: что можем сделать →</a>
+  </div>
+</section>
+
+</main>
+<footer class="wrap"><p>Снимок в примере: содержит изменённые данные Copernicus Sentinel 2026.</p></footer>
+</body>
+</html>
