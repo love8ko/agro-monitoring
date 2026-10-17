@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Мониторинг полей</title>
+<meta name="description" content="Что можем сделать для хозяйства: съёмка полей дроном, спутниковые карты, журнал работ и отметки на карте с телефона.">
+<style>
+:root{
+  --bg:#f6f4ee; --surface:#ffffff; --surface-2:#efece3; --text:#1f2a1f; --muted:#5d665b;
+  --line:#ddd8cb; --accent:#2f7d32; --accent-soft:#e3f0dc; --warn:#a15c07; --warn-soft:#fbefd9;
+  --z1:#c0392b; --z2:#e67e22; --z3:#f1c40f; --z4:#8bc34a; --z5:#2e7d32;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131712; --surface:#1b211a; --surface-2:#232b22; --text:#e8ece4; --muted:#a3ad9f;
+    --line:#2f382d; --accent:#7cc47f; --accent-soft:#1f3320; --warn:#f0b357; --warn-soft:#3a2c14;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131712; --surface:#1b211a; --surface-2:#232b22; --text:#e8ece4; --muted:#a3ad9f;
+  --line:#2f382d; --accent:#7cc47f; --accent-soft:#1f3320; --warn:#f0b357; --warn-soft:#3a2c14;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+header.hero{padding:48px 0 24px}
+.kicker{color:var(--accent);font-weight:600;font-size:14px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 8px}
+h1{font-size:clamp(30px,6vw,44px);line-height:1.15;margin:0 0 16px}
+h2{font-size:clamp(23px,4.4vw,30px);line-height:1.25;margin:56px 0 8px}
+h3{font-size:19px;line-height:1.35;margin:0 0 6px}
+p{margin:0 0 14px}
+.lead{font-size:19px;color:var(--muted);max-width:680px}
+.sub{color:var(--muted);margin-bottom:20px}
+.hero-art{margin:28px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px}
+.hero-art svg{display:block;width:100%;height:auto}
+.hero-art svg{max-width:560px;margin:0 auto}
+.art-info{margin-top:12px;font-size:15px}
+.art-title{font-weight:700;font-size:17px}
+.art-title span{font-weight:400;color:var(--muted);font-size:14px;margin-left:6px}
+.art-marks{display:flex;flex-wrap:wrap;gap:4px 18px;margin:4px 0}
+.art-marks span{display:inline-flex;align-items:center;gap:6px}
+.pin{width:14px;height:14px;border-radius:50%;border:3px solid;background:#fff;display:inline-block}
+.art-log{color:var(--muted);font-size:14px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--muted);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:4px;display:inline-block}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 18px 14px}
+.card p{color:var(--muted);font-size:16px;margin:0 0 6px}
+.card .tag{display:inline-block;font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);
+  border-radius:999px;padding:2px 10px;margin-bottom:10px}
+.icon{font-size:26px;line-height:1;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:16px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line)}
+th{background:var(--surface-2);font-size:14px;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px}
+.steps{list-style:none;padding:0;margin:0;counter-reset:s}
+.steps li{position:relative;padding:0 0 18px 52px;counter-increment:s}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;
+  background:var(--accent);color:var(--bg);font-weight:700;display:flex;align-items:center;justify-content:center}
+.steps li p{color:var(--muted);margin:0}
+.season{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.season .card{padding:14px}
+.season .when{font-size:13px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.03em}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:10px;padding:14px 16px;margin:18px 0}
+.note p{margin:0}
+.check{list-style:none;padding:0;margin:0}
+.check li{padding:10px 0 10px 32px;border-bottom:1px solid var(--line);position:relative}
+.check li:last-child{border-bottom:0}
+.check li::before{content:"";position:absolute;left:4px;top:16px;width:14px;height:14px;border:2px solid var(--accent);border-radius:4px}
+.q{counter-reset:q;list-style:none;padding:0;margin:0}
+.q li{counter-increment:q;padding:12px 0 12px 40px;border-bottom:1px solid var(--line);position:relative}
+.q li:last-child{border-bottom:0}
+.q li::before{content:counter(q);position:absolute;left:0;top:12px;font-weight:700;color:var(--accent);font-size:18px}
+.q li small{display:block;color:var(--muted);font-size:15px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px 18px}
+.cta{background:var(--accent-soft);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:20px}
+.cta h3{font-size:21px}
+footer{color:var(--muted);font-size:14px;padding:48px 0 40px}
+a{color:var(--accent)}
+@media (max-width:520px){ th,td{padding:10px} .steps li{padding-left:46px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="kicker">Предложение для хозяйства</p>
+  <h1>Мониторинг полей: дрон, спутник и журнал поля в телефоне</h1>
+  <p class="lead">Коротко о том, что можем сделать под ваши поля: снимать их дроном, следить за посевами со спутника между вылетами, вести историю каждого поля и отмечать проблемные места прямо на карте. По смыслу то же, что Cropio, только под вас и без лишнего.</p>
+
+  <div class="hero-art" aria-label="Пример: карта поля с зонами вегетации и отметками">
+    <svg viewBox="20 10 560 280" role="img" aria-labelledby="art-t">
+      <title id="art-t">Пример карты поля: цветом показана сила посевов, значками — отметки проблем</title>
+      <defs>
+        <clipPath id="field"><path d="M40 40 L520 24 L560 250 L70 276 Z"/></clipPath>
+      </defs>
+      <g clip-path="url(#field)">
+        <rect x="0" y="0" width="600" height="300" fill="var(--z5)"/>
+        <ellipse cx="160" cy="90" rx="120" ry="70" fill="var(--z4)"/>
+        <ellipse cx="410" cy="200" rx="150" ry="80" fill="var(--z4)"/>
+        <ellipse cx="420" cy="210" rx="80" ry="45" fill="var(--z3)"/>
+        <ellipse cx="440" cy="215" rx="38" ry="22" fill="var(--z2)"/>
+        <ellipse cx="150" cy="210" rx="60" ry="34" fill="var(--z3)"/>
+        <ellipse cx="140" cy="214" rx="24" ry="14" fill="var(--z1)"/>
+        <g stroke="rgba(0,0,0,.12)" stroke-width="2">
+          <line x1="0" y1="60" x2="600" y2="40"/><line x1="0" y1="100" x2="600" y2="80"/>
+          <line x1="0" y1="140" x2="600" y2="120"/><line x1="0" y1="180" x2="600" y2="160"/>
+          <line x1="0" y1="220" x2="600" y2="200"/><line x1="0" y1="260" x2="600" y2="240"/>
+        </g>
+      </g>
+      <path d="M40 40 L520 24 L560 250 L70 276 Z" fill="none" stroke="var(--text)" stroke-width="3"/>
+      <g font-family="inherit" font-size="15" font-weight="600">
+        <circle cx="140" cy="200" r="13" fill="#fff" stroke="var(--z1)" stroke-width="4"/>
+        <text x="134" y="205" fill="var(--z1)">!</text>
+        <circle cx="440" cy="200" r="13" fill="#fff" stroke="var(--z2)" stroke-width="4"/>
+        <text x="434" y="205" fill="var(--z2)">!</text>
+      </g>
+    </svg>
+    <div class="art-info">
+      <div class="art-title">Поле №3 · соя <span>съёмка дроном, 14.10</span></div>
+      <div class="art-marks"><span><i class="pin" style="border-color:var(--z1)"></i>Очаг осота, ~0,4 га</span><span><i class="pin" style="border-color:var(--z2)"></i>Вымочка — пересев?</span></div>
+      <div class="art-log">Журнал поля: 05.05 посев · 02.06 гербицид · 10.10 уборка</div>
+    </div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--z5)"></i>сильные посевы</span>
+      <span><i class="sw" style="background:var(--z4)"></i>норма</span>
+      <span><i class="sw" style="background:var(--z3)"></i>слабее</span>
+      <span><i class="sw" style="background:var(--z2)"></i>проблема</span>
+      <span><i class="sw" style="background:var(--z1)"></i>очаг / пусто</span>
+    </div>
+  </div>
+</header>
+
+<h2>Что вы получите</h2>
+<p class="sub">Три части, которые работают вместе. Начать можно с любой.</p>
+<div class="grid">
+  <div class="card">
+    <div class="icon">🛩️</div>
+    <span class="tag">главное</span>
+    <h3>Съёмка полей дроном</h3>
+    <p>Наш человек приезжает и облетает поля. На выходе — точная карта каждого поля, на которой видно отдельные очаги сорняков, пропуски, полегание.</p>
+  </div>
+  <div class="card">
+    <div class="icon">🛰️</div>
+    <span class="tag">между вылетами</span>
+    <h3>Спутник</h3>
+    <p>Новый снимок примерно раз в 5 дней по всем полям сразу. Цветом видно, где посевы сильнее, где слабее. Подсказывает, куда ехать с дроном.</p>
+  </div>
+  <div class="card">
+    <div class="icon">📱</div>
+    <span class="tag">каждый день</span>
+    <h3>Журнал и отметки с телефона</h3>
+    <p>История каждого поля: обработка почвы, посев, чем и когда обработали. Отметка на карте прямо с комбайна: «здесь очаг такой-то травы» + фото.</p>
+  </div>
+</div>
+
+<h2>Что видно с дрона</h2>
+<p class="sub">Дрон летит низко и снимает с детализацией до нескольких сантиметров — со спутника такое не разглядеть. Снимки склеиваются в одну карту поля.</p>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Что снимаем</th><th>Что это даёт хозяйству</th></tr></thead>
+  <tbody>
+    <tr><td><b>Очаги сорняков</b><br><small>обычная камера</small></td><td>Где и сколько сорняков на каждом поле, площадь очагов. Можно обрабатывать только очаги, а не всё поле, и спланировать гербицид на следующий год.</td></tr>
+    <tr><td><b>Всходы и густота</b><br><small>обычная камера</small></td><td>Пропуски при посеве, изреженные участки, подсчёт растений. Решение о пересеве — по карте, а не на глаз.</td></tr>
+    <tr><td><b>Сила посевов (индекс вегетации)</b><br><small>мультиспектральная камера</small></td><td>Та же цветная карта, что в Cropio, только намного детальнее. Видно голодание, болезни, стресс раньше, чем глазом.</td></tr>
+    <tr><td><b>Зоны для удобрений</b><br><small>мультиспектральная камера</small></td><td>Карта зон: где добавить, где уменьшить. Если техника умеет — файл с нормами прямо на бортовой компьютер.</td></tr>
+    <tr><td><b>Полегание, вымочки, потравы</b><br><small>обычная камера</small></td><td>Где и сколько гектаров пострадало. Годится как подтверждение ущерба (град, ливень, потравы) — например, для страховой.</td></tr>
+    <tr><td><b>Рельеф поля</b><br><small>обычная камера, 3D</small></td><td>Где застаивается вода, где смывает почву. Помогает понять, почему одно и то же место из года в год хуже.</td></tr>
+    <tr><td><b>Точные границы и площадь</b><br><small>обычная камера</small></td><td>Реальная площадь каждого поля и обработанной части — для учёта семян, препаратов и работ подрядчиков.</td></tr>
+    <tr><td><b>До и после обработки</b><br><small>любая камера</small></td><td>Сработал ли гербицид или фунгицид, где осталось. Сравнение двух вылетов на одной карте.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3 style="margin-top:28px">Когда летать за сезон</h3>
+<div class="season">
+  <div class="card"><div class="when">Весна</div><p>Всходы: пропуски, густота, нужен ли пересев.</p></div>
+  <div class="card"><div class="when">Перед гербицидом</div><p>Карта сорняков → обработать очаги, а не всё поле.</p></div>
+  <div class="card"><div class="when">Середина лета</div><p>Сила посевов, зоны для подкормки, болезни.</p></div>
+  <div class="card"><div class="when">Перед уборкой</div><p>Полегание, созревание, с каких полей начинать.</p></div>
+  <div class="card"><div class="when">После уборки</div><p>Очаги многолетних сорняков — план на следующий год.</p></div>
+</div>
+<p class="sub" style="margin-top:14px">Это максимум. Для начала хватит 2–3 вылетов за сезон, а между ними подстрахует спутник.</p>
+
+<h2>Спутник — бесплатно и без выезда</h2>
+<div class="grid">
+  <div class="card"><h3>Все поля сразу</h3><p>Снимки европейских спутников Sentinel-2 бесплатные. Детализация 10 м — очаг в пару метров не видно, а слабую часть поля видно хорошо.</p></div>
+  <div class="card"><h3>Раз в несколько дней</h3><p>Новый снимок примерно раз в 5 дней, в облачные дни пропуски. Если вегетация на поле резко упала — придёт уведомление.</p></div>
+  <div class="card"><h3>История за годы</h3><p>Как это поле выглядело в прошлые сезоны: где всегда слабое место, как сказался севооборот.</p></div>
+</div>
+
+<h2>Как это будет работать</h2>
+<ol class="steps">
+  <li><h3>Заводим ваши поля</h3><p>Контуры полей: из кадастра, из файла с навигации техники или рисуем по карте. Номер, площадь, культура.</p></li>
+  <li><h3>Облёт дроном</h3><p>Наш человек приезжает и облетает поля. Вылеты оформляем по правилам сами: регистрация дрона, согласование полёта.</p></li>
+  <li><h3>Обработка снимков</h3><p>Склеиваем снимки в карту поля, считаем индексы, находим очаги сорняков и проблемные зоны. Обычно — день-два после вылета.</p></li>
+  <li><h3>Карта у вас в телефоне</h3><p>Открываете поле — видите свежую съёмку, спутник, отметки и историю работ. Без установки сложных программ: ссылка в браузере или Telegram-бот.</p></li>
+  <li><h3>Отметки и журнал с поля</h3><p>Агроном или механизатор ставит точку: сорняк, вредитель, полегание + фото. Работает и без связи — отправится, когда появится сеть. Сюда же — каждая работа на поле.</p></li>
+  <li><h3>Отчёт по полю</h3><p>В конце сезона — вся история поля одним документом: что сеяли, чем обрабатывали, что нашли, какие проблемные места. Выгрузка в Excel.</p></li>
+</ol>
+
+<div class="note"><p><b>Чего не делаем на первом этапе:</b> датчики и трекеры на технику (слив топлива, маршруты), сложные агрономические расчёты норм. Если понадобится — подключим отдельно или подскажем готовое решение.</p></div>
+
+<h2>Для сравнения: готовые системы</h2>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Вариант</th><th>Что это</th><th>Цена</th></tr></thead>
+  <tbody>
+    <tr><td><b>Cropio / Cropwise</b> (Syngenta)</td><td>Спутник, погода, отчёты, трекеры на технику. Без дрона.</td><td>$1–5 за га в год</td></tr>
+    <tr><td><b>ExactFarming</b></td><td>Учёт работ, спутник, севооборот. Есть бесплатный базовый тариф.</td><td>по запросу</td></tr>
+    <tr><td><b>«История поля», АгроСигнал</b></td><td>Большие системы, в основном для агрохолдингов.</td><td>по запросу</td></tr>
+    <tr><td><b>Наш вариант</b></td><td>Дрон + спутник + журнал и отметки, под ваши поля и ваши задачи.</td><td>обсудим под площадь</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Что нужно от вас</h2>
+<div class="box">
+<ul class="check">
+  <li>Список полей: номер или название, примерная площадь, культура в этом году.</li>
+  <li>Границы полей, если есть: кадастровые номера, файл с навигатора техники или хотя бы где поля на карте.</li>
+  <li>Кто будет пользоваться: вы, агроном, механизаторы — и на каких телефонах.</li>
+  <li>Доступ на поля для вылета и человек на месте, который покажет поля в первый раз.</li>
+  <li>Что уже записано по прошлым годам (тетрадь, Excel) — перенесём в историю полей.</li>
+</ul>
+</div>
+
+<h2>Вопросы к вам</h2>
+<div class="box">
+<ol class="q">
+  <li>Сколько всего гектаров и сколько полей?<small>От этого зависит, сколько дней на облёт.</small></li>
+  <li>Какие культуры и какой севооборот?</li>
+  <li>Что важнее всего прямо сейчас?<small>Сорняки, всходы, удобрения, учёт работ, контроль подрядчиков — что болит сильнее.</small></li>
+  <li>Пользовались ли спутниковым мониторингом раньше? Что понравилось, чего не хватило?</li>
+  <li>Есть ли на технике GPS-навигация или бортовой компьютер? Какие марки?<small>Если техника читает карты, можно делать файлы для дифференцированного внесения.</small></li>
+  <li>Кто ведёт учёт работ сейчас и в чём: тетрадь, Excel, 1С?</li>
+  <li>Как со связью на полях: есть мобильный интернет или нет?</li>
+  <li>Сколько вылетов за сезон кажется разумным и в какие моменты?</li>
+</ol>
+</div>
+
+<div class="cta">
+  <h3>Предлагаемый первый шаг</h3>
+  <p style="margin:0">Сейчас, после уборки: облетаем одно-два поля, где видели очаги травы, и заводим их в систему. Через пару дней показываем карту с очагами и площадями — и решаем, стоит ли разворачивать на всё хозяйство к весне.</p>
+</div>
+
+<footer>Страница-обзор для обсуждения. Цены готовых систем — по открытым источникам на октябрь 2026 года.</footer>
+</div>
+</body>
+</html>
