@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Программы для хозяйства</title>
+<meta name="description" content="Amir Agro Industries: обзор программ для поля и хозяйства — учёт, спутник, дрон, техника, обязательные госсистемы — и как сузить направление.">
+<style>
+:root{
+  --bg:#f6f4ee; --surface:#ffffff; --surface-2:#efece3; --text:#1f2a1f; --muted:#5d665b;
+  --line:#ddd8cb; --accent:#2f7d32; --accent-soft:#e3f0dc; --warn:#a15c07; --warn-soft:#fbefd9;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131712; --surface:#1b211a; --surface-2:#232b22; --text:#e8ece4; --muted:#a3ad9f;
+    --line:#2f382d; --accent:#7cc47f; --accent-soft:#1f3320; --warn:#f0b357; --warn-soft:#3a2c14;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131712; --surface:#1b211a; --surface-2:#232b22; --text:#e8ece4; --muted:#a3ad9f;
+  --line:#2f382d; --accent:#7cc47f; --accent-soft:#1f3320; --warn:#f0b357; --warn-soft:#3a2c14;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+header.hero{padding:48px 0 8px}
+.kicker{color:var(--accent);font-weight:600;font-size:14px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 8px}
+h1{font-size:clamp(30px,6vw,44px);line-height:1.15;margin:0 0 16px}
+h2{font-size:clamp(23px,4.4vw,30px);line-height:1.25;margin:0 0 8px}
+h3{font-size:19px;line-height:1.35;margin:0 0 6px}
+p{margin:0 0 14px}
+a{color:var(--accent)}
+.lead{font-size:19px;color:var(--muted);max-width:700px}
+.sub{color:var(--muted)}
+.backlink{display:inline-block;margin-bottom:20px;font-size:15px}
+section{padding-top:52px}
+.nav{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:24px}
+.nav a{display:block;text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:14px 16px}
+.nav a b{display:block;font-size:17px}
+.nav a span{color:var(--muted);font-size:15px}
+.nav .n{color:var(--accent);font-weight:700;font-size:13px}
+.num{display:inline-block;color:var(--accent);font-weight:700;margin-right:6px}
+.why{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:14px 0 16px}
+.why div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:16px}
+.why b{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.03em;color:var(--accent);margin-bottom:2px}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:15.5px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line)}
+th{background:var(--surface-2);font-size:13.5px;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+td:first-child{min-width:130px}
+td small{color:var(--muted);display:block;font-size:13.5px}
+.pill{display:inline-block;font-size:12.5px;font-weight:600;border-radius:999px;padding:1px 9px;white-space:nowrap}
+.ok{background:var(--accent-soft);color:var(--accent)}
+.q{background:var(--warn-soft);color:var(--warn)}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:10px;padding:14px 16px;margin:16px 0 0}
+.note p{margin:0}
+.paths{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:16px}
+.path{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.path.rec{border:2px solid var(--accent)}
+.path .tag{display:inline-block;font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 10px;margin-bottom:10px}
+.path ul{margin:8px 0 0;padding-left:20px;font-size:15.5px;color:var(--muted)}
+.path li{margin-bottom:4px}
+.path .plus{color:var(--text)}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px 18px}
+.qs{counter-reset:q;list-style:none;padding:0;margin:0}
+.qs li{counter-increment:q;padding:12px 0 12px 40px;border-bottom:1px solid var(--line);position:relative}
+.qs li:last-child{border-bottom:0}
+.qs li::before{content:counter(q);position:absolute;left:0;top:12px;font-weight:700;color:var(--accent);font-size:18px}
+.qs li small{display:block;color:var(--muted);font-size:15px}
+.legend{font-size:14px;color:var(--muted);margin-top:10px}
+footer{color:var(--muted);font-size:14px;padding:48px 0 40px}
+footer ul{padding-left:18px;margin:8px 0 0}
+footer li{margin-bottom:4px;word-break:break-word}
+@media (max-width:600px){
+  table,tbody,tr,td{display:block;width:100%}
+  thead{display:none}
+  table{border-radius:16px}
+  tr{padding:12px 14px;border-bottom:1px solid var(--line)}
+  tr:last-child{border-bottom:0}
+  td{border:0;padding:2px 0;min-width:0!important}
+  td:first-child{font-size:17px}
+  td[data-l]{font-size:14.5px;color:var(--muted)}
+  td[data-l]::before{content:attr(data-l) ": ";font-weight:600;color:var(--text)}
+  td .pill{margin-top:4px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="kicker">Amir Agro Industries · справка</p>
+  <h1>Какие программы бывают для поля и хозяйства</h1>
+  <p class="lead">Обзор по группам: для чего каждая нужна, какие есть варианты, сколько стоят и работают ли в России. Цель — понять, что из этого нужно вам, и сузить направление.</p>
+  <a class="backlink" href="./">← Что можем сделать: дрон, спутник, журнал поля</a>
+
+  <div class="nav">
+    <a href="#uchet"><span class="n">1</span><b>Учёт и агроменеджмент</b><span>поля, севооборот, работы, склад, затраты</span></a>
+    <a href="#sputnik"><span class="n">2</span><b>Спутниковый мониторинг</b><span>цветные карты посевов по всем полям</span></a>
+    <a href="#dron"><span class="n">3</span><b>Обработка съёмки с дрона</b><span>из снимков — карта поля, очаги, зоны</span></a>
+    <a href="#tehnika"><span class="n">4</span><b>Контроль техники</b><span>GPS-трекеры, топливо, маршруты</span></a>
+    <a href="#gis"><span class="n">5</span><b>Карты и погода</b><span>бесплатные инструменты в помощь</span></a>
+    <a href="#gos"><span class="n">6</span><b>Обязательные госсистемы</b><span>«Сатурн», «Зерно» — вести всё равно придётся</span></a>
+  </div>
+  <p class="legend"><span class="pill ok">есть в РФ</span> — работает в России. <span class="pill q">уточнить</span> — доступность в России под вопросом.</p>
+</header>
+
+<section id="uchet">
+  <h2><span class="num">1</span>Учёт и агроменеджмент</h2>
+  <div class="why">
+    <div><b>Для чего</b>Вся история полей в одном месте: что сеяли, чем обрабатывали, какие работы и кто делал, сколько ушло семян, препаратов, топлива и денег.</div>
+    <div><b>Кому нужно</b>Когда полей много, работы делают разные люди или подрядчики, и тетради уже не хватает. Также — для отчётности и субсидий.</div>
+  </div>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Программа</th><th>Что умеет</th><th>Цена</th><th>РФ</th></tr></thead>
+    <tbody>
+      <tr><td><b>Cropwise Operations</b><small>бывший Cropio, Syngenta</small></td><td>Учёт по полям, спутник, погода, отчёты, контроль техники. В России продаётся через дилеров, например «Ставтрэк».</td><td data-l="Цена">$1–5 за га в год. Агроверсию дают бесплатно, если работаете на препаратах Syngenta</td><td><span class="pill ok">есть в РФ</span></td></tr>
+      <tr><td><b>ExactFarming</b></td><td>Учёт работ и затрат прямо с поля по полю и технике, карты полей с данными Росреестра, спутник, севооборот. Приложение в RuStore.</td><td data-l="Цена">Есть бесплатный базовый тариф, платные — от ~$0,7 за га в год</td><td><span class="pill ok">есть в РФ</span></td></tr>
+      <tr><td><b>«История поля»</b><small>ГеоМир</small></td><td>Большая система: учёт, финансы, ГИС, осмотры полей, техника, опыты, весовая. На ней «Русагро» заменил Cropwise.</td><td data-l="Цена">По запросу, рассчитана на крупные хозяйства</td><td><span class="pill ok">есть в РФ</span></td></tr>
+      <tr><td><b>АгроСигнал</b></td><td>Учёт полевых работ и контроль техники, мобильное приложение.</td><td data-l="Цена">По запросу</td><td><span class="pill ok">есть в РФ</span></td></tr>
+      <tr><td><b>1С для АПК</b></td><td>Бухгалтерия, склад, зарплата, себестоимость под сельское хозяйство. Если хозяйство уже на 1С.</td><td data-l="Цена">Лицензия 1С через партнёров</td><td><span class="pill ok">есть в РФ</span></td></tr>
+      <tr><td><b>Тетрадь / Excel</b></td><td>Бесплатно и привычно, но без карты, без фото, трудно найти, что было на поле три года назад.</td><td data-l="Цена">0 ₽</td><td></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="sputnik">
+  <h2><span class="num">2</span>Спутниковый мониторинг</h2>
+  <div class="why">
+    <div><b>Для чего</b>Раз в несколько дней — цветная карта силы посевов по всем полям. Видно слабые участки, падение вегетации, историю поля за годы.</div>
+    <div><b>Ограничение</b>Детализация обычно 10 м и облака. Отдельный очаг сорняков в пару метров со спутника не видно — для этого дрон.</div>
+  </div>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Сервис</th><th>Что умеет</th><th>Цена</th><th>РФ</th></tr></thead>
+    <tbody>
+      <tr><td><b>Встроенный в учётные системы</b><small>Cropwise, ExactFarming, «История поля»</small></td><td>Спутник прямо в карточке поля рядом с журналом работ.</td><td data-l="Цена">Входит в тариф</td><td><span class="pill ok">есть в РФ</span></td></tr>
+      <tr><td><b>«Агроном Онлайн»</b><small>на платформе «Своё фермерство», Россельхозбанк</small></td><td>Спутниковый мониторинг, аналитика развития культур, предупреждения о рисках.</td><td data-l="Цена">Уточнить на платформе</td><td><span class="pill q">уточнить</span></td></tr>
+      <tr><td><b>Copernicus Browser</b><small>Европейское космическое агентство</small></td><td>Бесплатный просмотр снимков Sentinel-2 в браузере: можно сегодня же посмотреть свои поля в цвете вегетации. Без учёта и уведомлений.</td><td data-l="Цена">Бесплатно, нужна регистрация</td><td><span class="pill q">уточнить</span></td></tr>
+      <tr><td><b>EOSDA Crop Monitoring</b></td><td>Сильный сервис: индексы, погода, зоны, скаутинг. Базовый план до 1000 га.</td><td data-l="Цена">По тарифам на сайте</td><td><span class="pill q">уточнить</span></td></tr>
+      <tr><td><b>OneSoil</b></td><td>Бесплатное приложение со спутником и заметками по полям. По сообщениям в прессе, свернул работу в России.</td><td data-l="Цена">Бесплатно</td><td><span class="pill q">уточнить</span></td></tr>
+      <tr><td><b>Агромониторинг (OpenWeather)</b></td><td>Не приложение, а подключение для разработчиков: снимки и индексы по контурам полей. Это то, на чём можем собрать вашу карту.</td><td data-l="Цена">Бесплатно до 1000 га, дальше от £20 в месяц</td><td><span class="pill ok">работает</span></td></tr>
+      <tr><td><b>Геопортал Роскосмоса, «Совзонд»</b></td><td>Российские спутниковые снимки, в том числе более детальные. Под задачу, не готовая система.</td><td data-l="Цена">Платно, от ~5 000 ₽ за проект</td><td><span class="pill ok">есть в РФ</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="dron">
+  <h2><span class="num">3</span>Обработка съёмки с дрона</h2>
+  <div class="why">
+    <div><b>Для чего</b>Дрон делает сотни снимков. Программа склеивает их в одну точную карту поля, считает индексы вегетации, рельеф, площадь очагов и зон.</div>
+    <div><b>Что на выходе</b>Карта поля с детализацией в сантиметры, карта очагов сорняков с площадями, карта зон для удобрений, файл для техники.</div>
+  </div>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Программа</th><th>Что умеет</th><th>Цена</th><th>РФ</th></tr></thead>
+    <tbody>
+      <tr><td><b>DJI Terra</b></td><td>Родная программа DJI: склейка карт, мультиспектр, карты для агродронов DJI.</td><td data-l="Цена">Лицензия DJI</td><td><span class="pill q">уточнить</span></td></tr>
+      <tr><td><b>Pix4Dfields</b></td><td>Заточена именно под агро: быстрая склейка прямо на месте, индексы, зоны, карты внесения.</td><td data-l="Цена">~€1450 в год или ~$3500 навсегда</td><td><span class="pill q">уточнить</span></td></tr>
+      <tr><td><b>Agisoft Metashape</b><small>российский разработчик</small></td><td>Профессиональная склейка, ортофото, 3D и рельеф, мультиспектр. Для ортофото и мультиспектра нужна версия Professional.</td><td data-l="Цена">Standard ~$179, Professional ~$3499 навсегда</td><td><span class="pill ok">есть в РФ</span></td></tr>
+      <tr><td><b>WebODM / OpenDroneMap</b></td><td>Бесплатная программа с открытым кодом: склейка, ортофото, рельеф, индексы. Ставится на свой компьютер или сервер, нужен человек, который разберётся.</td><td data-l="Цена">Бесплатно</td><td><span class="pill ok">работает</span></td></tr>
+      <tr><td><b>«Геоскан»</b></td><td>Российские дроны для картографии и обработка съёмки.</td><td data-l="Цена">По запросу</td><td><span class="pill ok">есть в РФ</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><p>Распознавание сорняков по карте с дрона в готовых программах есть не везде. Это та часть, которую можем сделать сами: найти очаги на карте, посчитать площади и выложить точки в журнал поля.</p></div>
+</section>
+
+<section id="tehnika">
+  <h2><span class="num">4</span>Контроль техники</h2>
+  <div class="why">
+    <div><b>Для чего</b>Где каждая машина, что и сколько обработала, расход и слив топлива, выезд за поле, превышение скорости.</div>
+    <div><b>Кому нужно</b>Когда много техники, наёмные механизаторы или подрядчики и есть вопросы к топливу. Требует установки трекеров и датчиков на машины.</div>
+  </div>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Вариант</th><th>Что это</th><th>Цена</th><th>РФ</th></tr></thead>
+    <tbody>
+      <tr><td><b>«Ставтрэк», Wialon, Omnicomm, «Глонассофт», «АвтоГРАФ»</b></td><td>Трекеры ГЛОНАСС/GPS, датчики уровня топлива, программа с картой и отчётами. Часто связываются с учётными системами из раздела 1.</td><td data-l="Цена">Оборудование и монтаж + абонплата за машину</td><td><span class="pill ok">есть в РФ</span></td></tr>
+      <tr><td><b>Навигация на самой технике</b></td><td>Многие современные тракторы и комбайны уже пишут треки и урожайность. Эти данные можно забрать и положить на карту поля.</td><td data-l="Цена">Уже есть, если техника новая</td><td></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="gis">
+  <h2><span class="num">5</span>Карты и погода — бесплатные помощники</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Инструмент</th><th>Для чего</th><th>Цена</th></tr></thead>
+    <tbody>
+      <tr><td><b>QGIS</b></td><td>Бесплатная программа для карт: контуры полей, площади очагов, зоны, файлы для техники. Наш рабочий инструмент «под капотом».</td><td data-l="Цена">Бесплатно</td></tr>
+      <tr><td><b>Публичная кадастровая карта</b></td><td>Границы участков по кадастровым номерам — отправная точка для контуров полей.</td><td data-l="Цена">Бесплатно</td></tr>
+      <tr><td><b>Погода по координатам</b><small>Open-Meteo и аналоги</small></td><td>Прогноз и история осадков по каждому полю, предупреждения о ветре перед опрыскиванием.</td><td data-l="Цена">Бесплатно</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="gos">
+  <h2><span class="num">6</span>Обязательные госсистемы</h2>
+  <p class="sub">Это не выбор, а обязанность. Но их стоит учитывать при выборе: хорошо, когда журнал поля заодно готовит данные для них.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Система</th><th>Что туда вносить</th><th>Кого касается</th></tr></thead>
+    <tbody>
+      <tr><td><b>ФГИС «Сатурн»</b><small>Россельхознадзор</small></td><td>Учёт пестицидов и агрохимикатов: поступление, склад и применение по полям. Вход через Госуслуги.</td><td data-l="Кого касается">Всех, кто применяет пестициды и агрохимикаты, включая небольшие фермерские хозяйства</td></tr>
+      <tr><td><b>ФГИС «Зерно»</b><small>Россельхознадзор</small></td><td>Где выращено, урожай, партии при продаже. От этого зависит господдержка. С 1 сентября 2026 года по поправкам в закон «О зерне» проверяют ещё и достоверность данных.</td><td data-l="Кого касается">Производителей культур из перечня закона — проверить, какие из ваших туда входят</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><p><b>Важная связка:</b> журнал «чем, когда и сколько обработали поле» — это ровно те данные, что нужны для «Сатурна». Записали один раз с поля — получили и историю поля, и основу для отчёта.</p></div>
+</section>
+
+<section id="vybor">
+  <h2>Как сузить направление: три пути</h2>
+  <div class="paths">
+    <div class="path">
+      <span class="tag">быстро</span>
+      <h3>1. Готовая система</h3>
+      <p class="sub" style="font-size:15.5px;margin:0">Cropwise или ExactFarming.</p>
+      <ul>
+        <li class="plus">Учёт и спутник из коробки, начать можно за день.</li>
+        <li>Без дрона: очаги сорняков точно не увидите.</li>
+        <li>Платите за гектар каждый год, система не подстраивается под вас.</li>
+      </ul>
+    </div>
+    <div class="path">
+      <span class="tag">для старта</span>
+      <h3>2. Дрон-съёмка как услуга</h3>
+      <p class="sub" style="font-size:15.5px;margin:0">Приезжаем, снимаем, отдаём карты.</p>
+      <ul>
+        <li class="plus">Сразу видно очаги, всходы, полегание — то, что нужно сейчас.</li>
+        <li class="plus">Без программ у вас: карта и выводы в PDF или по ссылке.</li>
+        <li>Учёт работ и история полей — отдельно, как и раньше.</li>
+      </ul>
+    </div>
+    <div class="path rec">
+      <span class="tag">рекомендуем</span>
+      <h3>3. Дрон + своя лёгкая система</h3>
+      <p class="sub" style="font-size:15.5px;margin:0">Съёмка, спутник, журнал и отметки в одном месте.</p>
+      <ul>
+        <li class="plus">Всё по полю в телефоне: карта с дрона, спутник, история, отметки.</li>
+        <li class="plus">Журнал обработок заодно готовит данные для «Сатурна».</li>
+        <li>Больше работы на старте; растёт из пути 2.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:16px">Наш совет: начать с пути 2 — облететь пару полей после уборки и показать карту очагов. Если понравится и нужен учёт, достраиваем до пути 3 к весне. Путь 1 — если важнее всего учёт и спутник, а дрон не нужен.</p>
+</section>
+
+<section>
+  <h2>Чтобы выбрать, ответьте на четыре вопроса</h2>
+  <div class="box">
+  <ol class="qs">
+    <li>Что важнее: увидеть проблемы на полях или навести порядок в учёте?<small>Если первое — дрон и спутник. Если второе — учётная система.</small></li>
+    <li>Где сейчас ведёте учёт работ и обработок: тетрадь, Excel, 1С?<small>И как сейчас вносите данные в «Сатурн» и «Зерно».</small></li>
+    <li>Работают ли наёмные механизаторы или подрядчики, есть ли вопросы к топливу?<small>Если да — стоит смотреть контроль техники.</small></li>
+    <li>Кто будет пользоваться программой каждый день?<small>Вы, агроном, механизаторы — от этого зависит, насколько простой она должна быть.</small></li>
+  </ol>
+  </div>
+  <p class="sub" style="margin-top:14px">Полный список вопросов — <a href="./#voprosy">на основной странице</a>.</p>
+</section>
+
+<footer>
+  <p>Цены и доступность — по открытым источникам на октябрь 2026 года, могут отличаться; точные условия — у поставщиков. Пометка «уточнить» значит, что работа сервиса в России не подтверждена.</p>
+  <p>Источники:</p>
+  <ul>
+    <li><a href="https://www.stavtrack.ru/apk/cropio.html">Ставтрэк — Cropio</a></li>
+    <li><a href="https://softwarefinder.com/agriculture-software/exactfarming">ExactFarming — тарифы</a>, <a href="https://www.rustore.ru/catalog/app/com.exactfarming">ExactFarming в RuStore</a></li>
+    <li><a href="https://www.comnews.ru/digital-economy/content/229461/2023-10-13/2023-w41/1012/rusagro-vnedrit-otechestvennuyu-sistemu-upravleniya-selskokhozyaystvennym-proizvodstvom">«Русагро» и «История поля»</a></li>
+    <li><a href="https://www.rustore.ru/catalog/app/com.agrosignal.mobile">АгроСигнал в RuStore</a></li>
+    <li><a href="https://www.comnews.ru/digital-economy/content/219162/2022-03-09/2022-w10/kiberposevnaya-vysokie-tekhnologii-pomosch-fermeram">«Своё фермерство» — «Агроном Онлайн»</a></li>
+    <li><a href="https://eos.com/ru/user-guide/crop-monitoring/account-and-pricing/">EOSDA — тарифы</a></li>
+    <li><a href="https://devby.io/news/uzhe-postupali-predlozheniya-o-pokupke-onesoil">OneSoil — dev.by</a></li>
+    <li><a href="https://agromonitoring.com/price">Агромониторинг — цены</a></li>
+    <li><a href="https://www.dronefly.com/pix4dfields.html">Pix4Dfields — цены</a>, <a href="https://www.skyebrowse.com/news/posts/pix4d-vs-metashape">Pix4D и Metashape — сравнение</a></li>
+    <li><a href="https://www.cleverence.ru/articles/biznes/-fgis-saturn-dlya-selhozproizvoditeley-kak-rabotat-v-programme-i-vesti-uchet-pestitsidov-i-agrohimikatov-v-2026-godu/">ФГИС «Сатурн» для сельхозпроизводителей</a></li>
+    <li><a href="https://www.sostav.ru/blogs/286079/80676">ФГИС «Зерно» с 1 сентября 2026 года</a></li>
+  </ul>
+</footer>
+</div>
+</body>
+</html>
