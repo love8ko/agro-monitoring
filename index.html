@@ -71,7 +71,7 @@ h3{font-size:19px;line-height:1.35;margin:0 0 6px}
 @media (max-width:640px){
   .hero{min-height:auto;display:block;background:#17291a}
   .hero::before{display:none}
-  .hero-img{position:relative;height:270px;object-position:80% 48%;-webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
+  .hero-img{position:relative;height:auto;aspect-ratio:880/560;object-position:50% 50%;-webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
   .hero .wrap{padding-top:0;margin-top:-34px;padding-bottom:28px}
   .hero-stats{grid-template-columns:1fr 1fr 1fr;gap:6px}
   .hstat{padding:9px 10px}.hstat b{font-size:18px}.hstat span{font-size:12px}
@@ -147,9 +147,9 @@ footer{color:var(--muted);font-size:13.5px;padding:48px 0 40px}
 <nav class="sitenav" aria-label="Разделы"><div class="sitenav-in"><a href="./" class="home" aria-current="page">Главная</a><a href="software.html">Справка</a><a href="how.html">Как это работает</a><a href="zadanie.html" class="ask">Что нужно от Амира</a></div></nav>
 
 <header class="hero">
-  <img class="hero-img" src="img/hero-combine.jpg" alt="Комбайн убирает сою на поле в золотой час">
+  <picture><source media="(max-width:640px)" srcset="img/hero-combine-m.jpg"><img class="hero-img" src="img/hero-combine.jpg" alt="Комбайн убирает сою на поле у деревни Марково в золотой час, у края поля знак «Марково»"></picture>
   <div class="wrap">
-    <div class="eyebrow"><span>Amir Agro Industries</span><span>Мониторинг полей</span></div>
+    <div class="eyebrow"><span>Amir Agro Industries</span><span>📍 д. Марково</span><span>Мониторинг полей</span></div>
     <h1>Каждое поле — <em>на ладони</em></h1>
     <p class="lead">Спутник по всем полям каждые 2–3 дня, облёты дроном, журнал работ и отметки прямо с комбайна — в одной карте в телефоне.</p>
     <div class="btns">
