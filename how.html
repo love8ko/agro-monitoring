@@ -170,12 +170,15 @@ footer li{margin-bottom:4px;word-break:break-word}
   <a href="#analiz"><b>С3</b>Что считается само</a>
   <a href="#api"><b>С4</b>API и тарифы</a>
   <a href="#ceny"><b>С5</b>Если покупать</a>
+  <a href="#istochniki"><b>С6</b>Откуда снимки</a>
   <a href="#roli"><b>Д1</b>Кто что делает</a>
   <a href="#zadanie"><b>Д2</b>Полёт по заданию</a>
   <a href="#foto"><b>Д3</b>Что делают с фото</a>
   <a href="#kadry"><b>Д3+</b>По кадрам?</a>
   <a href="#ii"><b>Д4</b>Кто анализирует</a>
-  <a href="#hranenie"><b>Д5</b>Где всё лежит</a>
+  <a href="#plitki"><b>Д5</b>Плитки и лента</a>
+  <a href="#mac"><b>Д6</b>На Mac?</a>
+  <a href="#hranenie"><b>Д7</b>Где всё лежит</a>
 </nav></div></div>
 
 <main class="wrap">
@@ -291,6 +294,26 @@ footer li{margin-bottom:4px;word-break:break-word}
   </details>
 </section>
 
+<section id="istochniki">
+  <div class="sec-head"><div class="sec-num">С6</div><div><h2>Откуда берутся спутниковые снимки и как их получить</h2><p class="sub">Кто снимает, насколько детально, как заказать, нужна ли регистрация и сколько стоит.</p></div></div>
+  <div class="table-scroll resp" style="margin-top:14px"><table>
+    <thead><tr><th>Спутник</th><th>Чей</th><th>Детализация и частота</th><th>Как получить</th><th>Цена</th><th>Через сколько после съёмки</th></tr></thead>
+    <tbody>
+      <tr><td><b>Sentinel-2</b></td><td data-l="Чей">Евросоюз, программа Copernicus (Европейское космическое агентство)</td><td data-l="Детализация">10 м, новый снимок каждые 2–3 дня (летают три спутника)</td><td data-l="Как получить">API Earth Search — без регистрации и ключей; или Copernicus Data Space — бесплатная регистрация</td><td data-l="Цена"><span class="pill free">бесплатно</span></td><td data-l="Через сколько"><b>2,5–6 часов</b> — замерили на снимках нашего участка в октябре 2026</td></tr>
+      <tr><td><b>Landsat 8 и 9</b></td><td data-l="Чей">США, NASA и Геологическая служба (USGS)</td><td data-l="Детализация">30 м, ~8 дней на двоих</td><td data-l="Как получить">тот же Earth Search или сайт USGS EarthExplorer (бесплатная регистрация)</td><td data-l="Цена"><span class="pill free">бесплатно</span></td><td data-l="Через сколько">не замеряли</td></tr>
+      <tr><td><b>Sentinel-1</b> (радар)</td><td data-l="Чей">Евросоюз, Copernicus</td><td data-l="Детализация">10–20 м, ~6 дней, видит сквозь облака</td><td data-l="Как получить">те же каналы, что и Sentinel-2</td><td data-l="Цена"><span class="pill free">бесплатно</span></td><td data-l="Через сколько">не замеряли</td></tr>
+      <tr><td><b>PlanetScope</b></td><td data-l="Чей">Planet Labs, США — коммерческая компания</td><td data-l="Детализация">3 м, каждый день</td><td data-l="Как получить">договор с Planet или реселлером (Apollo Mapping, SkyWatch), дальше — их API</td><td data-l="Цена">у реселлера были $1,28–1,80 за км² при заказе от 250–500 км²; агропакет — от 5 км² (500 га), цена по запросу</td><td data-l="Через сколько">продаёт ли Planet российским хозяйствам — не подтверждено</td></tr>
+      <tr><td><b>SkySat</b></td><td data-l="Чей">Planet Labs, США</td><td data-l="Детализация">~0,5 м, снимок под заказ</td><td data-l="Как получить">через SkyWatch, UP42</td><td data-l="Цена">$10–12 за км², минимум 25 км²</td><td data-l="Через сколько">под заказ</td></tr>
+      <tr><td><b>«Ресурс-П», «Канопус-В»</b></td><td data-l="Чей">Роскосмос</td><td data-l="Детализация">до ~1 м у «Ресурс-П», ~2 м у «Канопус-В»; съёмка по заказу и архив</td><td data-l="Как получить">Геопортал Роскосмоса и приложение «Цифровая Земля»: выбираете район, фильтруете архив по дате, облачности и детализации, заказываете снимок или подписку на район. Или через интеграторов, например «Совзонд»</td><td data-l="Цена">по запросу; у интеграторов — от ~5 000 ₽ за проект</td><td data-l="Через сколько">ручной заказ; бесплатного API для автоматики, как у Sentinel, мы не нашли</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid" style="margin-top:14px">
+    <div class="card"><div class="k">Что такое PlanetScope</div><div class="v">~200 мини-спутников</div><p>Американская компания Planet запустила целую стаю спутников размером с коробку из-под обуви (их называют Dove — «голубь»). Вместе они фотографируют всю сушу каждый день с детализацией 3 м. Это платно и с минимальной площадью заказа.</p></div>
+    <div class="card"><div class="k">Sentinel-2: что нужно, чтобы брать</div><div class="v">ничего</div><p>Регистрация и ключ для Earth Search не нужны — наш сервер просто отправляет запрос. Так сделаны все примеры на этой странице. Регистрация в Copernicus бесплатная и нужна только для запасного канала.</p></div>
+    <div class="card"><div class="k">Роскосмос: когда нужен</div><div class="v">точечно</div><p>Если нужна российская съёмка детальнее 10 м — например, разово оценить ущерб или проверить площадь. Для ежедневного мониторинга хватает бесплатного Sentinel-2.</p></div>
+  </div>
+</section>
+
 <div class="part"><p class="part-title">Часть 2 · Дрон</p></div>
 
 <section id="roli" style="padding-top:20px">
@@ -396,8 +419,63 @@ footer li{margin-bottom:4px;word-break:break-word}
   <div class="note"><p><b>Первый сезон:</b> нейросеть нужно подстроить под ваши поля — разметить несколько сотен примеров и проверить спорные места на земле. Дальше распознавание работает заметно точнее, а аналитик тратит на поле минуты, а не часы.</p></div>
 </section>
 
+<section id="plitki">
+  <div class="sec-head"><div class="sec-num">Д5</div><div><h2>Склейка, нарезка на плитки и общая лента со спутником</h2><p class="sub">Как огромные снимки ложатся точно на место и открываются в телефоне.</p></div></div>
+
+  <h3 style="margin-top:18px">Кто совмещает фото и координаты</h3>
+  <p>Не нейросеть, а <b>фотограмметрия</b> — классическая технология. Программа (WebODM, Metashape, Pix4D) находит в соседних кадрах тысячи одинаковых точек — тот же куст, ту же колею, — вычисляет, где стояла камера в момент каждого снимка, и сшивает всё в одну карту без швов. По GPS из кадров карта получает настоящие координаты и ложится на спутник и кадастр. Нейросеть подключается уже после — искать на готовой карте сорняки и пропуски.</p>
+
+  <h3 style="margin-top:22px">Насколько детально — на примере поля 100 га</h3>
+  <div class="table-scroll resp"><table>
+    <thead><tr><th>Источник</th><th>Детализация</th><th>Всё поле — это</th><th>Что видно</th></tr></thead>
+    <tbody>
+      <tr><td><b>Sentinel-2</b></td><td data-l="Детализация">10 м</td><td data-l="Поле">~100 × 100 пикселей</td><td data-l="Видно">сильные и слабые зоны</td></tr>
+      <tr><td><b>PlanetScope</b></td><td data-l="Детализация">3 м</td><td data-l="Поле">~330 × 330 пикселей</td><td data-l="Видно">зоны детальнее, каждый день</td></tr>
+      <tr><td><b>«Ресурс-П» / SkySat</b></td><td data-l="Детализация">0,5–1 м</td><td data-l="Поле">1000–2000 пикселей по стороне</td><td data-l="Видно">колеи, крупные пятна сорняков</td></tr>
+      <tr><td><b>Дрон</b></td><td data-l="Детализация">2–3 см (обычная камера), ~5 см (мультиспектральная)</td><td data-l="Поле">~40 000 × 40 000 пикселей — несколько гигабайт</td><td data-l="Видно">отдельные растения и сорняки</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 style="margin-top:22px">Как гигабайты открываются на iPhone: плитки</h3>
+  <div class="panel">
+    <div class="svg-scroll"><svg viewBox="0 0 880 230" class="chart" role="img" aria-label="Пирамида плиток: чем больше приближение, тем больше мелких плиток">
+      <title>Пирамида плиток</title>
+      <g font-size="13" fill="var(--muted)">
+        <rect x="20" y="40" width="150" height="150" rx="6" fill="#4f8a33"/><text x="20" y="215">Уровень 1: всё поле — 1 плитка</text>
+        <g transform="translate(240,40)"><rect width="150" height="150" rx="6" fill="#4f8a33"/><g stroke="#fff" stroke-width="2"><line x1="75" y1="0" x2="75" y2="150"/><line x1="0" y1="75" x2="150" y2="75"/></g></g><text x="240" y="215">Уровень 2: 4 плитки</text>
+        <g transform="translate(460,40)"><rect width="150" height="150" rx="6" fill="#4f8a33"/><g stroke="#fff" stroke-width="1.5"><line x1="37.5" y1="0" x2="37.5" y2="150"/><line x1="75" y1="0" x2="75" y2="150"/><line x1="112.5" y1="0" x2="112.5" y2="150"/><line x1="0" y1="37.5" x2="150" y2="37.5"/><line x1="0" y1="75" x2="150" y2="75"/><line x1="0" y1="112.5" x2="150" y2="112.5"/></g><rect x="75" y="37.5" width="37.5" height="37.5" fill="none" stroke="#ffe08a" stroke-width="4"/></g><text x="460" y="215">Уровень 3: 16 плиток</text>
+        <g transform="translate(680,40)"><rect width="150" height="150" rx="6" fill="#3f7a2a"/><g fill="#2a5d1c"><circle cx="30" cy="30" r="9"/><circle cx="75" cy="28" r="9"/><circle cx="120" cy="32" r="9"/><circle cx="32" cy="75" r="9"/><circle cx="78" cy="77" r="9"/><circle cx="122" cy="74" r="9"/><circle cx="28" cy="120" r="9"/><circle cx="76" cy="122" r="9"/></g><circle cx="118" cy="118" r="14" fill="#c62828" opacity=".85"/><rect width="150" height="150" rx="6" fill="none" stroke="#ffe08a" stroke-width="4"/></g><text x="680" y="215">…и так до растений</text>
+        <g fill="#ffe08a"><path d="M615 95 l40 0 l-8 -7 m8 7 l-8 7" stroke="#ffe08a" stroke-width="3" fill="none"/></g>
+      </g>
+      <text x="20" y="22" font-size="14" font-weight="700" fill="var(--text)">Карта нарезается на квадратики 256×256 пикселей для каждого уровня приближения — как Яндекс и Google Карты</text>
+    </svg></div>
+    <p class="sub small" style="margin:8px 0 0">Телефон загружает только плитки, которые сейчас на экране. Поэтому карта поля в несколько гигабайт открывается мгновенно, и её можно приближать до отдельного растения. Нарезку делает WebODM или сервер плиток TiTiler; исходники лежат в облачном хранилище.</p>
+  </div>
+
+  <h3 style="margin-top:22px">Спутник и дрон в одной ленте</h3>
+  <div class="grid">
+    <div class="card"><div class="k">Одна шкала дат</div><p>Спутниковые слои появляются сами каждые несколько дней, облёты — в те даты, когда летали. На обзоре — спутник по всему хозяйству; приближаете поле — если в эту дату был облёт, подгружается картинка с дрона.</p></div>
+    <div class="card"><div class="k">Шторка в любой паре</div><p>Облёт против облёта, облёт против спутника, спутник против спутника — сдвигаете ползунок и видите «было → стало».</p></div>
+    <div class="card"><div class="k">Чтобы облёты совпадали</div><p>Обычный GPS дрона даёт сдвиг 1–3 м между облётами. Сервер подгоняет новый облёт к прошлому по совпадающим точкам; ещё точнее — опорные метки на поле или дрон с RTK.</p></div>
+  </div>
+</section>
+
+<section id="mac">
+  <div class="sec-head"><div class="sec-num">Д6</div><div><h2>Где обрабатывать съёмку: встанет ли на Mac</h2><p class="sub">Склейка — самая тяжёлая часть. Её можно делать на мощном Mac, а не на арендованном сервере.</p></div></div>
+  <div class="table-scroll resp" style="margin-top:14px"><table>
+    <thead><tr><th>Программа</th><th>На Mac</th><th>Особенности</th><th>Цена</th></tr></thead>
+    <tbody>
+      <tr><td><b>WebODM</b></td><td data-l="На Mac"><span class="pill ok">да</span></td><td data-l="Особенности">Официальный установщик для macOS работает через Docker и ставит его сам; есть сборки под процессоры Apple. На Mac Docker не умеет файл подкачки, поэтому очень большие съёмки (сотни и тысячи фото) лучше делить на части — у WebODM для этого есть режим разбиения</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
+      <tr><td><b>Agisoft Metashape</b></td><td data-l="На Mac"><span class="pill ok">да, нативно</span></td><td data-l="Особенности">Работает прямо на macOS и процессорах Apple, хорошо справляется с большими съёмками</td><td data-l="Цена">~$179 Standard, ~$3499 Professional</td></tr>
+      <tr><td><b>PIX4Dfields</b></td><td data-l="На Mac"><span class="pill ok">да</span></td><td data-l="Особенности">Windows и macOS, может работать без интернета</td><td data-l="Цена">~$2000 в год</td></tr>
+      <tr><td><b>DJI Terra</b></td><td data-l="На Mac"><span class="pill no">нет</span></td><td data-l="Особенности">Только Windows</td><td data-l="Цена">лицензия DJI</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><p><b>Для старта хватит Mac Studio с M2 Max и 64 ГБ памяти:</b> облёт поля в сотню гектаров склеится за несколько часов. Готовые карты и плитки выкладываем в хранилище и на сайт — сам Mac для этого не нужен постоянно. Когда облётов станет много, переносим склейку на сервер, который арендуется по часам.</p></div>
+</section>
+
 <section id="hranenie">
-  <div class="sec-head"><div class="sec-num">Д5</div><div><h2>Где всё это лежит</h2><p class="sub">Revit — программа для зданий. Для полей есть свой класс программ — ГИС, геоинформационные системы. Всё ниже — бесплатный открытый код.</p></div></div>
+  <div class="sec-head"><div class="sec-num">Д7</div><div><h2>Где всё это лежит</h2><p class="sub">Revit — программа для зданий. Для полей есть свой класс программ — ГИС, геоинформационные системы. Всё ниже — бесплатный открытый код.</p></div></div>
   <div class="stack">
     <div class="layer"><div><em>Файлы</em><b>Хранилище снимков</b></div><span>Ортофотопланы и спутниковые слои в формате COG (GeoTIFF, который открывается кусками). Облачное хранилище, можно в российском облаке — Yandex Cloud, VK Cloud.</span></div>
     <div class="layer"><div><em>База</em><b>PostgreSQL + PostGIS</b></div><span>Поля и контуры, очаги сорняков с площадями, отметки с фото, журнал работ.</span></div>
@@ -426,7 +504,7 @@ footer li{margin-bottom:4px;word-break:break-word}
     <li><a href="https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Kirchspiel,_Dernekamp,_Getreidefeld_--_2024_--_0003.jpg">Dülmen, Getreidefeld</a> — Dietmar Rabich, CC BY-SA 4.0</li>
     <li><a href="https://commons.wikimedia.org/wiki/File:Odm_orthophoto.png">Odm orthophoto</a> — Micsmi2110, CC BY-SA 4.0</li>
   </ul>
-  <p>Источники по тарифам: <a href="https://agromonitoring.com/price">Агромониторинг</a>, <a href="https://openmeteo.substack.com/p/api-subscriptions-for-commercial">Open-Meteo</a>, <a href="https://planet.com/pricing">Planet / Sentinel Hub</a>, <a href="https://support.planet.com/hc/en-us/articles/38619684446365">Planet — варианты покупки</a>, <a href="https://skywatch.com/geospatial-data-providers/planet/">SkyWatch</a>, <a href="https://softwarefinder.com/agriculture-software/eosda-crop-monitoring">EOSDA (оценка)</a>, <a href="https://eos.com/agriculture-api/">EOSDA Agriculture API</a>, <a href="https://documentation.dataspace.copernicus.eu/FAQ.html">Copernicus Data Space</a>, <a href="https://cloud.google.com/earth-engine/pricing">Google Earth Engine</a>, <a href="https://www.comnews.ru/digital-economy/content/230464/2023-11-29/2023-w48/1012/drony-nauchilis-raspoznavat-sornyaki">Геомир «Агроскаут»</a>.</p>
+  <p>Источники по тарифам: <a href="https://agromonitoring.com/price">Агромониторинг</a>, <a href="https://openmeteo.substack.com/p/api-subscriptions-for-commercial">Open-Meteo</a>, <a href="https://planet.com/pricing">Planet / Sentinel Hub</a>, <a href="https://support.planet.com/hc/en-us/articles/38619684446365">Planet — варианты покупки</a>, <a href="https://skywatch.com/geospatial-data-providers/planet/">SkyWatch</a>, <a href="https://softwarefinder.com/agriculture-software/eosda-crop-monitoring">EOSDA (оценка)</a>, <a href="https://eos.com/agriculture-api/">EOSDA Agriculture API</a>, <a href="https://www.earthdata.nasa.gov/es/node/12638">PlanetScope (NASA Earthdata)</a>, <a href="https://apollomapping.com/blog/introducing-medium-resolution-3-meter-planetscope-satellite-imagery">PlanetScope — Apollo Mapping</a>, <a href="https://habr.com/ru/post/708302">Геопортал Роскосмоса и «Цифровая Земля»</a>, <a href="https://opendronemap.org/?p=1080">WebODM на Apple</a>, <a href="https://community.opendronemap.org/t/macos-docker-desktop-limitations-swap-and-parameters/26668">WebODM: память в Docker на Mac</a>, <a href="https://documentation.dataspace.copernicus.eu/FAQ.html">Copernicus Data Space</a>, <a href="https://cloud.google.com/earth-engine/pricing">Google Earth Engine</a>, <a href="https://www.comnews.ru/digital-economy/content/230464/2023-11-29/2023-w48/1012/drony-nauchilis-raspoznavat-sornyaki">Геомир «Агроскаут»</a>.</p>
 </footer>
 
 <script>
