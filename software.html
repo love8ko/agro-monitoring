@@ -1,12 +1,11 @@
-<!doctype html>
-<html lang="ru">
-<head>
+<!DOCTYPE html><html lang="ru"><head><!-- Hallmark: Garden; original content and interactive controls retained -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Цифра для фермера</title>
 <meta name="description" content="Amir Agro Industries: аналитическая справка — какие программы есть для небольших соевых хозяйств, что им нужно, какие спутниковые данные и API бесплатны и что можно собрать самим.">
-<style>
+<style>/* Hallmark · hero: Banner · genre: editorial · theme: Garden · posture: committed · copy: verbatim · redesign: full */
+
 :root{
   --bg:#f5f3ec; --surface:#ffffff; --surface-2:#eeeae0; --text:#1d271d; --muted:#5b6459;
   --line:#dcd6c8; --accent:#2c7a30; --accent-2:#1f5b23; --accent-soft:#e2efd9;
@@ -203,26 +202,28 @@ footer li{margin-bottom:4px;word-break:break-word}
 .sitenav a.ask[aria-current="page"]{color:#ffe08a;border-bottom-color:#ffe08a}
 @media (max-width:560px){.sitenav-in{flex-wrap:wrap;overflow:visible;gap:0 2px;padding:2px 10px}.sitenav a{font-size:14px;padding:10px 8px}}
 </style>
-</head>
-<body>
-<nav class="sitenav" aria-label="Разделы"><div class="sitenav-in"><a href="./" class="home">Главная</a><a href="software.html" aria-current="page">Справка</a><a href="how.html">Как это работает</a><a href="zadanie.html" class="ask">Что нужно от Амира</a></div></nav>
+<link rel="stylesheet" href="assets/hallmark/site.css"></head>
+<body class="agro-document" data-page="software">
+<nav class="sitenav" aria-label="Разделы"><div class="sitenav-in"><a class="brand" href="./">Amir Agro Industries</a><a href="./" class="home">Главная</a><a href="software.html" aria-current="page">Справка</a><a href="how.html">Как это работает</a><a href="zadanie.html" class="ask">Что нужно от Амира</a></div></nav>
 
 
 <header class="hero">
   <div class="wrap">
-    <div class="eyebrow"><span>Amir Agro Industries</span><span>Аналитическая справка</span><span>Октябрь 2026</span></div>
+
     <h1>Цифровые инструменты для небольшого соевого хозяйства</h1>
-    <p class="lead">Какие программы есть сегодня для крестьянско-фермерских хозяйств с несколькими единицами техники, что им на самом деле нужно, какие спутниковые данные можно брать бесплатно — и что из этого мы можем собрать сами.</p>
+    <p class="lead">Какие программы есть сегодня для крестьянско-фермерских хозяйств с несколькими единицами техники, что им на самом деле нужно, какие спутниковые данные можно брать бесплатно — и что из этого мы можем собрать сами.</p><div class="header-actions"><a class="btn btn-main" href="#glavnoe">Главное за минуту</a></div>
     <div class="stats">
       <div class="stat"><b>25–30%</b><span>малых и средних хозяйств внедряют цифровые технологии — оценка Минсельхоза</span></div>
       <div class="stat"><b>$1–5</b><span>за гектар в год — типичная цена готовой системы вроде Cropwise (бывший Cropio)</span></div>
       <div class="stat"><b>0 ₽</b><span>спутниковые снимки Sentinel-2 и Landsat — открытые данные</span></div>
       <div class="stat"><b>10 м · 2–5 дн</b><span>детализация и частота бесплатного спутника. Очаг сорняков в пару метров видит только дрон</span></div>
     </div>
-  </div>
+  <div class="hero-context"><span>Аналитическая справка</span><span>Октябрь 2026</span></div></div>
 </header>
 
-<div class="topbar"><div class="wrap"><nav class="toc">
+
+
+<div class="document-layout"><aside class="document-index"><details class="contents" open=""><summary>Содержание</summary><div class="topbar"><div class="wrap"><nav class="toc">
   <a href="#glavnoe"><b>★</b>Главное</a>
   <a href="#portret"><b>1</b>Портрет хозяйства</a>
   <a href="#nuzhno"><b>2</b>Что нужно</a>
@@ -233,9 +234,7 @@ footer li{margin-bottom:4px;word-break:break-word}
   <a href="#dron"><b>7</b>Где живёт съёмка</a>
   <a href="#sravnenie"><b>8</b>Сравнение</a>
   <a href="#shag"><b>9</b>Первый шаг</a>
-</nav></div></div>
-
-<main class="wrap">
+</nav></div></div></details></aside><main class="wrap">
 
 <section id="glavnoe" style="padding-top:36px">
   <h2>Главное за минуту</h2>
@@ -277,12 +276,12 @@ footer li{margin-bottom:4px;word-break:break-word}
   <div class="table-scroll resp" style="margin-top:14px"><table>
     <thead><tr><th>Задача</th><th>Как обычно делают</th><th>Где теряется</th></tr></thead>
     <tbody>
-      <tr><td><b>Журнал работ</b></td><td data-l="Как обычно">Тетрадь, Excel, память</td><td data-l="Где теряется">Не найти, что было на поле три года назад; нет привязки к карте</td></tr>
-      <tr><td><b>Проблемы на поле</b></td><td data-l="Как обычно">Объезд, фото в WhatsApp или Telegram</td><td data-l="Где теряется">Фото без точки на карте и без площади, через месяц не найти</td></tr>
-      <tr><td><b>Погода</b></td><td data-l="Как обычно">Приложение погоды на телефоне</td><td data-l="Где теряется">Прогноз по району, а не по полю; нет истории осадков</td></tr>
-      <tr><td><b>«Сатурн», «Зерно»</b></td><td data-l="Как обычно">Вручную через Госуслуги</td><td data-l="Где теряется">Те же данные вводятся второй раз</td></tr>
-      <tr><td><b>Бухгалтерия</b></td><td data-l="Как обычно">1С у бухгалтера</td><td data-l="Где теряется">Затраты не разложены по полям</td></tr>
-      <tr><td><b>Спутник</b></td><td data-l="Как обычно">Иногда — пробный период готовой системы</td><td data-l="Где теряется">Смотрят картинку, но она не связана с журналом и действиями</td></tr>
+      <tr><td data-l="Задача"><b>Журнал работ</b></td><td data-l="Как обычно">Тетрадь, Excel, память</td><td data-l="Где теряется">Не найти, что было на поле три года назад; нет привязки к карте</td></tr>
+      <tr><td data-l="Задача"><b>Проблемы на поле</b></td><td data-l="Как обычно">Объезд, фото в WhatsApp или Telegram</td><td data-l="Где теряется">Фото без точки на карте и без площади, через месяц не найти</td></tr>
+      <tr><td data-l="Задача"><b>Погода</b></td><td data-l="Как обычно">Приложение погоды на телефоне</td><td data-l="Где теряется">Прогноз по району, а не по полю; нет истории осадков</td></tr>
+      <tr><td data-l="Задача"><b>«Сатурн», «Зерно»</b></td><td data-l="Как обычно">Вручную через Госуслуги</td><td data-l="Где теряется">Те же данные вводятся второй раз</td></tr>
+      <tr><td data-l="Задача"><b>Бухгалтерия</b></td><td data-l="Как обычно">1С у бухгалтера</td><td data-l="Где теряется">Затраты не разложены по полям</td></tr>
+      <tr><td data-l="Задача"><b>Спутник</b></td><td data-l="Как обычно">Иногда — пробный период готовой системы</td><td data-l="Где теряется">Смотрят картинку, но она не связана с журналом и действиями</td></tr>
     </tbody>
   </table></div>
   <p class="sub small" style="margin-top:10px">Главные барьеры цифровизации малых хозяйств по исследованиям: стоимость, сомнения в окупаемости и отсутствие местного предложения.</p>
@@ -293,22 +292,22 @@ footer li{margin-bottom:4px;word-break:break-word}
   <div class="table-scroll resp" style="margin-top:14px"><table>
     <thead><tr><th>Программа</th><th>Что умеет</th><th>Цена</th><th>В России</th><th>Для КФХ</th></tr></thead>
     <tbody>
-      <tr class="grp"><td colspan="5">Системы учёта и мониторинга</td></tr>
-      <tr><td><b>Cropwise Operations</b><small>бывший Cropio, Syngenta</small></td><td data-l="Что умеет">Учёт по полям, спутник, погода, отчёты, контроль техники</td><td data-l="Цена">$1–5/га в год; агроверсия бесплатно при работе на препаратах Syngenta</td><td><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●●<span class="off">●●</span></span></td></tr>
-      <tr><td><b>ExactFarming</b></td><td data-l="Что умеет">Учёт работ и затрат с поля, карты с Росреестром, спутник, севооборот</td><td data-l="Цена">Бесплатный базовый тариф, платные от ~$0,7/га</td><td><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●●●<span class="off">●</span></span></td></tr>
-      <tr><td><b>«Агроном Онлайн»</b><small>«Своё фермерство», Россельхозбанк</small></td><td data-l="Что умеет">Спутниковый мониторинг, аналитика, предупреждения о рисках</td><td data-l="Цена">Уточнить на платформе</td><td><span class="pill q">уточнить</span></td><td data-l="Для КФХ"><span class="dots">●●●<span class="off">●●</span></span></td></tr>
-      <tr><td><b>«История поля»</b><small>ГеоМир</small></td><td data-l="Что умеет">Полный контур: учёт, финансы, ГИС, техника, опыты, весовая</td><td data-l="Цена">По запросу</td><td><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●<span class="off">●●●●</span></span></td></tr>
-      <tr><td><b>АгроСигнал</b></td><td data-l="Что умеет">Учёт полевых работ и контроль техники</td><td data-l="Цена">По запросу</td><td><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
-      <tr><td><b>1С для АПК</b></td><td data-l="Что умеет">Бухгалтерия, склад, себестоимость</td><td data-l="Цена">Лицензия через партнёров</td><td><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
-      <tr><td><b>OneSoil</b></td><td data-l="Что умеет">Бесплатное приложение: спутник и заметки по полям</td><td data-l="Цена">Бесплатно</td><td><span class="pill q">ушёл из РФ?</span></td><td data-l="Для КФХ"><span class="dots">●●●<span class="off">●●</span></span></td></tr>
-      <tr><td><b>EOSDA Crop Monitoring</b></td><td data-l="Что умеет">Индексы, погода, зоны, скаутинг; базовый план до 1000 га</td><td data-l="Цена">По тарифам на сайте</td><td><span class="pill q">уточнить</span></td><td data-l="Для КФХ"><span class="dots">●●●<span class="off">●●</span></span></td></tr>
-      <tr><td><b>Трекеры на технику</b><small>Ставтрэк, Wialon, Omnicomm, «Глонассофт»</small></td><td data-l="Что умеет">Маршруты, обработанная площадь, датчики топлива</td><td data-l="Цена">Оборудование + абонплата за машину</td><td><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
-      <tr class="grp"><td colspan="5">Обработка съёмки с дрона и карты</td></tr>
-      <tr><td><b>Pix4Dfields</b></td><td data-l="Что умеет">Агро-склейка прямо в поле, индексы, зоны</td><td data-l="Цена">~€1450 в год или ~$3500 навсегда</td><td><span class="pill q">уточнить</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
-      <tr><td><b>Agisoft Metashape</b><small>российский разработчик</small></td><td data-l="Что умеет">Ортофото, рельеф, мультиспектр (версия Professional)</td><td data-l="Цена">~$179 Standard, ~$3499 Professional</td><td><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
-      <tr><td><b>DJI Terra</b></td><td data-l="Что умеет">Склейка карт, мультиспектр, задания для агродронов DJI</td><td data-l="Цена">Лицензия DJI</td><td><span class="pill q">уточнить</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
-      <tr><td><b>WebODM / OpenDroneMap</b></td><td data-l="Что умеет">Склейка, ортофото, рельеф, индексы; открытый код</td><td data-l="Цена"><span class="pill free">бесплатно</span></td><td><span class="pill ok">работает</span></td><td data-l="Для КФХ"><span class="dots">●●●<span class="off">●●</span></span></td></tr>
-      <tr><td><b>QGIS</b></td><td data-l="Что умеет">Карты, площади очагов, зоны, файлы для техники</td><td data-l="Цена"><span class="pill free">бесплатно</span></td><td><span class="pill ok">работает</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
+      <tr class="grp"><td colspan="5" data-l="Программа">Системы учёта и мониторинга</td></tr>
+      <tr><td data-l="Программа"><b>Cropwise Operations</b><small>бывший Cropio, Syngenta</small></td><td data-l="Что умеет">Учёт по полям, спутник, погода, отчёты, контроль техники</td><td data-l="Цена">$1–5/га в год; агроверсия бесплатно при работе на препаратах Syngenta</td><td data-l="В России"><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●●<span class="off">●●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>ExactFarming</b></td><td data-l="Что умеет">Учёт работ и затрат с поля, карты с Росреестром, спутник, севооборот</td><td data-l="Цена">Бесплатный базовый тариф, платные от ~$0,7/га</td><td data-l="В России"><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●●●<span class="off">●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>«Агроном Онлайн»</b><small>«Своё фермерство», Россельхозбанк</small></td><td data-l="Что умеет">Спутниковый мониторинг, аналитика, предупреждения о рисках</td><td data-l="Цена">Уточнить на платформе</td><td data-l="В России"><span class="pill q">уточнить</span></td><td data-l="Для КФХ"><span class="dots">●●●<span class="off">●●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>«История поля»</b><small>ГеоМир</small></td><td data-l="Что умеет">Полный контур: учёт, финансы, ГИС, техника, опыты, весовая</td><td data-l="Цена">По запросу</td><td data-l="В России"><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●<span class="off">●●●●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>АгроСигнал</b></td><td data-l="Что умеет">Учёт полевых работ и контроль техники</td><td data-l="Цена">По запросу</td><td data-l="В России"><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>1С для АПК</b></td><td data-l="Что умеет">Бухгалтерия, склад, себестоимость</td><td data-l="Цена">Лицензия через партнёров</td><td data-l="В России"><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>OneSoil</b></td><td data-l="Что умеет">Бесплатное приложение: спутник и заметки по полям</td><td data-l="Цена">Бесплатно</td><td data-l="В России"><span class="pill q">ушёл из РФ?</span></td><td data-l="Для КФХ"><span class="dots">●●●<span class="off">●●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>EOSDA Crop Monitoring</b></td><td data-l="Что умеет">Индексы, погода, зоны, скаутинг; базовый план до 1000 га</td><td data-l="Цена">По тарифам на сайте</td><td data-l="В России"><span class="pill q">уточнить</span></td><td data-l="Для КФХ"><span class="dots">●●●<span class="off">●●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>Трекеры на технику</b><small>Ставтрэк, Wialon, Omnicomm, «Глонассофт»</small></td><td data-l="Что умеет">Маршруты, обработанная площадь, датчики топлива</td><td data-l="Цена">Оборудование + абонплата за машину</td><td data-l="В России"><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
+      <tr class="grp"><td colspan="5" data-l="Программа">Обработка съёмки с дрона и карты</td></tr>
+      <tr><td data-l="Программа"><b>Pix4Dfields</b></td><td data-l="Что умеет">Агро-склейка прямо в поле, индексы, зоны</td><td data-l="Цена">~€1450 в год или ~$3500 навсегда</td><td data-l="В России"><span class="pill q">уточнить</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>Agisoft Metashape</b><small>российский разработчик</small></td><td data-l="Что умеет">Ортофото, рельеф, мультиспектр (версия Professional)</td><td data-l="Цена">~$179 Standard, ~$3499 Professional</td><td data-l="В России"><span class="pill ok">есть</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>DJI Terra</b></td><td data-l="Что умеет">Склейка карт, мультиспектр, задания для агродронов DJI</td><td data-l="Цена">Лицензия DJI</td><td data-l="В России"><span class="pill q">уточнить</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>WebODM / OpenDroneMap</b></td><td data-l="Что умеет">Склейка, ортофото, рельеф, индексы; открытый код</td><td data-l="Цена"><span class="pill free">бесплатно</span></td><td data-l="В России"><span class="pill ok">работает</span></td><td data-l="Для КФХ"><span class="dots">●●●<span class="off">●●</span></span></td></tr>
+      <tr><td data-l="Программа"><b>QGIS</b></td><td data-l="Что умеет">Карты, площади очагов, зоны, файлы для техники</td><td data-l="Цена"><span class="pill free">бесплатно</span></td><td data-l="В России"><span class="pill ok">работает</span></td><td data-l="Для КФХ"><span class="dots">●●<span class="off">●●●</span></span></td></tr>
     </tbody>
   </table></div>
   <p class="sub small" style="margin-top:10px"><span class="dots">●●●●●</span> — насколько подходит небольшому хозяйству «из коробки», наша оценка. Программы для дрона и QGIS — рабочие инструменты исполнителя, хозяйству их ставить не нужно.</p>
@@ -321,16 +320,16 @@ footer li{margin-bottom:4px;word-break:break-word}
   <div class="table-scroll resp"><table>
     <thead><tr><th>Источник</th><th>Детализация</th><th>Как часто</th><th>Что даёт полю</th><th>Цена</th></tr></thead>
     <tbody>
-      <tr><td><b>Sentinel-2</b><small>ЕС, Copernicus</small></td><td data-l="Детализация">10 м</td><td data-l="Как часто">каждые 2–5 дней</td><td data-l="Что даёт">Главный источник: индексы вегетации (NDVI и др.), слабые зоны, история с 2015 года</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
-      <tr><td><b>Landsat 8 и 9</b><small>США, NASA и USGS</small></td><td data-l="Детализация">30 м</td><td data-l="Как часто">~8 дней вдвоём</td><td data-l="Что даёт">Дополняет Sentinel-2, длинная история полей за десятилетия</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
-      <tr><td><b>Sentinel-1</b><small>радар</small></td><td data-l="Детализация">~10–20 м</td><td data-l="Как часто">~6–12 дней</td><td data-l="Что даёт">Видит сквозь облака: влажность, вымочки, ход уборки в пасмурные периоды</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
-      <tr><td><b>Рельеф</b><small>Copernicus DEM</small></td><td data-l="Детализация">30 м</td><td data-l="Как часто">один раз</td><td data-l="Что даёт">Уклоны, где застаивается вода</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
-      <tr><td><b>Почвенные карты</b><small>SoilGrids</small></td><td data-l="Детализация">250 м</td><td data-l="Как часто">один раз</td><td data-l="Что даёт">Общая картина почв, грубо — для ориентира</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
-      <tr><td><b>Погода</b><small>Open-Meteo и аналоги</small></td><td data-l="Детализация">по координатам поля</td><td data-l="Как часто">каждый час</td><td data-l="Что даёт">Прогноз, история осадков, ветер для окна опрыскивания</td><td data-l="Цена"><span class="pill free">бесплатно*</span></td></tr>
-      <tr class="grp"><td colspan="5">Платно — для сравнения</td></tr>
-      <tr><td><b>Planet</b></td><td data-l="Детализация">~3 м</td><td data-l="Как часто">ежедневно</td><td data-l="Что даёт">Детальнее и чаще, но дорого для небольшого хозяйства</td><td data-l="Цена">платно</td></tr>
-      <tr><td><b>Роскосмос</b><small>«Канопус-В», «Ресурс-П» через геопортал и интеграторов</small></td><td data-l="Детализация">~1–2 м</td><td data-l="Как часто">под заказ</td><td data-l="Что даёт">Российские детальные снимки под задачу</td><td data-l="Цена">от ~5 000 ₽ за проект</td></tr>
-      <tr><td><b>Дрон</b></td><td data-l="Детализация">1–5 см</td><td data-l="Как часто">когда нужно</td><td data-l="Что даёт">Очаги сорняков, всходы, полегание, рельеф — то, чего не видит спутник</td><td data-l="Цена">выезд и обработка</td></tr>
+      <tr><td data-l="Источник"><b>Sentinel-2</b><small>ЕС, Copernicus</small></td><td data-l="Детализация">10 м</td><td data-l="Как часто">каждые 2–5 дней</td><td data-l="Что даёт">Главный источник: индексы вегетации (NDVI и др.), слабые зоны, история с 2015 года</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
+      <tr><td data-l="Источник"><b>Landsat 8 и 9</b><small>США, NASA и USGS</small></td><td data-l="Детализация">30 м</td><td data-l="Как часто">~8 дней вдвоём</td><td data-l="Что даёт">Дополняет Sentinel-2, длинная история полей за десятилетия</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
+      <tr><td data-l="Источник"><b>Sentinel-1</b><small>радар</small></td><td data-l="Детализация">~10–20 м</td><td data-l="Как часто">~6–12 дней</td><td data-l="Что даёт">Видит сквозь облака: влажность, вымочки, ход уборки в пасмурные периоды</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
+      <tr><td data-l="Источник"><b>Рельеф</b><small>Copernicus DEM</small></td><td data-l="Детализация">30 м</td><td data-l="Как часто">один раз</td><td data-l="Что даёт">Уклоны, где застаивается вода</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
+      <tr><td data-l="Источник"><b>Почвенные карты</b><small>SoilGrids</small></td><td data-l="Детализация">250 м</td><td data-l="Как часто">один раз</td><td data-l="Что даёт">Общая картина почв, грубо — для ориентира</td><td data-l="Цена"><span class="pill free">бесплатно</span></td></tr>
+      <tr><td data-l="Источник"><b>Погода</b><small>Open-Meteo и аналоги</small></td><td data-l="Детализация">по координатам поля</td><td data-l="Как часто">каждый час</td><td data-l="Что даёт">Прогноз, история осадков, ветер для окна опрыскивания</td><td data-l="Цена"><span class="pill free">бесплатно*</span></td></tr>
+      <tr class="grp"><td colspan="5" data-l="Источник">Платно — для сравнения</td></tr>
+      <tr><td data-l="Источник"><b>Planet</b></td><td data-l="Детализация">~3 м</td><td data-l="Как часто">ежедневно</td><td data-l="Что даёт">Детальнее и чаще, но дорого для небольшого хозяйства</td><td data-l="Цена">платно</td></tr>
+      <tr><td data-l="Источник"><b>Роскосмос</b><small>«Канопус-В», «Ресурс-П» через геопортал и интеграторов</small></td><td data-l="Детализация">~1–2 м</td><td data-l="Как часто">под заказ</td><td data-l="Что даёт">Российские детальные снимки под задачу</td><td data-l="Цена">от ~5 000 ₽ за проект</td></tr>
+      <tr><td data-l="Источник"><b>Дрон</b></td><td data-l="Детализация">1–5 см</td><td data-l="Как часто">когда нужно</td><td data-l="Что даёт">Очаги сорняков, всходы, полегание, рельеф — то, чего не видит спутник</td><td data-l="Цена">выезд и обработка</td></tr>
     </tbody>
   </table></div>
   <p class="sub small" style="margin-top:8px">* Open-Meteo бесплатен для некоммерческого использования, для коммерческого — недорогой тариф.</p>
@@ -339,12 +338,12 @@ footer li{margin-bottom:4px;word-break:break-word}
   <div class="table-scroll resp"><table>
     <thead><tr><th>API</th><th>Что даёт</th><th>Условия</th></tr></thead>
     <tbody>
-      <tr><td><b>Copernicus Data Space</b><small>Sentinel Hub API, openEO</small></td><td data-l="Что даёт">Готовые индексы и снимки по контуру поля, без скачивания целых сцен</td><td data-l="Условия"><span class="pill free">бесплатная квота</span> в месяц после регистрации</td></tr>
-      <tr><td><b>Earth Search (AWS Open Data)</b></td><td data-l="Что даёт">Каталог Sentinel-2 и Landsat в удобном формате, берём только кусок над полем</td><td data-l="Условия"><span class="pill free">бесплатно</span>, без регистрации</td></tr>
-      <tr><td><b>Microsoft Planetary Computer</b></td><td data-l="Что даёт">Тот же каталог открытых данных — запасной канал</td><td data-l="Условия"><span class="pill free">бесплатно</span></td></tr>
-      <tr><td><b>Агромониторинг (OpenWeather)</b></td><td data-l="Что даёт">Контуры полей → готовый NDVI, снимки и погода одним API</td><td data-l="Условия"><span class="pill free">до 1000 га бесплатно</span>, дальше от £20 в месяц</td></tr>
-      <tr><td><b>Google Earth Engine</b></td><td data-l="Что даёт">Мощная обработка всех архивов</td><td data-l="Условия">Бесплатно для некоммерческого, для коммерческого — платно</td></tr>
-      <tr><td><b>Open-Meteo</b></td><td data-l="Что даёт">Погода и история по координатам каждого поля</td><td data-l="Условия"><span class="pill free">бесплатно*</span></td></tr>
+      <tr><td data-l="API"><b>Copernicus Data Space</b><small>Sentinel Hub API, openEO</small></td><td data-l="Что даёт">Готовые индексы и снимки по контуру поля, без скачивания целых сцен</td><td data-l="Условия"><span class="pill free">бесплатная квота</span> в месяц после регистрации</td></tr>
+      <tr><td data-l="API"><b>Earth Search (AWS Open Data)</b></td><td data-l="Что даёт">Каталог Sentinel-2 и Landsat в удобном формате, берём только кусок над полем</td><td data-l="Условия"><span class="pill free">бесплатно</span>, без регистрации</td></tr>
+      <tr><td data-l="API"><b>Microsoft Planetary Computer</b></td><td data-l="Что даёт">Тот же каталог открытых данных — запасной канал</td><td data-l="Условия"><span class="pill free">бесплатно</span></td></tr>
+      <tr><td data-l="API"><b>Агромониторинг (OpenWeather)</b></td><td data-l="Что даёт">Контуры полей → готовый NDVI, снимки и погода одним API</td><td data-l="Условия"><span class="pill free">до 1000 га бесплатно</span>, дальше от £20 в месяц</td></tr>
+      <tr><td data-l="API"><b>Google Earth Engine</b></td><td data-l="Что даёт">Мощная обработка всех архивов</td><td data-l="Условия">Бесплатно для некоммерческого, для коммерческого — платно</td></tr>
+      <tr><td data-l="API"><b>Open-Meteo</b></td><td data-l="Что даёт">Погода и история по координатам каждого поля</td><td data-l="Условия"><span class="pill free">бесплатно*</span></td></tr>
     </tbody>
   </table></div>
   <div class="callout"><p><b>Важно для России.</b> Часть западных сервисов может не открываться с российских адресов. В нашей схеме данные забирает наш сервер, а у вас просто открывается готовая карта. Кроме того, есть несколько независимых каналов к одним и тем же открытым снимкам.</p></div>
@@ -379,13 +378,13 @@ footer li{margin-bottom:4px;word-break:break-word}
   <div class="table-scroll resp" style="margin-top:18px"><table>
     <thead><tr><th>Модуль</th><th>Что делает</th><th>На чём</th><th>Данные</th></tr></thead>
     <tbody>
-      <tr><td><b>Карта полей</b></td><td data-l="Что делает">Контуры, площади, культура, сорт</td><td data-l="На чём">Кадастровая карта, рисуем по снимку</td><td data-l="Данные"><span class="pill free">0 ₽</span></td></tr>
-      <tr><td><b>Спутник</b></td><td data-l="Что делает">Цветная карта силы посевов каждые 2–5 дней, уведомление о падении</td><td data-l="На чём">Sentinel-2 через Copernicus или Earth Search</td><td data-l="Данные"><span class="pill free">0 ₽</span></td></tr>
-      <tr><td><b>Погода</b></td><td data-l="Что делает">Прогноз и осадки по полю, окно для опрыскивания</td><td data-l="На чём">Open-Meteo</td><td data-l="Данные"><span class="pill free">0 ₽*</span></td></tr>
-      <tr><td><b>Журнал работ</b></td><td data-l="Что делает">Посев, обработки, препараты и нормы; основа для «Сатурна»</td><td data-l="На чём">Наша разработка</td><td data-l="Данные">—</td></tr>
-      <tr><td><b>Отметки с поля</b></td><td data-l="Что делает">Точка + тип проблемы + фото, офлайн — с комбайна или при объезде</td><td data-l="На чём">Telegram-бот или веб-приложение в телефоне</td><td data-l="Данные">—</td></tr>
-      <tr><td><b>Съёмка дроном</b></td><td data-l="Что делает">Карта поля в сантиметрах, очаги сорняков с площадями, всходы</td><td data-l="На чём">Дрон + WebODM или Metashape + распознавание</td><td data-l="Данные">выезд</td></tr>
-      <tr><td><b>Отчёты</b></td><td data-l="Что делает">История поля за сезон, выгрузка в Excel</td><td data-l="На чём">Наша разработка</td><td data-l="Данные">—</td></tr>
+      <tr><td data-l="Модуль"><b>Карта полей</b></td><td data-l="Что делает">Контуры, площади, культура, сорт</td><td data-l="На чём">Кадастровая карта, рисуем по снимку</td><td data-l="Данные"><span class="pill free">0 ₽</span></td></tr>
+      <tr><td data-l="Модуль"><b>Спутник</b></td><td data-l="Что делает">Цветная карта силы посевов каждые 2–5 дней, уведомление о падении</td><td data-l="На чём">Sentinel-2 через Copernicus или Earth Search</td><td data-l="Данные"><span class="pill free">0 ₽</span></td></tr>
+      <tr><td data-l="Модуль"><b>Погода</b></td><td data-l="Что делает">Прогноз и осадки по полю, окно для опрыскивания</td><td data-l="На чём">Open-Meteo</td><td data-l="Данные"><span class="pill free">0 ₽*</span></td></tr>
+      <tr><td data-l="Модуль"><b>Журнал работ</b></td><td data-l="Что делает">Посев, обработки, препараты и нормы; основа для «Сатурна»</td><td data-l="На чём">Наша разработка</td><td data-l="Данные">—</td></tr>
+      <tr><td data-l="Модуль"><b>Отметки с поля</b></td><td data-l="Что делает">Точка + тип проблемы + фото, офлайн — с комбайна или при объезде</td><td data-l="На чём">Telegram-бот или веб-приложение в телефоне</td><td data-l="Данные">—</td></tr>
+      <tr><td data-l="Модуль"><b>Съёмка дроном</b></td><td data-l="Что делает">Карта поля в сантиметрах, очаги сорняков с площадями, всходы</td><td data-l="На чём">Дрон + WebODM или Metashape + распознавание</td><td data-l="Данные">выезд</td></tr>
+      <tr><td data-l="Модуль"><b>Отчёты</b></td><td data-l="Что делает">История поля за сезон, выгрузка в Excel</td><td data-l="На чём">Наша разработка</td><td data-l="Данные">—</td></tr>
     </tbody>
   </table></div>
   <div class="note"><p><b>Не делаем на старте:</b> трекеры на технику (если понадобятся — подключим готовые) и сложные агрономические расчёты норм. Карты дифференцированного внесения — когда станет понятно, читает ли их ваша техника.</p></div>
@@ -419,16 +418,16 @@ footer li{margin-bottom:4px;word-break:break-word}
     </div>
     <div class="swipe" id="swipe">
       <svg viewBox="0 0 600 260" class="layer" aria-hidden="true">
-        <rect width="600" height="260" fill="#6b8f3a"/>
-        <g stroke="rgba(0,0,0,.18)" stroke-width="3"><line x1="0" y1="30" x2="600" y2="22"/><line x1="0" y1="70" x2="600" y2="62"/><line x1="0" y1="110" x2="600" y2="102"/><line x1="0" y1="150" x2="600" y2="142"/><line x1="0" y1="190" x2="600" y2="182"/><line x1="0" y1="230" x2="600" y2="222"/></g>
-        <g fill="none" stroke="#e53935" stroke-width="3" stroke-dasharray="6 4"><ellipse cx="470" cy="150" rx="34" ry="20"/></g>
+        <rect width="600" height="260" fill="#6b8f3a"></rect>
+        <g stroke="rgba(0,0,0,.18)" stroke-width="3"><line x1="0" y1="30" x2="600" y2="22"></line><line x1="0" y1="70" x2="600" y2="62"></line><line x1="0" y1="110" x2="600" y2="102"></line><line x1="0" y1="150" x2="600" y2="142"></line><line x1="0" y1="190" x2="600" y2="182"></line><line x1="0" y1="230" x2="600" y2="222"></line></g>
+        <g fill="none" stroke="#e53935" stroke-width="3" stroke-dasharray="6 4"><ellipse cx="470" cy="150" rx="34" ry="20"></ellipse></g>
         <text x="420" y="196" font-size="15" font-weight="700" fill="#fff">0,4 га</text>
       </svg>
       <div class="top" id="swipeTop">
         <svg viewBox="0 0 600 260" class="layer" aria-hidden="true">
-          <rect width="600" height="260" fill="#4f8a33"/>
-          <g stroke="rgba(0,0,0,.18)" stroke-width="3"><line x1="0" y1="30" x2="600" y2="22"/><line x1="0" y1="70" x2="600" y2="62"/><line x1="0" y1="110" x2="600" y2="102"/><line x1="0" y1="150" x2="600" y2="142"/><line x1="0" y1="190" x2="600" y2="182"/><line x1="0" y1="230" x2="600" y2="222"/></g>
-          <g fill="rgba(229,57,53,.35)" stroke="#e53935" stroke-width="3"><ellipse cx="140" cy="90" rx="70" ry="38"/><ellipse cx="320" cy="190" rx="60" ry="30"/><ellipse cx="470" cy="150" rx="80" ry="44"/></g>
+          <rect width="600" height="260" fill="#4f8a33"></rect>
+          <g stroke="rgba(0,0,0,.18)" stroke-width="3"><line x1="0" y1="30" x2="600" y2="22"></line><line x1="0" y1="70" x2="600" y2="62"></line><line x1="0" y1="110" x2="600" y2="102"></line><line x1="0" y1="150" x2="600" y2="142"></line><line x1="0" y1="190" x2="600" y2="182"></line><line x1="0" y1="230" x2="600" y2="222"></line></g>
+          <g fill="rgba(229,57,53,.35)" stroke="#e53935" stroke-width="3"><ellipse cx="140" cy="90" rx="70" ry="38"></ellipse><ellipse cx="320" cy="190" rx="60" ry="30"></ellipse><ellipse cx="470" cy="150" rx="80" ry="44"></ellipse></g>
           <g font-size="15" font-weight="700" fill="#fff"><text x="112" y="95">1,1 га</text><text x="294" y="195">0,8 га</text><text x="444" y="155">1,3 га</text></g>
         </svg>
       </div>
@@ -453,15 +452,15 @@ footer li{margin-bottom:4px;word-break:break-word}
   <div class="table-scroll resp"><table>
     <thead><tr><th>Платформа</th><th>Что умеет</th><th>Цена</th><th>В России</th></tr></thead>
     <tbody>
-      <tr class="grp"><td colspan="4">Российские</td></tr>
-      <tr><td><b>«Агроскаут» + «АссистАгро»</b><small>Геомир</small></td><td data-l="Что умеет">Дрон с распознаванием ~150 видов сорняков, рекомендации по гербицидам и срокам, густота, прогноз урожайности; работает в том числе на сое</td><td data-l="Цена">По запросу</td><td><span class="pill ok">есть</span></td></tr>
-      <tr class="grp"><td colspan="4">Зарубежные облачные</td></tr>
-      <tr><td><b>DroneDeploy</b></td><td data-l="Что умеет">Облако: склейка, индексы, подсчёт всходов сои и кукурузы</td><td data-l="Цена">Ag-тариф ~$1,9 тыс. в год</td><td><span class="pill q">уточнить</span></td></tr>
-      <tr><td><b>Agremo</b></td><td data-l="Что умеет">Аналитика по ИИ: густота, сорняки (в тарифе Advanced), отчёты</td><td data-l="Цена">~$1,65–4,95 тыс. в год</td><td><span class="pill q">уточнить</span></td></tr>
-      <tr><td><b>Solvi</b></td><td data-l="Что умеет">Подсчёт растений, индексы, карты внесения, статистика по участкам</td><td data-l="Цена">€499–2499 за сезон</td><td><span class="pill q">уточнить</span></td></tr>
-      <tr><td><b>PIX4Dfields</b></td><td data-l="Что умеет">Быстрая склейка в поле без интернета, индексы, зоны; распознавания сорняков нет</td><td data-l="Цена">~$1990 в год</td><td><span class="pill q">уточнить</span></td></tr>
-      <tr class="grp"><td colspan="4">Своя платформа на открытых инструментах</td></tr>
-      <tr><td><b>Наш вариант</b></td><td data-l="Что умеет">WebODM — склейка и архив всех облётов; каталог слоёв по полю и дате (STAC) — дрон и спутник в одной ленте; карта в браузере со шкалой дат и шторкой; нейросеть для сорняков, дообученная на ваших полях; QGIS — место аналитика</td><td data-l="Цена">Софт бесплатный; аренда сервера для обработки и наша работа</td><td><span class="pill ok">работает</span></td></tr>
+      <tr class="grp"><td colspan="4" data-l="Платформа">Российские</td></tr>
+      <tr><td data-l="Платформа"><b>«Агроскаут» + «АссистАгро»</b><small>Геомир</small></td><td data-l="Что умеет">Дрон с распознаванием ~150 видов сорняков, рекомендации по гербицидам и срокам, густота, прогноз урожайности; работает в том числе на сое</td><td data-l="Цена">По запросу</td><td data-l="В России"><span class="pill ok">есть</span></td></tr>
+      <tr class="grp"><td colspan="4" data-l="Платформа">Зарубежные облачные</td></tr>
+      <tr><td data-l="Платформа"><b>DroneDeploy</b></td><td data-l="Что умеет">Облако: склейка, индексы, подсчёт всходов сои и кукурузы</td><td data-l="Цена">Ag-тариф ~$1,9 тыс. в год</td><td data-l="В России"><span class="pill q">уточнить</span></td></tr>
+      <tr><td data-l="Платформа"><b>Agremo</b></td><td data-l="Что умеет">Аналитика по ИИ: густота, сорняки (в тарифе Advanced), отчёты</td><td data-l="Цена">~$1,65–4,95 тыс. в год</td><td data-l="В России"><span class="pill q">уточнить</span></td></tr>
+      <tr><td data-l="Платформа"><b>Solvi</b></td><td data-l="Что умеет">Подсчёт растений, индексы, карты внесения, статистика по участкам</td><td data-l="Цена">€499–2499 за сезон</td><td data-l="В России"><span class="pill q">уточнить</span></td></tr>
+      <tr><td data-l="Платформа"><b>PIX4Dfields</b></td><td data-l="Что умеет">Быстрая склейка в поле без интернета, индексы, зоны; распознавания сорняков нет</td><td data-l="Цена">~$1990 в год</td><td data-l="В России"><span class="pill q">уточнить</span></td></tr>
+      <tr class="grp"><td colspan="4" data-l="Платформа">Своя платформа на открытых инструментах</td></tr>
+      <tr><td data-l="Платформа"><b>Наш вариант</b></td><td data-l="Что умеет">WebODM — склейка и архив всех облётов; каталог слоёв по полю и дате (STAC) — дрон и спутник в одной ленте; карта в браузере со шкалой дат и шторкой; нейросеть для сорняков, дообученная на ваших полях; QGIS — место аналитика</td><td data-l="Цена">Софт бесплатный; аренда сервера для обработки и наша работа</td><td data-l="В России"><span class="pill ok">работает</span></td></tr>
     </tbody>
   </table></div>
 
@@ -470,18 +469,18 @@ footer li{margin-bottom:4px;word-break:break-word}
 
 <section id="sravnenie">
   <div class="sec-head"><div class="sec-num">8</div><div><h2>Сравнение подходов</h2></div></div>
-  <div class="table-scroll" style="margin-top:14px"><table>
+  <div class="table-scroll resp" style="margin-top:14px"><table>
     <thead><tr><th></th><th>Готовая система<br><small>Cropwise, ExactFarming</small></th><th>Облёт дроном как услуга</th><th>Дрон + своя лёгкая система</th></tr></thead>
     <tbody>
-      <tr><td><b>Очаги сорняков, всходы</b></td><td>нет</td><td>да</td><td>да</td></tr>
-      <tr><td><b>Спутник</b></td><td>да</td><td>нет</td><td>да</td></tr>
-      <tr><td><b>Журнал и история полей</b></td><td>да</td><td>нет</td><td>да</td></tr>
-      <tr><td><b>Лента «было → стало» по датам</b></td><td>только спутник</td><td>отдельные карты</td><td>дрон + спутник + журнал</td></tr>
-      <tr><td><b>Отметки с телефона</b></td><td>частично</td><td>нет</td><td>да, офлайн</td></tr>
-      <tr><td><b>Данные для «Сатурна»</b></td><td>зависит от системы</td><td>нет</td><td>да</td></tr>
-      <tr><td><b>Под ваши задачи</b></td><td>нет</td><td>частично</td><td>да</td></tr>
-      <tr><td><b>Старт</b></td><td>за день</td><td>за неделю</td><td>облёт сразу, система — к весне</td></tr>
-      <tr><td><b>Стоимость</b></td><td>$1–5/га каждый год</td><td>за выезд</td><td>выезды + небольшая поддержка; данные бесплатны</td></tr>
+      <tr><td data-l=""><b>Очаги сорняков, всходы</b></td><td data-l="Готовая системаCropwise, ExactFarming">нет</td><td data-l="Облёт дроном как услуга">да</td><td data-l="Дрон + своя лёгкая система">да</td></tr>
+      <tr><td data-l=""><b>Спутник</b></td><td data-l="Готовая системаCropwise, ExactFarming">да</td><td data-l="Облёт дроном как услуга">нет</td><td data-l="Дрон + своя лёгкая система">да</td></tr>
+      <tr><td data-l=""><b>Журнал и история полей</b></td><td data-l="Готовая системаCropwise, ExactFarming">да</td><td data-l="Облёт дроном как услуга">нет</td><td data-l="Дрон + своя лёгкая система">да</td></tr>
+      <tr><td data-l=""><b>Лента «было → стало» по датам</b></td><td data-l="Готовая системаCropwise, ExactFarming">только спутник</td><td data-l="Облёт дроном как услуга">отдельные карты</td><td data-l="Дрон + своя лёгкая система">дрон + спутник + журнал</td></tr>
+      <tr><td data-l=""><b>Отметки с телефона</b></td><td data-l="Готовая системаCropwise, ExactFarming">частично</td><td data-l="Облёт дроном как услуга">нет</td><td data-l="Дрон + своя лёгкая система">да, офлайн</td></tr>
+      <tr><td data-l=""><b>Данные для «Сатурна»</b></td><td data-l="Готовая системаCropwise, ExactFarming">зависит от системы</td><td data-l="Облёт дроном как услуга">нет</td><td data-l="Дрон + своя лёгкая система">да</td></tr>
+      <tr><td data-l=""><b>Под ваши задачи</b></td><td data-l="Готовая системаCropwise, ExactFarming">нет</td><td data-l="Облёт дроном как услуга">частично</td><td data-l="Дрон + своя лёгкая система">да</td></tr>
+      <tr><td data-l=""><b>Старт</b></td><td data-l="Готовая системаCropwise, ExactFarming">за день</td><td data-l="Облёт дроном как услуга">за неделю</td><td data-l="Дрон + своя лёгкая система">облёт сразу, система — к весне</td></tr>
+      <tr><td data-l=""><b>Стоимость</b></td><td data-l="Готовая системаCropwise, ExactFarming">$1–5/га каждый год</td><td data-l="Облёт дроном как услуга">за выезд</td><td data-l="Дрон + своя лёгкая система">выезды + небольшая поддержка; данные бесплатны</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -512,7 +511,7 @@ footer li{margin-bottom:4px;word-break:break-word}
   </div>
 </section>
 
-</main>
+</main></div>
 
 <footer class="wrap">
   <p>Цены и доступность — по открытым источникам на октябрь 2026 года, могут меняться; точные условия — у поставщиков. «Уточнить» — работа сервиса в России не подтверждена. Оценки пригодности и типичная картина — наше экспертное мнение, не статистика.</p>
@@ -536,5 +535,6 @@ footer li{margin-bottom:4px;word-break:break-word}
 (function(){var r=document.getElementById('swipeRange'),t=document.getElementById('swipeTop'),h=document.getElementById('swipeHandle'),d=document.getElementById('swipeDiv');
 if(!r)return;function u(){t.style.clipPath='inset(0 '+(100-r.value)+'% 0 0)';h.style.left=d.style.left=r.value+'%'}r.addEventListener('input',u);u();})();
 </script>
-</body>
-</html>
+
+
+<script src="assets/hallmark/site.js"></script></body></html>
