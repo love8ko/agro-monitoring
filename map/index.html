@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3EA%3C/text%3E%3C/svg%3E"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f1e9"><meta name="description" content="Карта района Марково, реальные съёмки Sentinel-2 и кадастровый реестр Амира.">
+  <title>Агро Амир: карта и съёмки</title>
+  <script type="module" crossorigin src="./assets/index-BM358EV-.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CYX4Zszr.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Агро Амир, карта"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 25V7l10 5V4l12 5v16H5Zm10-13v13M5 16l10 5m0-4 12-5"/></svg><span>Агро Амир</span></a>
+    <div class="place"><strong>Марково</strong><span>Приморский край</span></div>
+    <nav aria-label="Разделы"><button class="nav active" data-panel="map" aria-pressed="true">Снимки</button><button class="nav" data-panel="fields" aria-label="Поля по снимку">Поля</button><button class="nav" data-panel="registry" aria-pressed="false">Участки <span id="parcel-count">…</span></button><button class="nav" data-panel="journal" aria-pressed="false">Журнал</button></nav>
+    <button id="refresh" class="quiet" title="Обновить каталог реальных съёмок">Обновить снимки</button>
+  </header>
+  <main class="workspace">
+    <section class="map-section" aria-label="Карта района обзора">
+      <div id="map" tabindex="0" aria-label="Спутниковая карта Марково. Масштабируйте кнопками плюс и минус или двумя пальцами."></div>
+      <div class="map-toolbar"><div class="segments" role="group" aria-label="Слой карты"><button data-mode="rgb" aria-pressed="true">Спутник</button><button data-mode="ndvi" aria-pressed="false">NDVI</button><button data-mode="base" aria-pressed="false">Карта</button></div><div class="fit-buttons"><button id="fit-fields" class="paper-button">К полям</button><button id="fit" class="paper-button">Весь район</button></div></div>
+      <div class="map-caption"><span class="map-tag">Район обзора, не граница хозяйства</span><span id="loading" role="status" aria-live="polite">Загружаем карту…</span></div>
+      <div id="pixel" class="pixel" hidden></div>
+      <div id="ndvi-legend" class="legend" hidden><strong>NDVI</strong><div class="legend-colors"></div><div class="legend-labels"><span>−1</span><span>0</span><span>1</span></div><p>Облака, тени и снег скрыты по SCL.</p></div>
+      <div id="map-error" class="map-error" role="alert" hidden></div>
+      <div class="map-actions"><button id="draw" class="paper-button">Наметить поле</button><button id="cancel-draw" class="paper-button" hidden>Отменить</button><button id="note" class="paper-button">Добавить заметку</button></div>
+    </section>
+    <aside class="inspector" aria-label="Снимки и участки">
+      <div id="panel-map" class="panel">
+        <div class="panel-heading"><div><p class="muted">Съёмки района</p><h1>Земля по датам</h1></div><span class="resolution">10 м / пикс.</span></div>
+        <p class="panel-intro">Настоящие снимки Sentinel-2. Выберите дату и сравните состояние земли.</p>
+        <div class="filters"><label for="cloud">Облачность сцены</label><select id="cloud"><option value="20">До 20%</option><option value="50">До 50%</option><option value="100">Любая</option></select></div>
+        <p id="catalog-status" class="muted" role="status">Загружаем каталог…</p>
+        <div id="scene-list" class="scene-list" aria-label="Даты съёмок"></div>
+        <div class="source-note"><strong>Что видно на карте</strong><p>Широкий район вокруг Марково. Попадание всех участков в охват пока не подтверждено.</p><p>Процент облачности относится ко всей спутниковой сцене.</p></div>
+        <details class="details"><summary>Источник и точность</summary><div id="scene-details"></div><p>Sentinel-2: RGB и красный / ближний ИК: 10 м, маска SCL : 20 м. Детали мельче пикселя не восстанавливаются. NDVI не определяет вид сорняков или причину изменений.</p><p>Contains modified Copernicus Sentinel data 2026.</p><a href="https://element84.com/geospatial/introducing-earth-search-v1-new-datasets-now-available/" target="_blank" rel="noreferrer">Каталог Earth Search</a></details>
+      </div>
+      <div id="panel-fields" class="panel" hidden>
+        <div class="panel-heading"><div><p class="muted">По видимым краям на снимке</p><h1>Предварительные поля</h1></div></div>
+        <p class="panel-intro">Это наброски видимых полей, не кадастровые границы. Принадлежность хозяйству Амира пока не подтверждена.</p>
+        <div id="field-list" class="parcel-list"></div>
+        <div class="source-note"><strong>Как пользоваться</strong><p>Нажмите поле в списке или контур на карте. Выберите дату и переключите спутник / NDVI.</p><p>Сверьте эти поля с хозяйством. После подтверждения можно присвоить свои названия и сопоставить их с кадастром.</p></div>
+      </div>
+      <div id="panel-registry" class="panel" hidden>
+        <div class="panel-heading"><div><p class="muted">Реестр из документа</p><h1>Участки Амира</h1></div></div>
+        <p id="boundary-status" class="panel-intro"></p>
+        <input id="parcel-search" type="search" placeholder="Найти кадастровый номер" aria-label="Кадастровый номер">
+        <button id="import" class="primary-button">Импорт границ</button><input id="import-file" type="file" accept=".json,.geojson,application/geo+json,application/json" hidden>
+        <p class="muted">Импорт на этом устройстве. Принимаются проверенные контуры WGS84 с кадастровым номером.</p>
+        <div id="parcel-list" class="parcel-list"></div>
+        <div class="source-note"><strong>Кадастр и поле : разные объекты</strong><p>НСПД пока не отвечает из этого окружения. Номера из PDF не заменяют координаты. Нарисованные вами контуры сохраняются как черновики, отдельно от кадастра.</p></div>
+      </div>
+      <div id="panel-journal" class="panel" hidden>
+        <div class="panel-heading"><div><p class="muted">Наблюдения на местности</p><h1>Полевой журнал</h1></div></div>
+        <p class="panel-intro">Заметки и черновые контуры хранятся в этом браузере. Экспортируйте файл для переноса на другой телефон.</p>
+        <div class="journal-actions"><button id="export" class="primary-button">Экспорт данных</button><button id="restore" class="quiet">Импорт резервной копии</button><input id="restore-file" type="file" accept=".json" hidden></div>
+        <div id="journal-list"></div>
+        <form id="note-form" hidden>
+          <h2>Новое наблюдение</h2><label>Что заметили<textarea id="note-text" required maxlength="2000" rows="4" placeholder="Сорняки, состояние посева, выполненная работа…"></textarea></label><label>Участок<select id="note-parcel"><option value="">Без привязки к участку</option></select></label><p id="note-location" class="muted"></p><button class="primary-button" type="submit">Сохранить заметку</button><button id="cancel-note" class="quiet" type="button">Отменить</button>
+        </form>
+      </div>
+    </aside>
+  </main>
+  <footer class="statusbar"><span id="footer-source">Copernicus Sentinel-2 L2A / Earth Search</span><span id="footer-date">Проверяем каталог</span><span>Карта наблюдений</span><a id="overview-link" href="../" hidden>Обзор проекта</a></footer>
+  <div id="toast" role="status" class="toast" hidden></div>
+  <noscript><p>Для карты нужен JavaScript. Реестр и источники доступны в приватном репозитории проекта.</p></noscript>
+</body>
+</html>
