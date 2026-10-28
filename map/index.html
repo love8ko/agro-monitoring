@@ -4,8 +4,8 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3EA%3C/text%3E%3C/svg%3E"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f1e9"><meta name="description" content="Карта района Марково, реальные съёмки Sentinel-2 и кадастровый реестр Амира.">
   <title>Поля — карта хозяйства</title>
-  <script type="module" crossorigin src="./assets/index-BhsYeHHd.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BfGUa4FP.css">
+  <script type="module" crossorigin src="./assets/index-IcRcsZHu.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CXGS7chz.css">
 </head>
 <body>
   <header class="topbar">
@@ -18,15 +18,23 @@
   <main class="workspace">
     <section class="map-section" aria-label="Карта района обзора">
       <div id="map" tabindex="0" aria-label="Спутниковая карта Марково. Масштабируйте кнопками плюс и минус или двумя пальцами."></div>
-      <div class="map-toolbar"><div class="segments" role="group" aria-label="Слой карты"><button data-mode="rgb" aria-pressed="true">Спутник</button><button data-mode="ndvi" aria-pressed="false">NDVI</button><button data-mode="base" aria-pressed="false">Карта</button></div><div class="fit-buttons"><button id="fit-fields" class="paper-button">Все участки</button><button id="fit" class="paper-button">Весь район</button><button id="map-fullscreen" class="paper-button overview-only" aria-label="Карта на весь экран">На весь экран</button></div></div>
+      <div class="map-toolbar"><div class="segments" role="group" aria-label="Слой карты"><button data-mode="rgb" aria-pressed="true">Спутник</button><button data-mode="ndvi" aria-pressed="false">NDVI</button><button data-mode="base" aria-pressed="false">Карта</button></div><div class="fit-buttons"><button id="toggle-scenes" class="paper-button overview-only" aria-expanded="false" aria-controls="overview-date-panel">Снимки</button><button id="fit-fields" class="paper-button">Все участки</button><button id="fit" class="paper-button">Весь район</button><button id="map-fullscreen" class="paper-button overview-only" aria-label="Карта на весь экран">На весь экран</button></div></div>
       <div id="overview-selected" class="overview-only overview-selected" hidden><div><strong id="overview-selected-number"></strong><span id="overview-selected-area"></span></div><button id="clear-parcel" aria-label="Снять выделение">×</button></div>
       <div class="map-caption"><span class="map-tag">Район обзора, не граница хозяйства</span><span id="loading" role="status" aria-live="polite">Загружаем карту…</span><span id="zoom-info" hidden></span></div>
       <div id="ndvi-legend" class="legend" hidden><strong>NDVI</strong><div class="legend-colors"></div><div class="legend-labels"><span>−1</span><span>0</span><span>1</span></div><p>Облака, тени и снег скрыты по SCL.</p></div>
       <div id="map-error" class="map-error" role="alert" hidden></div>
       <div class="map-actions"><button id="draw" class="paper-button">Наметить поле</button><button id="cancel-draw" class="paper-button" hidden>Отменить</button><button id="note" class="paper-button">Добавить заметку</button></div>
     </section>
+    <div id="scene-panel-backdrop" class="overview-only scene-panel-backdrop" hidden></div>
+    <aside id="overview-date-panel" class="overview-only scene-drawer" aria-label="Снимки по датам" hidden>
+      <div class="scene-drawer-heading"><h2>Снимки</h2><button id="close-scenes" aria-label="Закрыть панель снимков">×</button></div>
+      <div class="scene-drawer-selection"><label for="view-parcel">Участок</label><select id="view-parcel"><option value="">Все участки</option></select><p id="view-parcel-meta" class="muted"></p></div>
+      <div class="scene-source-info"><span>Sentinel-2 · 10 м</span><span class="muted">Дрон: съёмок пока нет</span></div>
+      <p id="viewer-current-scene" class="viewer-current-scene">Выберите дату съёмки</p>
+      <div id="scene-controls-host"></div>
+      <p class="scene-coverage-note muted">Даты съёмок района. Облачность указана для всей сцены; над участком видимость может отличаться. Дроновые снимки появятся после загрузки настоящих съёмок.</p>
+    </aside>
     <aside class="inspector" aria-label="Снимки и участки">
-      <details id="overview-history" class="overview-only overview-history"><summary>Снимки по датам</summary><div id="overview-scenes"></div></details>
       <div id="panel-map" class="panel">
         <div class="panel-heading"><div><p class="muted">Съёмки района</p><h1>Земля по датам</h1></div><span class="resolution">10 м / пикс.</span></div>
         <p class="panel-intro">Настоящие снимки Sentinel-2. Выберите дату и сравните состояние земли.</p>
