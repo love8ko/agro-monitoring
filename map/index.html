@@ -3,13 +3,14 @@
 <head>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3EA%3C/text%3E%3C/svg%3E"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f1e9"><meta name="description" content="Карта района Марково, реальные съёмки Sentinel-2 и кадастровый реестр Амира.">
-  <title>Агро Амир: карта и съёмки</title>
-  <script type="module" crossorigin src="./assets/index-Bh0FFN8m.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CdlD_xi2.css">
+  <title>Поля — карта хозяйства</title>
+  <script type="module" crossorigin src="./assets/index-Ba2qch9c.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-B4DyuYbB.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="./" aria-label="Агро Амир, карта"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 25V7l10 5V4l12 5v16H5Zm10-13v13M5 16l10 5m0-4 12-5"/></svg><span>Агро Амир</span></a>
+    <a class="brand" href="./" aria-label="Поля, карта"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 25V7l10 5V4l12 5v16H5Zm10-13v13M5 16l10 5m0-4 12-5"/></svg><span>Поля</span></a>
+    <span id="overview-count" class="overview-only overview-count">Загружаем участки…</span><a class="overview-only overview-list-link" href="#panel-registry">Кадастровые номера ↓</a>
     <div class="place"><strong>Марково</strong><span>Приморский край</span></div>
     <nav aria-label="Разделы"><button class="nav active" data-panel="map" aria-pressed="true">Снимки</button><button class="nav" data-panel="fields" aria-label="Поля по снимку">Поля</button><button class="nav" data-panel="registry" aria-pressed="false">Участки <span id="parcel-count">…</span></button><button class="nav" data-panel="journal" aria-pressed="false">Журнал</button></nav>
     <button id="refresh" class="quiet" title="Обновить каталог реальных съёмок">Обновить снимки</button>
@@ -17,13 +18,15 @@
   <main class="workspace">
     <section class="map-section" aria-label="Карта района обзора">
       <div id="map" tabindex="0" aria-label="Спутниковая карта Марково. Масштабируйте кнопками плюс и минус или двумя пальцами."></div>
-      <div class="map-toolbar"><div class="segments" role="group" aria-label="Слой карты"><button data-mode="rgb" aria-pressed="true">Спутник</button><button data-mode="ndvi" aria-pressed="false">NDVI</button><button data-mode="base" aria-pressed="false">Карта</button></div><div class="fit-buttons"><button id="fit-fields" class="paper-button">К полям</button><button id="fit" class="paper-button">Весь район</button></div></div>
+      <div class="map-toolbar"><div class="segments" role="group" aria-label="Слой карты"><button data-mode="rgb" aria-pressed="true">Спутник</button><button data-mode="ndvi" aria-pressed="false">NDVI</button><button data-mode="base" aria-pressed="false">Карта</button></div><div class="fit-buttons"><button id="fit-fields" class="paper-button">Все участки</button><button id="fit" class="paper-button">Весь район</button><button id="map-fullscreen" class="paper-button overview-only" aria-label="Карта на весь экран">На весь экран</button></div></div>
+      <div id="overview-selected" class="overview-only overview-selected" hidden><div><strong id="overview-selected-number"></strong><span id="overview-selected-area"></span></div><button id="clear-parcel" aria-label="Снять выделение">×</button></div>
       <div class="map-caption"><span class="map-tag">Район обзора, не граница хозяйства</span><span id="loading" role="status" aria-live="polite">Загружаем карту…</span><span id="zoom-info" hidden></span></div>
       <div id="ndvi-legend" class="legend" hidden><strong>NDVI</strong><div class="legend-colors"></div><div class="legend-labels"><span>−1</span><span>0</span><span>1</span></div><p>Облака, тени и снег скрыты по SCL.</p></div>
       <div id="map-error" class="map-error" role="alert" hidden></div>
       <div class="map-actions"><button id="draw" class="paper-button">Наметить поле</button><button id="cancel-draw" class="paper-button" hidden>Отменить</button><button id="note" class="paper-button">Добавить заметку</button></div>
     </section>
     <aside class="inspector" aria-label="Снимки и участки">
+      <details id="overview-history" class="overview-only overview-history"><summary>Снимки по датам</summary><div id="overview-scenes"></div></details>
       <div id="panel-map" class="panel">
         <div class="panel-heading"><div><p class="muted">Съёмки района</p><h1>Земля по датам</h1></div><span class="resolution">10 м / пикс.</span></div>
         <p class="panel-intro">Настоящие снимки Sentinel-2. Выберите дату и сравните состояние земли.</p>
@@ -36,7 +39,7 @@
         <details class="details"><summary>Источник и точность</summary><div id="scene-details"></div><p>Sentinel-2: RGB и красный / ближний ИК: 10 м, маска SCL : 20 м. Детали мельче пикселя не восстанавливаются. NDVI не определяет вид сорняков или причину изменений.</p><p>Contains modified Copernicus Sentinel data 2026.</p><a href="https://element84.com/geospatial/introducing-earth-search-v1-new-datasets-now-available/" target="_blank" rel="noreferrer">Каталог Earth Search</a></details>
       </div>
       <div id="panel-fields" class="panel" hidden>
-        <div class="panel-heading"><div><p class="muted">Карта хозяйства</p><h1>Поля Амира</h1></div></div>
+        <div class="panel-heading"><div><p class="muted">Карта хозяйства</p><h1>Поля</h1></div></div>
         <p class="panel-intro">Кадастровые контуры — в разделе «Участки». Здесь можно дать рабочим полям короткие названия и связать их с участками. Границу обработки подтверждает Амир.</p>
         <button id="load-field-pack" class="primary-button">Открыть файл моих участков</button><input id="field-pack-file" type="file" accept=".json,application/json" hidden><p id="field-pack-status" class="muted">Личный файл откроется на этом устройстве. На сайт он не отправляется.</p>
         <div id="pixel" class="pixel" hidden></div><div id="field-card" class="pixel" hidden></div><div id="field-list" class="parcel-list"></div>
@@ -46,13 +49,14 @@
         <div class="source-note"><strong>Как пользоваться</strong><p>Нажмите поле в списке или контур на карте. Выберите дату и переключите спутник / NDVI.</p><p>Кадастровые участки сохраняются отдельно. Рабочее поле сможет объединять несколько участков и иметь своё короткое название.</p></div>
       </div>
       <div id="panel-registry" class="panel" hidden>
-        <div class="panel-heading"><div><p class="muted">Реестр из документа</p><h1>Участки Амира</h1></div></div>
+        <div class="panel-heading"><div><p class="muted">Переход к участку по нажатию</p><h1>Кадастровые номера</h1></div></div>
         <p id="boundary-status" class="panel-intro"></p>
         <input id="parcel-search" type="search" placeholder="Найти кадастровый номер" aria-label="Кадастровый номер">
         <button id="import" class="primary-button">Импорт границ</button><input id="import-file" type="file" accept=".json,.geojson,application/geo+json,application/json" hidden>
         <p id="import-help" class="muted">Импорт на этом устройстве. Принимаются проверенные контуры WGS84 с кадастровым номером.</p>
         <div id="parcel-card" class="pixel" hidden></div>
         <div id="parcel-list" class="parcel-list"></div>
+        <section id="missing-parcels" class="overview-only missing-parcels" hidden><h2>Участки без контура</h2><p>Для этих номеров пока не получены координаты и площадь. В исходном PDF указаны только номера и сведения о регистрации.</p><div id="missing-parcel-list"></div><p class="muted">Архив возвращает HTTP 503, прямая карта НСПД недоступна. Это не означает, что границы не зарегистрированы. Для завершения нужны имеющиеся ЕГРН/КПТ с координатами и площадью.</p></section>
         <div class="source-note"><strong>Кадастр и поле — разные объекты</strong><p>Показаны архивные кадастровые контуры. Источник и дата указаны в карточке участка. Фактически обрабатываемые части уточняются с Амиром.</p></div>
       </div>
       <div id="panel-journal" class="panel" hidden>
