@@ -4,8 +4,8 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3EA%3C/text%3E%3C/svg%3E"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f1e9"><meta name="description" content="Карта района Марково, реальные съёмки Sentinel-2 и кадастровый реестр Амира.">
   <title>Агро Амир: карта и съёмки</title>
-  <script type="module" crossorigin src="./assets/index-7jGMWJei.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CEbE7pWM.css">
+  <script type="module" crossorigin src="./assets/index-C3LFsqCW.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CdlD_xi2.css">
 </head>
 <body>
   <header class="topbar">
@@ -27,6 +27,8 @@
       <div id="panel-map" class="panel">
         <div class="panel-heading"><div><p class="muted">Съёмки района</p><h1>Земля по датам</h1></div><span class="resolution">10 м / пикс.</span></div>
         <p class="panel-intro">Настоящие снимки Sentinel-2. Выберите дату и сравните состояние земли.</p>
+        <div class="date-navigation"><button id="scene-previous" class="paper-button">Раньше</button><input id="scene-calendar" type="date" aria-label="Дата спутниковой съёмки"><button id="scene-next" class="paper-button">Позже</button></div>
+        <details class="comparison"><summary>Сравнить две даты на одном месте</summary><label>Было<select id="compare-before" aria-label="Ранняя дата сравнения"></select></label><label>Стало<select id="compare-after" aria-label="Поздняя дата сравнения"></select></label><div class="compare-buttons"><button id="show-before" class="paper-button">Было</button><button id="show-after" class="paper-button">Стало</button></div><p class="muted">Переключение сохраняет место и масштаб. Облачность проверяйте над самим полем.</p></details>
         <div class="filters"><label for="cloud">Облачность сцены</label><select id="cloud"><option value="20">До 20%</option><option value="50">До 50%</option><option value="100">Любая</option></select></div>
         <p id="catalog-status" class="muted" role="status">Загружаем каталог…</p>
         <div id="scene-list" class="scene-list" aria-label="Даты съёмок"></div>
@@ -35,8 +37,12 @@
       </div>
       <div id="panel-fields" class="panel" hidden>
         <div class="panel-heading"><div><p class="muted">Карта хозяйства</p><h1>Поля Амира</h1></div></div>
-        <p class="panel-intro">Поля появятся здесь после получения границ из реестра и подтверждения Амиром. Прежние обводки удалены: они не относятся к хозяйству.</p>
-        <div id="pixel" class="pixel" hidden></div><div id="field-list" class="parcel-list"></div>
+        <p class="panel-intro">Кадастровые контуры — в разделе «Участки». Здесь можно дать рабочим полям короткие названия и связать их с участками. Границу обработки подтверждает Амир.</p>
+        <button id="load-field-pack" class="primary-button">Открыть файл моих участков</button><input id="field-pack-file" type="file" accept=".json,application/json" hidden><p id="field-pack-status" class="muted">Личный файл откроется на этом устройстве. На сайт он не отправляется.</p>
+        <div id="pixel" class="pixel" hidden></div><div id="field-card" class="pixel" hidden></div><div id="field-list" class="parcel-list"></div>
+        <button id="new-field" class="primary-button">Назвать рабочее поле</button>
+        <form id="field-form" hidden><h2>Рабочее поле</h2><label>Короткое название<input id="field-name" required maxlength="100" placeholder="Например, За дорогой"></label><p class="muted">Выберите кадастровые участки этого поля. Это связь для учёта; контур обработки уточняется отдельно.</p><div id="field-parcels" class="field-parcels"></div><button class="primary-button" type="submit">Сохранить поле</button><button id="cancel-field" class="quiet" type="button">Отменить</button></form>
+        <div class="share-actions"><button id="copy-view" class="paper-button">Копировать ссылку на карту</button><a id="telegram-share" class="paper-button" target="_blank" rel="noreferrer">Поделиться в Telegram</a></div>
         <div class="source-note"><strong>Как пользоваться</strong><p>Нажмите поле в списке или контур на карте. Выберите дату и переключите спутник / NDVI.</p><p>Кадастровые участки сохраняются отдельно. Рабочее поле сможет объединять несколько участков и иметь своё короткое название.</p></div>
       </div>
       <div id="panel-registry" class="panel" hidden>
@@ -45,16 +51,20 @@
         <input id="parcel-search" type="search" placeholder="Найти кадастровый номер" aria-label="Кадастровый номер">
         <button id="import" class="primary-button">Импорт границ</button><input id="import-file" type="file" accept=".json,.geojson,application/geo+json,application/json" hidden>
         <p class="muted">Импорт на этом устройстве. Принимаются проверенные контуры WGS84 с кадастровым номером.</p>
+        <div id="parcel-card" class="pixel" hidden></div>
         <div id="parcel-list" class="parcel-list"></div>
         <div class="source-note"><strong>Кадастр и поле : разные объекты</strong><p>НСПД пока не отвечает из этого окружения. Номера из PDF не заменяют координаты. Нарисованные вами контуры сохраняются как черновики, отдельно от кадастра.</p></div>
       </div>
       <div id="panel-journal" class="panel" hidden>
         <div class="panel-heading"><div><p class="muted">Наблюдения на местности</p><h1>Полевой журнал</h1></div></div>
-        <p class="panel-intro">Заметки и черновые контуры хранятся в этом браузере. Экспортируйте файл для переноса на другой телефон.</p>
+        <p class="panel-intro">События по полям, работы, топливо и ремонт. Пока записи сохраняются на этом устройстве; Telegram ведётся вручную.</p>
+        <label class="journal-filter">История поля<select id="journal-field"><option value="">Все поля и техника</option></select></label>
+        <button id="journal-add" class="primary-button">Записать событие</button>
+        <details><summary>Как вести Telegram хозяйства</summary><p class="muted">Темы: Главное, Работы, Топливо, Поломки, Поля и снимки. В сообщении достаточно кода поля или машины; голосовые тоже подходят.</p><button id="copy-telegram-rules" class="quiet">Скопировать текст закрепа</button></details>
         <div class="journal-actions"><button id="export" class="primary-button">Экспорт данных</button><button id="restore" class="quiet">Импорт резервной копии</button><input id="restore-file" type="file" accept=".json" hidden></div>
         <div id="journal-list"></div>
         <form id="note-form" hidden>
-          <h2>Новое наблюдение</h2><label>Что заметили<textarea id="note-text" required maxlength="2000" rows="4" placeholder="Сорняки, состояние посева, выполненная работа…"></textarea></label><label>Участок<select id="note-parcel"><option value="">Без привязки к участку</option></select></label><p id="note-location" class="muted"></p><button class="primary-button" type="submit">Сохранить заметку</button><button id="cancel-note" class="quiet" type="button">Отменить</button>
+          <h2>Новое событие</h2><label>Дата события<input id="note-day" type="date" required></label><label>Что произошло<select id="note-type"><option value="observation">Наблюдение</option><option value="work">Работа</option><option value="fuel">ГСМ</option><option value="repair">Ремонт</option></select></label><label>Рабочее поле<select id="note-field"><option value="">Без привязки к полю</option></select></label><label id="fuel-label" hidden>Топливо, литры<input id="note-liters" type="number" min="0" max="100000" step="0.1" inputmode="decimal"></label><label>Описание<textarea id="note-text" required maxlength="2000" rows="4" placeholder="Что сделали, какая техника, кто работал…"></textarea></label><label>Кадастровый участок<select id="note-parcel"><option value="">Без привязки к участку</option></select></label><p id="note-location" class="muted"></p><button class="primary-button" type="submit">Сохранить событие</button><button id="cancel-note" class="quiet" type="button">Отменить</button>
         </form>
       </div>
     </aside>
