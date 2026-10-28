@@ -4,7 +4,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3EA%3C/text%3E%3C/svg%3E"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f1e9"><meta name="description" content="Карта района Марково, реальные съёмки Sentinel-2 и кадастровый реестр Амира.">
   <title>Агро Амир: карта и съёмки</title>
-  <script type="module" crossorigin src="./assets/index-CENPJapc.js"></script>
+  <script type="module" crossorigin src="./assets/index-Bh0FFN8m.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-CdlD_xi2.css">
 </head>
 <body>
@@ -50,10 +50,10 @@
         <p id="boundary-status" class="panel-intro"></p>
         <input id="parcel-search" type="search" placeholder="Найти кадастровый номер" aria-label="Кадастровый номер">
         <button id="import" class="primary-button">Импорт границ</button><input id="import-file" type="file" accept=".json,.geojson,application/geo+json,application/json" hidden>
-        <p class="muted">Импорт на этом устройстве. Принимаются проверенные контуры WGS84 с кадастровым номером.</p>
+        <p id="import-help" class="muted">Импорт на этом устройстве. Принимаются проверенные контуры WGS84 с кадастровым номером.</p>
         <div id="parcel-card" class="pixel" hidden></div>
         <div id="parcel-list" class="parcel-list"></div>
-        <div class="source-note"><strong>Кадастр и поле : разные объекты</strong><p>НСПД пока не отвечает из этого окружения. Номера из PDF не заменяют координаты. Нарисованные вами контуры сохраняются как черновики, отдельно от кадастра.</p></div>
+        <div class="source-note"><strong>Кадастр и поле — разные объекты</strong><p>Показаны архивные кадастровые контуры. Источник и дата указаны в карточке участка. Фактически обрабатываемые части уточняются с Амиром.</p></div>
       </div>
       <div id="panel-journal" class="panel" hidden>
         <div class="panel-heading"><div><p class="muted">Наблюдения на местности</p><h1>Полевой журнал</h1></div></div>
