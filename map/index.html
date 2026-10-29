@@ -4,8 +4,8 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3EA%3C/text%3E%3C/svg%3E"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f1e9"><meta name="description" content="Карта района Марково, реальные съёмки Sentinel-2 и кадастровый реестр Амира.">
   <title>Поля — карта хозяйства</title>
-  <script type="module" crossorigin src="./assets/index-D7u8jX-y.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CXGS7chz.css">
+  <script type="module" crossorigin src="./assets/index-D7zJmtFF.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Bhg3QpMR.css">
 </head>
 <body>
   <header class="topbar">
@@ -64,8 +64,8 @@
         <p id="import-help" class="muted">Импорт на этом устройстве. Принимаются проверенные контуры WGS84 с кадастровым номером.</p>
         <div id="parcel-card" class="pixel" hidden></div>
         <div id="parcel-list" class="parcel-list"></div>
-        <table id="parcel-table" class="overview-only parcel-table"><thead><tr><th scope="col">№ на карте</th><th scope="col">Кадастровый номер</th><th scope="col">Площадь, га</th></tr></thead><tbody id="parcel-table-body"></tbody><tfoot><tr><th colspan="2" scope="row">По полученным контурам</th><td id="parcel-total-area"></td></tr></tfoot></table>
-        <p class="overview-only table-note">Номера идут по соседству на карте. У многоконтурного участка все части имеют один номер; площадь включает все части. Это кадастровая площадь, а не площадь обработки. Для трёх участков без координат положение и площадь пока неизвестны.</p>
+        <table id="parcel-table" class="overview-only parcel-table"><thead><tr><th scope="col">№ на карте</th><th scope="col">Кадастровый номер</th><th scope="col">Площадь, га</th></tr></thead><tbody id="parcel-table-body"></tbody><tfoot><tr><th id="parcel-total-label" colspan="2" scope="row">Общая площадь</th><td id="parcel-total-area"></td></tr></tfoot></table>
+        <p class="overview-only table-note">У многоконтурного участка все части имеют один номер; площадь включает все части. Расчёт по координатам кадастровых контуров; площадь обработки подтверждается отдельно. <span id="parcel-area-completeness"></span></p>
         <section id="missing-parcels" class="overview-only missing-parcels" hidden><h2>Участки без контура</h2><p>Для этих номеров пока не получены координаты и площадь. В исходном PDF указаны только номера и сведения о регистрации.</p><div id="missing-parcel-list"></div><p class="muted">Архив возвращает HTTP 503, прямая карта НСПД недоступна. Это не означает, что границы не зарегистрированы. Для завершения нужны имеющиеся ЕГРН/КПТ с координатами и площадью.</p></section>
         <div class="source-note"><strong>Кадастр и поле — разные объекты</strong><p>Показаны архивные кадастровые контуры. Источник и дата указаны в карточке участка. Фактически обрабатываемые части уточняются с Амиром.</p></div>
       </div>
