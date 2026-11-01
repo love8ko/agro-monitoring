@@ -8,13 +8,13 @@
   <title>Журнал полей</title>
   <script>/* The journal API lives on the Worker; the GitHub Pages copy only forwards there (query and hash kept, no API calls). */
     if (/\.github\.io$/.test(location.hostname)) location.replace('https://agro-amir.love8ko.workers.dev/journal.html' + location.search + location.hash);</script>
-  <script type="module" crossorigin src="./assets/journal-B9RYeR2C.js"></script>
+  <script type="module" crossorigin src="./assets/journal-X4STcd7q.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/GeoJSON-BcJSopuC.js">
   <link rel="modulepreload" crossorigin href="./assets/GeometryFactory-BcjVD_Zq.js">
   <link rel="modulepreload" crossorigin href="./assets/GeoJSONReader-BuNalZ8X.js">
   <link rel="modulepreload" crossorigin href="./assets/IsValidOp-DQ9MbObm.js">
   <link rel="stylesheet" crossorigin href="./assets/GeoJSON-c_1sG1-7.css">
-  <link rel="stylesheet" crossorigin href="./assets/journal-BGTSZiwa.css">
+  <link rel="stylesheet" crossorigin href="./assets/journal-I4AvaOHm.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержимому</a>
@@ -29,48 +29,23 @@
       <summary aria-label="Настройки и доступ"><span id="me-name">…</span></summary>
       <div class="j-settings-body">
         <p class="j-muted" id="me-role"></p>
-        <section id="invite-section" hidden aria-labelledby="invite-title">
-          <h2 id="invite-title">Пригласить человека</h2>
-          <form id="invite-form" novalidate>
-            <label class="j-field">Имя<input id="invite-name" name="name" autocomplete="off" required maxlength="80" placeholder="Например, Сергей тракторист"></label>
-            <fieldset class="j-inline"><legend>Роль</legend>
-              <label class="j-radio"><input type="radio" name="role" value="member" checked> Участник</label>
-              <label class="j-radio"><input type="radio" name="role" value="owner"> Хозяин</label>
-            </fieldset>
-            <button class="j-btn" type="submit">Создать ссылку</button>
-          </form>
-          <div id="invite-result" hidden>
-            <label class="j-field">Личная ссылка<input id="invite-link" type="password" readonly autocomplete="off"></label>
-            <button class="j-btn j-primary" type="button" id="invite-copy">Скопировать ссылку</button>
-            <p class="j-muted">Ссылка входит в журнал от имени этого человека. Передайте её лично, сама страница никуда её не отправляет.</p>
-          </div>
-          <p class="j-error" id="invite-error" role="alert" hidden></p>
-        </section>
+        <form id="profile-form">
+          <label class="j-field">Ваше имя для истории<input id="profile-name" maxlength="80" placeholder="Например, Сергей" autocomplete="name"></label>
+          <button class="j-btn" type="submit">Сохранить имя</button>
+          <p class="j-muted j-small">Можно оставить обозначение устройства. Все участники могут заполнять и исправлять журнал.</p>
+          <p id="profile-error" class="j-error" role="alert" hidden></p>
+        </form>
         <section aria-labelledby="export-title">
           <h2 id="export-title">Выгрузка</h2>
           <a class="j-btn" id="export-link" href="/api/journal/export" download>Скачать журнал года</a>
         </section>
-        <button type="button" class="j-btn j-ghost" id="logout">Выйти на этом устройстве</button>
+
       </div>
     </details>
   </header>
 
   <main id="main" class="j-main" tabindex="-1">
-    <p class="j-status" id="boot-status" role="status">Проверяем доступ…</p>
-
-    <section id="signin" class="j-signin" hidden aria-labelledby="signin-title">
-      <h1 id="signin-title">Журнал открывается по личной ссылке</h1>
-      <p>Хозяин хозяйства присылает каждому участнику личную ссылку-приглашение. Откройте её на своём телефоне, и журнал запомнит вход на этом устройстве.</p>
-      <p>Без входа доступна <a href="./">открытая карта полей</a> — кадастровые участки и спутниковые снимки.</p>
-      <p class="j-error" id="signin-error" role="alert" hidden></p>
-      <details class="j-more">
-        <summary>У меня есть код приглашения</summary>
-        <form id="manual-invite" novalidate>
-          <label class="j-field">Код или ссылка из приглашения<input id="manual-token" type="password" autocomplete="off" required></label>
-          <button class="j-btn j-primary" type="submit">Войти</button>
-        </form>
-      </details>
-    </section>
+    <p class="j-status" id="boot-status" role="status">Открываем журнал…</p>
 
     <section id="view-journal" class="j-grid" hidden aria-label="Журнал работ">
       <aside class="j-side" aria-label="Поле">
@@ -86,7 +61,7 @@
           <div class="j-minimap" id="minimap" role="img" aria-label="Карта выбранного поля"></div>
           <p class="j-muted j-small" id="map-hint"></p>
           <fieldset class="j-sectors" id="sector-box" hidden>
-            <legend>Сектора для новой записи</legend>
+            <legend>Зоны для новой записи</legend>
             <div id="sector-list" class="j-chips"></div>
           </fieldset>
           <p class="j-muted j-small" id="field-parts" hidden></p>
@@ -95,11 +70,11 @@
             <a class="j-btn" id="field-maplink" href="./" hidden>На карте</a>
           </div>
           <details class="j-more" id="split-box" hidden>
-            <summary>Разделить на сектора</summary>
+            <summary>Разделить поле на зоны / грядки</summary>
             <form id="split-form" novalidate>
-              <p class="j-warn" id="split-locked" hidden>По этому полю уже есть записи журнала, поэтому деление не меняется — старые записи сохраняют свои сектора.</p>
-              <p class="j-muted j-small">Деление — геометрические полосы внутри контура поля, не настоящие границы. Сначала посмотрите предложение на карте.</p>
-              <label class="j-field">Сколько секторов<input id="split-count" type="number" inputmode="numeric" min="2" max="12" value="2" required></label>
+              <p class="j-warn" id="split-locked" hidden>По этим зонам уже есть записи. Их границы сохраняются для истории; названия можно менять ниже.</p>
+              <p class="j-muted j-small">Создайте зоны сейчас или позже. Каждый участник может разделить поле и дать частям понятные названия. Сначала посмотрите деление на карте.</p>
+              <label class="j-field">Сколько зон<input id="split-count" type="number" inputmode="numeric" min="2" max="12" value="2" required></label>
               <fieldset class="j-inline"><legend>Полосы</legend>
                 <label class="j-radio"><input type="radio" name="axis" value="vertical" checked> Вертикальные</label>
                 <label class="j-radio"><input type="radio" name="axis" value="horizontal"> Горизонтальные</label>
@@ -107,12 +82,22 @@
               <button class="j-btn" type="submit">Показать на карте</button>
               <div id="split-confirm" hidden>
                 <p class="j-note" id="split-note">Предложенное деление: подтвердите на карте</p>
+                <div id="split-names" class="zone-name-list"></div>
                 <button type="button" class="j-btn j-primary" id="split-apply">Подтвердить деление</button>
                 <button type="button" class="j-btn j-ghost" id="split-cancel">Убрать предложение</button>
               </div>
               <p class="j-error" id="split-error" role="alert" hidden></p>
             </form>
           </details>
+          <details id="zone-names-box" class="j-more" hidden>
+            <summary>Названия зон</summary>
+            <form id="zone-names-form">
+              <div id="zone-names-list" class="zone-name-list"></div>
+              <button class="j-btn" type="submit">Сохранить названия</button>
+              <p id="zone-names-error" class="j-error" role="alert" hidden></p>
+            </form>
+          </details>
+          <button id="zone-history" type="button" class="j-btn j-ghost" hidden>История зон</button>
         </article>
       </aside>
 
@@ -136,25 +121,27 @@
 
     <section id="view-assistant" class="j-assistant" hidden aria-labelledby="assistant-title">
       <h1 id="assistant-title">Помощник</h1>
-      <p class="j-muted">Скажите или напишите, что сделали. Помощник предложит черновик записи — сохраняете только вы.</p>
+      <p class="j-muted">Напишите или продиктуйте, что сделали. Если чего-то не хватает, помощник уточнит. Готовую запись можно сохранить одной кнопкой.</p>
+      <div class="j-row"><p id="chat-context" class="j-muted j-small"></p><button id="chat-new" class="j-btn j-ghost" type="button">Новый разговор</button></div>
+      <div id="chat-feed" class="chat-feed" role="log" aria-label="Разговор с помощником" aria-live="polite"></div>
+      <div id="assistant-result" hidden>
+        <p id="assistant-message" hidden></p>
+        <div id="assistant-drafts" class="j-list"></div>
+      </div>
       <form id="assistant-form" novalidate>
         <label class="j-field">Что делали
-          <textarea id="assistant-text" rows="4" maxlength="2000" placeholder="Например: вчера пахали пятое, кроме 5.3" required></textarea>
+          <textarea id="assistant-text" rows="3" maxlength="2000" placeholder="Сегодня пахал поле четыре" required></textarea>
         </label>
         <p class="j-muted j-small">Голосом: на телефоне нажмите значок микрофона на клавиатуре и говорите — текст появится в поле.</p>
         <div class="j-row">
           <label class="j-field j-narrow">Год<input id="assistant-year" type="number" inputmode="numeric" min="1990" max="2100"></label>
-          <button class="j-btn j-primary" type="submit" id="assistant-submit">Разобрать</button>
+          <button class="j-btn j-primary" type="submit" id="assistant-submit">Отправить</button>
         </div>
       </form>
       <p class="j-status" id="assistant-status" role="status"></p>
       <div id="assistant-unavailable" class="j-card" hidden>
         <p id="assistant-unavailable-text"></p>
         <button type="button" class="j-btn j-primary" id="assistant-manual">Записать вручную</button>
-      </div>
-      <div id="assistant-result" hidden>
-        <p id="assistant-message"></p>
-        <div id="assistant-drafts" class="j-list"></div>
       </div>
     </section>
   </main>
