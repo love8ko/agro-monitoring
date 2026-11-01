@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3EA%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#f5f1e9"><meta name="referrer" content="no-referrer"><meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Общий журнал работ по рабочим полям хозяйства Амира.">
+  <title>Журнал полей</title>
+  <script>/* The journal API lives on the Worker; the GitHub Pages copy only forwards there (query and hash kept, no API calls). */
+    if (/\.github\.io$/.test(location.hostname)) location.replace('https://agro-amir.love8ko.workers.dev/journal.html' + location.search + location.hash);</script>
+  <script type="module" crossorigin src="./assets/journal-B9RYeR2C.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/GeoJSON-BcJSopuC.js">
+  <link rel="modulepreload" crossorigin href="./assets/GeometryFactory-BcjVD_Zq.js">
+  <link rel="modulepreload" crossorigin href="./assets/GeoJSONReader-BuNalZ8X.js">
+  <link rel="modulepreload" crossorigin href="./assets/IsValidOp-DQ9MbObm.js">
+  <link rel="stylesheet" crossorigin href="./assets/GeoJSON-c_1sG1-7.css">
+  <link rel="stylesheet" crossorigin href="./assets/journal-BGTSZiwa.css">
+</head>
+<body>
+  <a class="skip" href="#main">К содержимому</a>
+  <header class="j-top">
+    <a class="j-brand" href="./" aria-label="Поля — открыть карту"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 25V7l10 5V4l12 5v16H5Zm10-13v13M5 16l10 5m0-4 12-5"/></svg><span>Журнал</span></a>
+    <nav class="j-tabs" aria-label="Разделы журнала" hidden id="tabs">
+      <button type="button" class="j-tab" id="tab-journal" aria-pressed="true" data-tab="journal">Журнал</button>
+      <button type="button" class="j-tab" id="tab-assistant" aria-pressed="false" data-tab="assistant">Помощник</button>
+    </nav>
+    <a class="j-maplink" href="./">Карта</a>
+    <details class="j-settings" id="settings" hidden>
+      <summary aria-label="Настройки и доступ"><span id="me-name">…</span></summary>
+      <div class="j-settings-body">
+        <p class="j-muted" id="me-role"></p>
+        <section id="invite-section" hidden aria-labelledby="invite-title">
+          <h2 id="invite-title">Пригласить человека</h2>
+          <form id="invite-form" novalidate>
+            <label class="j-field">Имя<input id="invite-name" name="name" autocomplete="off" required maxlength="80" placeholder="Например, Сергей тракторист"></label>
+            <fieldset class="j-inline"><legend>Роль</legend>
+              <label class="j-radio"><input type="radio" name="role" value="member" checked> Участник</label>
+              <label class="j-radio"><input type="radio" name="role" value="owner"> Хозяин</label>
+            </fieldset>
+            <button class="j-btn" type="submit">Создать ссылку</button>
+          </form>
+          <div id="invite-result" hidden>
+            <label class="j-field">Личная ссылка<input id="invite-link" type="password" readonly autocomplete="off"></label>
+            <button class="j-btn j-primary" type="button" id="invite-copy">Скопировать ссылку</button>
+            <p class="j-muted">Ссылка входит в журнал от имени этого человека. Передайте её лично, сама страница никуда её не отправляет.</p>
+          </div>
+          <p class="j-error" id="invite-error" role="alert" hidden></p>
+        </section>
+        <section aria-labelledby="export-title">
+          <h2 id="export-title">Выгрузка</h2>
+          <a class="j-btn" id="export-link" href="/api/journal/export" download>Скачать журнал года</a>
+        </section>
+        <button type="button" class="j-btn j-ghost" id="logout">Выйти на этом устройстве</button>
+      </div>
+    </details>
+  </header>
+
+  <main id="main" class="j-main" tabindex="-1">
+    <p class="j-status" id="boot-status" role="status">Проверяем доступ…</p>
+
+    <section id="signin" class="j-signin" hidden aria-labelledby="signin-title">
+      <h1 id="signin-title">Журнал открывается по личной ссылке</h1>
+      <p>Хозяин хозяйства присылает каждому участнику личную ссылку-приглашение. Откройте её на своём телефоне, и журнал запомнит вход на этом устройстве.</p>
+      <p>Без входа доступна <a href="./">открытая карта полей</a> — кадастровые участки и спутниковые снимки.</p>
+      <p class="j-error" id="signin-error" role="alert" hidden></p>
+      <details class="j-more">
+        <summary>У меня есть код приглашения</summary>
+        <form id="manual-invite" novalidate>
+          <label class="j-field">Код или ссылка из приглашения<input id="manual-token" type="password" autocomplete="off" required></label>
+          <button class="j-btn j-primary" type="submit">Войти</button>
+        </form>
+      </details>
+    </section>
+
+    <section id="view-journal" class="j-grid" hidden aria-label="Журнал работ">
+      <aside class="j-side" aria-label="Поле">
+        <label class="j-field">Поле
+          <select id="field-select"><option value="">Все поля</option></select>
+        </label>
+        <article class="j-card" id="field-card" aria-live="polite">
+          <div class="j-card-head">
+            <h2 id="field-title">Все поля</h2>
+            <span class="j-figure" id="field-area"></span>
+          </div>
+          <p class="j-note" id="field-draft" hidden>Состав поля — черновик, его ещё уточнят.</p>
+          <div class="j-minimap" id="minimap" role="img" aria-label="Карта выбранного поля"></div>
+          <p class="j-muted j-small" id="map-hint"></p>
+          <fieldset class="j-sectors" id="sector-box" hidden>
+            <legend>Сектора для новой записи</legend>
+            <div id="sector-list" class="j-chips"></div>
+          </fieldset>
+          <p class="j-muted j-small" id="field-parts" hidden></p>
+          <div class="j-card-actions">
+            <button type="button" class="j-btn j-primary j-wide" id="record-btn">Записать</button>
+            <a class="j-btn" id="field-maplink" href="./" hidden>На карте</a>
+          </div>
+          <details class="j-more" id="split-box" hidden>
+            <summary>Разделить на сектора</summary>
+            <form id="split-form" novalidate>
+              <p class="j-warn" id="split-locked" hidden>По этому полю уже есть записи журнала, поэтому деление не меняется — старые записи сохраняют свои сектора.</p>
+              <p class="j-muted j-small">Деление — геометрические полосы внутри контура поля, не настоящие границы. Сначала посмотрите предложение на карте.</p>
+              <label class="j-field">Сколько секторов<input id="split-count" type="number" inputmode="numeric" min="2" max="12" value="2" required></label>
+              <fieldset class="j-inline"><legend>Полосы</legend>
+                <label class="j-radio"><input type="radio" name="axis" value="vertical" checked> Вертикальные</label>
+                <label class="j-radio"><input type="radio" name="axis" value="horizontal"> Горизонтальные</label>
+              </fieldset>
+              <button class="j-btn" type="submit">Показать на карте</button>
+              <div id="split-confirm" hidden>
+                <p class="j-note" id="split-note">Предложенное деление: подтвердите на карте</p>
+                <button type="button" class="j-btn j-primary" id="split-apply">Подтвердить деление</button>
+                <button type="button" class="j-btn j-ghost" id="split-cancel">Убрать предложение</button>
+              </div>
+              <p class="j-error" id="split-error" role="alert" hidden></p>
+            </form>
+          </details>
+        </article>
+      </aside>
+
+      <section class="j-log" aria-labelledby="log-title">
+        <div class="j-log-head">
+          <h1 id="log-title">Журнал <span id="log-year"></span></h1>
+          <div class="j-year" role="group" aria-label="Год">
+            <button type="button" class="j-btn j-icon" id="year-prev" aria-label="Предыдущий год">‹</button>
+            <label class="visually-hidden" for="year-input">Год</label>
+            <input id="year-input" type="number" inputmode="numeric" min="1990" max="2100" step="1">
+            <button type="button" class="j-btn j-icon" id="year-next" aria-label="Следующий год">›</button>
+          </div>
+        </div>
+        <div class="j-log-tools">
+          <label class="j-check"><input type="checkbox" id="show-cancelled"> Показывать отменённые</label>
+        </div>
+        <p class="j-status" id="log-status" role="status"></p>
+        <div id="log-list" class="j-list"></div>
+      </section>
+    </section>
+
+    <section id="view-assistant" class="j-assistant" hidden aria-labelledby="assistant-title">
+      <h1 id="assistant-title">Помощник</h1>
+      <p class="j-muted">Скажите или напишите, что сделали. Помощник предложит черновик записи — сохраняете только вы.</p>
+      <form id="assistant-form" novalidate>
+        <label class="j-field">Что делали
+          <textarea id="assistant-text" rows="4" maxlength="2000" placeholder="Например: вчера пахали пятое, кроме 5.3" required></textarea>
+        </label>
+        <p class="j-muted j-small">Голосом: на телефоне нажмите значок микрофона на клавиатуре и говорите — текст появится в поле.</p>
+        <div class="j-row">
+          <label class="j-field j-narrow">Год<input id="assistant-year" type="number" inputmode="numeric" min="1990" max="2100"></label>
+          <button class="j-btn j-primary" type="submit" id="assistant-submit">Разобрать</button>
+        </div>
+      </form>
+      <p class="j-status" id="assistant-status" role="status"></p>
+      <div id="assistant-unavailable" class="j-card" hidden>
+        <p id="assistant-unavailable-text"></p>
+        <button type="button" class="j-btn j-primary" id="assistant-manual">Записать вручную</button>
+      </div>
+      <div id="assistant-result" hidden>
+        <p id="assistant-message"></p>
+        <div id="assistant-drafts" class="j-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="record-dialog" class="j-dialog" aria-labelledby="record-title">
+    <form id="record-form" method="dialog" novalidate>
+      <header class="j-dialog-head">
+        <h2 id="record-title">Новая запись</h2>
+        <button type="button" class="j-btn j-icon j-ghost" data-close aria-label="Закрыть">×</button>
+      </header>
+      <div class="j-dialog-body" id="record-body">
+        <p class="j-note" id="record-origin" hidden></p>
+        <fieldset class="j-ops"><legend>Что</legend>
+          <label><input type="radio" name="operation" value="tillage" required><span>Вспашка</span></label>
+          <label><input type="radio" name="operation" value="sowing"><span>Посев</span></label>
+          <label><input type="radio" name="operation" value="treatment"><span>Обработка</span></label>
+          <label><input type="radio" name="operation" value="harvest"><span>Уборка</span></label>
+          <label><input type="radio" name="operation" value="fuel"><span>Топливо</span></label>
+          <label><input type="radio" name="operation" value="note"><span>Заметка</span></label>
+        </fieldset>
+        <fieldset class="j-where"><legend>Где</legend>
+          <label class="j-check j-all"><input type="checkbox" id="all-fields"> Все поля</label>
+          <div id="target-list" class="j-targets"></div>
+          <p class="j-muted j-small" id="target-summary" aria-live="polite"></p>
+        </fieldset>
+        <fieldset class="j-when"><legend>Когда</legend>
+          <div class="j-row">
+            <label class="j-field j-narrow">Год<input id="rec-year" type="number" inputmode="numeric" min="1990" max="2100" required></label>
+            <label class="j-field">Точность даты
+              <select id="rec-precision">
+                <option value="day">День</option>
+                <option value="month">Месяц</option>
+                <option value="year">Только год</option>
+                <option value="unknown">Не помню</option>
+              </select>
+            </label>
+          </div>
+          <div id="when-day" class="j-row">
+            <label class="j-field">Дата<input id="rec-date" type="date"></label>
+            <label class="j-field">По (если несколько дней)<input id="rec-date-to" type="date"></label>
+          </div>
+          <div class="j-row" id="when-quick">
+            <button type="button" class="j-btn j-ghost" id="date-today">Сегодня</button>
+            <button type="button" class="j-btn j-ghost" id="date-yesterday">Вчера</button>
+          </div>
+          <div id="when-month" class="j-row" hidden>
+            <label class="j-field">Месяц
+              <select id="rec-month">
+                <option value="1">январь</option><option value="2">февраль</option><option value="3">март</option><option value="4">апрель</option><option value="5">май</option><option value="6">июнь</option><option value="7">июль</option><option value="8">август</option><option value="9">сентябрь</option><option value="10">октябрь</option><option value="11">ноябрь</option><option value="12">декабрь</option>
+              </select>
+            </label>
+          </div>
+          <p class="j-muted j-small" id="when-hint"></p>
+        </fieldset>
+        <details class="j-more" id="rec-more">
+          <summary>Подробнее: культура, препарат, количество, заметка</summary>
+          <div class="j-row">
+            <label class="j-field">Культура<input id="rec-crop" maxlength="80" autocomplete="off"></label>
+            <label class="j-field">Препарат, семена, топливо<input id="rec-product" maxlength="120" autocomplete="off"></label>
+          </div>
+          <div class="j-row">
+            <label class="j-field">Количество<input id="rec-quantity" type="text" inputmode="decimal" autocomplete="off"></label>
+            <label class="j-field j-narrow">Единица
+              <select id="rec-unit">
+                <option value="">—</option><option value="ha">га</option><option value="t">т</option><option value="c">ц</option><option value="kg">кг</option><option value="l">л</option><option value="pcs">шт</option>
+              </select>
+            </label>
+          </div>
+          <label class="j-check"><input type="checkbox" id="rec-estimated"> Примерно, со слов (не взвешено)</label>
+          <label class="j-field">Заметка<textarea id="rec-note" rows="3" maxlength="2000"></textarea></label>
+        </details>
+        <section id="review" class="j-review" hidden aria-labelledby="review-title">
+          <h3 id="review-title">Проверьте перед сохранением</h3>
+          <dl id="review-list"></dl>
+        </section>
+        <div class="j-conflict" id="conflict" hidden role="alert">
+          <p id="conflict-text"></p>
+          <dl id="conflict-current"></dl>
+          <p class="j-small">Ваши значения остались в форме. Можно сохранить их поверх новой версии или закрыть без сохранения.</p>
+        </div>
+        <p class="j-error" id="record-error" role="alert" hidden></p>
+      </div>
+      <footer class="j-dialog-foot">
+        <button type="button" class="j-btn j-ghost" id="record-back" hidden>Назад к форме</button>
+        <button type="button" class="j-btn" id="record-same" hidden>То же — не сохранять</button>
+        <button type="button" class="j-btn j-ghost" data-close>Закрыть</button>
+        <button type="submit" class="j-btn j-primary" id="record-save">Сохранить</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <dialog id="history-dialog" class="j-dialog" aria-labelledby="history-title">
+    <div class="j-dialog-inner">
+      <header class="j-dialog-head">
+        <h2 id="history-title">История записи</h2>
+        <button type="button" class="j-btn j-icon j-ghost" data-close aria-label="Закрыть">×</button>
+      </header>
+      <div class="j-dialog-body">
+        <p class="j-status" id="history-status" role="status"></p>
+        <ol id="history-list" class="j-history"></ol>
+        <p class="j-error" id="history-error" role="alert" hidden></p>
+      </div>
+      <footer class="j-dialog-foot">
+        <button type="button" class="j-btn" id="history-undo" hidden>Вернуть как было до последней правки</button>
+        <button type="button" class="j-btn j-ghost" data-close>Закрыть</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <div class="j-toast" id="toast" role="status" aria-live="polite" hidden><span id="toast-text"></span><button type="button" class="j-btn j-ghost" id="toast-action" hidden>Отменить</button></div>
+</body>
+</html>
