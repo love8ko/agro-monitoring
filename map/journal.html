@@ -7,24 +7,24 @@
   <meta name="description" content="Общий журнал работ по рабочим полям хозяйства Амира.">
   <title>Журнал полей</title>
   <script>/* The journal API lives on the Worker; the GitHub Pages copy only forwards there (query and hash kept, no API calls). */
-    if (/\.github\.io$/.test(location.hostname)) location.replace('https://agro-amir.love8ko.workers.dev/journal.html' + location.search + location.hash);</script>
-  <script type="module" crossorigin src="./assets/journal-Bn2GzwvJ.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/GeoJSON-BcJSopuC.js">
+    if (/\.github\.io$/.test(location.hostname)) location.replace('https://agro-amir.love8ko.workers.dev/journal' + location.search + location.hash);</script>
+  <script type="module" crossorigin src="./assets/journal-CPBD-Ust.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/Draw-DnElFTxs.js">
   <link rel="modulepreload" crossorigin href="./assets/GeometryFactory-BcjVD_Zq.js">
-  <link rel="modulepreload" crossorigin href="./assets/GeoJSONReader-BuNalZ8X.js">
-  <link rel="modulepreload" crossorigin href="./assets/IsValidOp-DQ9MbObm.js">
-  <link rel="stylesheet" crossorigin href="./assets/GeoJSON-c_1sG1-7.css">
-  <link rel="stylesheet" crossorigin href="./assets/journal-I4AvaOHm.css">
+  <link rel="modulepreload" crossorigin href="./assets/GeoJSONReader-D2M8-gE5.js">
+  <link rel="modulepreload" crossorigin href="./assets/IsValidOp-CfqfNgPA.js">
+  <link rel="stylesheet" crossorigin href="./assets/Draw-c_1sG1-7.css">
+  <link rel="stylesheet" crossorigin href="./assets/journal-CiiGL2LR.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержимому</a>
   <header class="j-top">
-    <a class="j-brand" href="./" aria-label="Поля — открыть карту"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 25V7l10 5V4l12 5v16H5Zm10-13v13M5 16l10 5m0-4 12-5"/></svg><span>Журнал</span></a>
-    <nav class="j-tabs" aria-label="Разделы журнала" hidden id="tabs">
-      <button type="button" class="j-tab" id="tab-journal" aria-pressed="true" data-tab="journal">Журнал</button>
-      <button type="button" class="j-tab" id="tab-assistant" aria-pressed="false" data-tab="assistant">Помощник</button>
+    <a class="j-brand" href="./" aria-label="Поля — открыть карту"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 25V7l10 5V4l12 5v16H5Zm10-13v13M5 16l10 5m0-4 12-5"/></svg><span>Поля</span></a>
+    <nav class="portal-nav" id="tabs" aria-label="Основная навигация">
+      <a id="journal-map-nav" href="./">Поля</a>
+      <a href="/journal" aria-current="page">Журнал</a>
     </nav>
-    <a class="j-maplink" href="./">Карта</a>
+    <button id="global-assistant" class="global-assistant" type="button" aria-label="Помощник — сказать или записать работу"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg><span>Сказать / записать</span></button>
     <details class="j-settings" id="settings" hidden>
       <summary aria-label="Настройки и доступ"><span id="me-name">…</span></summary>
       <div class="j-settings-body">
@@ -48,10 +48,28 @@
     <p class="j-status" id="boot-status" role="status">Открываем журнал…</p>
 
     <section id="view-journal" class="j-grid" hidden aria-label="Журнал работ">
-      <aside class="j-side" aria-label="Поле">
-        <label class="j-field">Поле
+
+
+      <section class="j-log" aria-labelledby="log-title">
+        <div class="j-log-head">
+          <h1 id="log-title"><span id="feed-title">Общая лента</span> <span id="log-year"></span></h1>
+          <div class="j-year" role="group" aria-label="Год">
+            <button type="button" class="j-btn j-icon" id="year-prev" aria-label="Предыдущий год">‹</button>
+            <label class="visually-hidden" for="year-input">Год</label>
+            <input id="year-input" type="number" inputmode="numeric" min="1990" max="2100" step="1">
+            <button type="button" class="j-btn j-icon" id="year-next" aria-label="Следующий год">›</button>
+          </div>
+        </div>
+        <div class="j-log-tools">
+          <label class="j-check"><input type="checkbox" id="show-cancelled"> Показывать отменённые</label>
+        </div>
+        <div class="feed-filters">        <label class="j-field">Поле
           <select id="field-select"><option value="">Все поля</option></select>
-        </label>
+        </label><button id="feed-all" class="j-btn j-ghost" type="button">Вся лента</button><a id="feed-map-link" class="j-btn j-ghost" href="https://love8ko.github.io/agro-monitoring/map/">На карте</a></div>
+        <details id="field-details" class="field-details" hidden>
+          <summary id="field-details-label">Поле и зоны</summary>
+      <aside class="j-side" aria-label="Поле">
+
         <article class="j-card" id="field-card" aria-live="polite">
           <div class="j-card-head">
             <h2 id="field-title">Все поля</h2>
@@ -71,8 +89,14 @@
           </div>
           <details class="j-more" id="split-box" hidden>
             <summary>Разделить поле на зоны / грядки</summary>
+            <p class="j-muted j-small">Наметьте две точки по направлению границы. Линия разделит выбранное поле или зону; перед сохранением проверьте результат. Старые записи сохранят прежние границы.</p>
+            <label class="j-field">Что разделить<select id="cut-target"></select></label>
+            <div class="j-card-actions"><button id="cut-start" type="button" class="j-btn j-primary">Разделить линией</button><button id="cut-cancel" type="button" class="j-btn" hidden>Отменить</button></div>
+            <p id="cut-status" class="j-note" role="status" hidden></p>
+            <div id="cut-confirm" hidden><div id="cut-names" class="zone-name-list"></div><button id="cut-apply" type="button" class="j-btn j-primary">Сохранить разделение</button></div>
+            <details class="j-more"><summary>Быстрое деление на равные полосы</summary>
             <form id="split-form" novalidate>
-              <p class="j-warn" id="split-locked" hidden>По этим зонам уже есть записи. Их границы сохраняются для истории; названия можно менять ниже.</p>
+              <p class="j-warn" id="split-locked" hidden>По этим зонам уже есть записи. Чтобы сохранить их границы в истории, новое деление делайте линией выше.</p>
               <p class="j-muted j-small">Создайте зоны сейчас или позже. Каждый участник может разделить поле и дать частям понятные названия. Сначала посмотрите деление на карте.</p>
               <label class="j-field">Сколько зон<input id="split-count" type="number" inputmode="numeric" min="2" max="12" value="2" required></label>
               <fieldset class="j-inline"><legend>Полосы</legend>
@@ -87,7 +111,7 @@
                 <button type="button" class="j-btn j-ghost" id="split-cancel">Убрать предложение</button>
               </div>
               <p class="j-error" id="split-error" role="alert" hidden></p>
-            </form>
+            </form></details>
           </details>
           <details id="zone-names-box" class="j-more" hidden>
             <summary>Названия зон</summary>
@@ -100,42 +124,28 @@
           <button id="zone-history" type="button" class="j-btn j-ghost" hidden>История зон</button>
         </article>
       </aside>
-
-      <section class="j-log" aria-labelledby="log-title">
-        <div class="j-log-head">
-          <h1 id="log-title">Журнал <span id="log-year"></span></h1>
-          <div class="j-year" role="group" aria-label="Год">
-            <button type="button" class="j-btn j-icon" id="year-prev" aria-label="Предыдущий год">‹</button>
-            <label class="visually-hidden" for="year-input">Год</label>
-            <input id="year-input" type="number" inputmode="numeric" min="1990" max="2100" step="1">
-            <button type="button" class="j-btn j-icon" id="year-next" aria-label="Следующий год">›</button>
-          </div>
-        </div>
-        <div class="j-log-tools">
-          <label class="j-check"><input type="checkbox" id="show-cancelled"> Показывать отменённые</label>
-        </div>
-        <p class="j-status" id="log-status" role="status"></p>
-        <div id="log-list" class="j-list"></div>
-      </section>
-    </section>
-
-    <section id="view-assistant" class="j-assistant" hidden aria-labelledby="assistant-title">
-      <h1 id="assistant-title">Помощник</h1>
-      <p class="j-muted">Напишите или продиктуйте, что сделали. Если чего-то не хватает, помощник уточнит. Готовую запись можно сохранить одной кнопкой.</p>
-      <div class="j-row"><p id="chat-context" class="j-muted j-small"></p><button id="chat-new" class="j-btn j-ghost" type="button">Новый разговор</button></div>
-      <div id="chat-feed" class="chat-feed" role="log" aria-label="Разговор с помощником" aria-live="polite"></div>
+        </details>
+    <section id="view-assistant" class="j-assistant" aria-labelledby="assistant-title">
+      <div class="composer-heading"><h2 id="assistant-title">Записать работу</h2><button id="quick-manual" type="button" class="j-btn j-ghost">Вручную</button></div>
+      <p class="j-muted">Одна запись для одного или нескольких полей. Например: «Сегодня пахали поля 4 и 5» или «Вчера обработали все поля».</p>
+      <div class="j-row composer-context"><p id="chat-context" class="j-muted j-small"></p><button id="chat-new" class="j-btn j-ghost" type="button">Новый разговор</button></div>
+      <details id="chat-history" class="j-more"><summary>Разговор с помощником</summary><div id="chat-feed" class="chat-feed" role="log" aria-label="Разговор с помощником" aria-live="polite"></div></details>
+      <div id="assistant-reply" class="assistant-reply" role="status" hidden></div>
       <div id="assistant-result" hidden>
         <p id="assistant-message" hidden></p>
         <div id="assistant-drafts" class="j-list"></div>
       </div>
       <form id="assistant-form" novalidate>
-        <label class="j-field">Что делали
-          <textarea id="assistant-text" rows="3" maxlength="2000" placeholder="Сегодня пахал поле четыре" required></textarea>
+        <label class="j-field">Напишите или надиктуйте
+          <textarea id="assistant-text" rows="2" maxlength="2000" placeholder="Сегодня пахал поле четыре…" required></textarea>
         </label>
-        <p class="j-muted j-small">Голосом: на телефоне нажмите значок микрофона на клавиатуре и говорите — текст появится в поле.</p>
+        <p class="j-muted j-small" id="voice-status" role="status" aria-live="polite"></p>
         <div class="j-row">
-          <label class="j-field j-narrow">Год<input id="assistant-year" type="number" inputmode="numeric" min="1990" max="2100"></label>
-          <button class="j-btn j-primary" type="submit" id="assistant-submit">Отправить</button>
+          <input id="assistant-year" type="hidden">
+          <button id="voice-start" type="button" class="j-btn">Надиктовать</button>
+          <button id="voice-cancel" type="button" class="j-btn j-ghost" hidden>Отменить запись голоса</button>
+          <button id="voice-retry" type="button" class="j-btn" hidden>Повторить распознавание</button>
+          <button class="j-btn j-primary" type="submit" id="assistant-submit">Разобрать</button>
         </div>
       </form>
       <p class="j-status" id="assistant-status" role="status"></p>
@@ -144,8 +154,21 @@
         <button type="button" class="j-btn j-primary" id="assistant-manual">Записать вручную</button>
       </div>
     </section>
+        <p class="j-status" id="log-status" role="status"></p>
+        <div id="log-list" class="j-list"></div>
+      </section>
+    </section>
+
+
   </main>
 
+  <dialog id="entry-dialog" class="j-dialog" aria-labelledby="entry-dialog-title">
+    <div class="j-dialog-inner">
+      <header class="j-dialog-head"><h2 id="entry-dialog-title">Запись</h2><button type="button" class="j-btn j-icon j-ghost" data-close aria-label="Закрыть">×</button></header>
+      <div id="entry-detail" class="j-dialog-body"></div>
+      <footer id="entry-detail-actions" class="j-dialog-foot"></footer>
+    </div>
+  </dialog>
   <dialog id="record-dialog" class="j-dialog" aria-labelledby="record-title">
     <form id="record-form" method="dialog" novalidate>
       <header class="j-dialog-head">
