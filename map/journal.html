@@ -8,13 +8,13 @@
   <title>Журнал полей</title>
   <script>/* The journal API lives on the Worker; the GitHub Pages copy only forwards there (query and hash kept, no API calls). */
     if (/\.github\.io$/.test(location.hostname)) location.replace('https://agro-amir.love8ko.workers.dev/journal' + location.search + location.hash);</script>
-  <script type="module" crossorigin src="./assets/journal-CPBD-Ust.js"></script>
+  <script type="module" crossorigin src="./assets/journal-CjAiP64-.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/Draw-DnElFTxs.js">
   <link rel="modulepreload" crossorigin href="./assets/GeometryFactory-BcjVD_Zq.js">
   <link rel="modulepreload" crossorigin href="./assets/GeoJSONReader-D2M8-gE5.js">
   <link rel="modulepreload" crossorigin href="./assets/IsValidOp-CfqfNgPA.js">
   <link rel="stylesheet" crossorigin href="./assets/Draw-c_1sG1-7.css">
-  <link rel="stylesheet" crossorigin href="./assets/journal-CiiGL2LR.css">
+  <link rel="stylesheet" crossorigin href="./assets/journal-DBFbU_4x.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержимому</a>
@@ -127,7 +127,7 @@
         </details>
     <section id="view-assistant" class="j-assistant" aria-labelledby="assistant-title">
       <div class="composer-heading"><h2 id="assistant-title">Записать работу</h2><button id="quick-manual" type="button" class="j-btn j-ghost">Вручную</button></div>
-      <p class="j-muted">Одна запись для одного или нескольких полей. Например: «Сегодня пахали поля 4 и 5» или «Вчера обработали все поля».</p>
+      <p class="j-muted">Расскажите, что делали и на каких полях. После диктовки помощник сам разберёт работы, при необходимости уточнит и покажет записи на проверку.</p>
       <div class="j-row composer-context"><p id="chat-context" class="j-muted j-small"></p><button id="chat-new" class="j-btn j-ghost" type="button">Новый разговор</button></div>
       <details id="chat-history" class="j-more"><summary>Разговор с помощником</summary><div id="chat-feed" class="chat-feed" role="log" aria-label="Разговор с помощником" aria-live="polite"></div></details>
       <div id="assistant-reply" class="assistant-reply" role="status" hidden></div>
@@ -136,7 +136,7 @@
         <div id="assistant-drafts" class="j-list"></div>
       </div>
       <form id="assistant-form" novalidate>
-        <label class="j-field">Напишите или надиктуйте
+        <label class="j-field"><span id="assistant-input-label">Напишите или надиктуйте</span>
           <textarea id="assistant-text" rows="2" maxlength="2000" placeholder="Сегодня пахал поле четыре…" required></textarea>
         </label>
         <p class="j-muted j-small" id="voice-status" role="status" aria-live="polite"></p>
@@ -178,7 +178,7 @@
       <div class="j-dialog-body" id="record-body">
         <p class="j-note" id="record-origin" hidden></p>
         <fieldset class="j-ops"><legend>Что</legend>
-          <label><input type="radio" name="operation" value="tillage" required><span>Вспашка</span></label>
+          <label><input type="radio" name="operation" value="tillage" required><span>Обработка почвы</span></label>
           <label><input type="radio" name="operation" value="sowing"><span>Посев</span></label>
           <label><input type="radio" name="operation" value="treatment"><span>Обработка</span></label>
           <label><input type="radio" name="operation" value="harvest"><span>Уборка</span></label>
