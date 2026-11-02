@@ -7,13 +7,13 @@
   <meta name="description" content="Общий журнал работ по рабочим полям хозяйства Амира.">
   <title>Журнал полей</title>
 
-  <script type="module" crossorigin src="./assets/journal-p75d8v8e.js"></script>
+  <script type="module" crossorigin src="./assets/journal-C7Ag3ysz.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/portal-Pzq0vkTa.js">
   <link rel="modulepreload" crossorigin href="./assets/GeometryFactory-BcjVD_Zq.js">
   <link rel="modulepreload" crossorigin href="./assets/GeoJSONReader-T2zVj1YC.js">
   <link rel="modulepreload" crossorigin href="./assets/IsValidOp-Cc1iIhc9.js">
   <link rel="stylesheet" crossorigin href="./assets/portal-c_1sG1-7.css">
-  <link rel="stylesheet" crossorigin href="./assets/journal-OlesfgVB.css">
+  <link rel="stylesheet" crossorigin href="./assets/journal-CyICybQj.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержимому</a>
@@ -21,7 +21,8 @@
     <a class="j-brand" href="./" aria-label="Поля — открыть карту"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 25V7l10 5V4l12 5v16H5Zm10-13v13M5 16l10 5m0-4 12-5"/></svg><span>Поля</span></a>
     <nav class="portal-nav" id="tabs" aria-label="Основная навигация">
       <a id="journal-map-nav" href="./">Карта</a>
-      <a href="journal.html" aria-current="page">Журнал</a>
+      <a id="journal-tab" href="journal.html" aria-current="page">Журнал</a>
+      <a id="totals-tab" href="journal.html#helper">Расчёты</a>
     </nav>
     <button id="global-assistant" class="global-assistant" type="button" aria-label="Добавить запись"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg><span>Добавить запись</span></button>
 
@@ -107,12 +108,29 @@
       </aside>
         </details>
 
+        <details id="annual-summary" class="annual-summary">
+          <summary><span id="annual-title">Сводка за год</span><span id="annual-count" class="j-muted"></span></summary>
+          <div id="annual-body" aria-live="polite"><p class="j-muted">Загружаем итоги…</p></div>
+        </details>
+        <section id="inline-editor" class="inline-editor" aria-label="Добавить запись"></section>
+        <div id="summary-selection" class="summary-selection" hidden><span id="summary-selection-label"></span><button id="summary-reset" type="button" class="j-btn j-ghost">Вся лента</button></div>
         <p class="j-status" id="log-status" role="status"></p>
         <div id="log-list" class="j-list"></div>
       </section>
     </section>
-
-
+    <section id="view-summary" class="report-view" hidden aria-labelledby="report-title">
+      <h1 id="report-title">Расчёты</h1>
+      <p class="journal-subtitle">Спросите о работах на полях, посевах или урожае.</p>
+      <form id="report-form" class="report-question">
+        <label class="j-field" for="report-text">Вопрос по журналу<textarea id="report-text" rows="3" maxlength="2000" placeholder="Сколько сои посеяли в 2026 году?" required></textarea></label>
+        <div class="report-actions"><button id="report-mic" type="button" class="j-btn editor-mic" aria-label="Надиктовать вопрос"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg></button><button id="report-voice-cancel" type="button" class="j-btn j-ghost" hidden>Отменить</button><button id="report-voice-retry" type="button" class="j-btn" hidden>Повторить</button><button id="report-submit" type="submit" class="j-btn j-primary">Спросить</button></div>
+        <p id="report-voice-status" class="j-muted j-small" role="status"></p>
+        <p id="report-error" class="j-error" role="alert" hidden></p>
+      </form>
+      <p id="report-answer" class="report-answer" role="status" hidden></p>
+      <div id="report-records" class="j-list" hidden></div>
+      <div id="report-summary-host"></div>
+    </section>
   </main>
 
   <dialog id="entry-dialog" class="j-dialog" aria-labelledby="entry-dialog-title">
@@ -132,11 +150,13 @@
         <p class="j-note" id="record-origin" hidden></p>
         <div id="editor-main">
           <label class="j-field editor-writing"><span id="editor-label">Что произошло?</span>
-            <textarea id="rec-note" rows="5" maxlength="2000" placeholder="Например: сегодня вспахали поле 6. Вечером пошёл дождь." required></textarea>
+            <textarea id="rec-note" rows="3" maxlength="2000" placeholder="Например: сегодня посеяли сою на поле 6." required></textarea>
           </label>
         </div>
         <div id="voice-question" class="voice-question" role="status" hidden></div>
         <div id="voice-drafts" class="voice-drafts" hidden></div>
+        <div id="accounting-preview" class="accounting-preview" role="status" hidden></div>
+        <button id="accounting-retry" class="quiet-field-action" type="button" hidden>Повторить проверку</button>
         <div class="editor-voice-row">
           <button id="voice-start" type="button" class="j-btn editor-mic" aria-label="Надиктовать запись" title="Надиктовать запись"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg></button>
           <button id="voice-cancel" type="button" class="j-btn j-ghost" hidden>Отменить</button>
@@ -153,7 +173,7 @@
           <p class="j-muted j-small" id="target-summary" aria-live="polite"></p>
         </fieldset>
         </details>
-        <fieldset class="j-when">
+        <details id="editor-date" class="editor-date"><summary id="editor-date-label">Сегодня · изменить дату</summary><fieldset class="j-when">
           <div id="when-day" class="j-row">
             <label class="j-field">Дата<input id="rec-date" type="date"></label>
             <label class="j-field range-field">По (если несколько дней)<input id="rec-date-to" type="date"></label>
@@ -183,7 +203,7 @@
           </div>
           <p class="j-muted j-small" id="when-hint"></p>
           </details>
-        </fieldset>
+        </fieldset></details>
         <details class="j-more" id="rec-more" hidden>
           <summary>Подробнее: культура, препарат, количество, заметка</summary>
           <div class="j-row">
