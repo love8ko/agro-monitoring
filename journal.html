@@ -7,13 +7,13 @@
   <meta name="description" content="Общий журнал работ по рабочим полям хозяйства Амира.">
   <title>Журнал полей</title>
 
-  <script type="module" crossorigin src="./assets/journal-CpRxXswg.js"></script>
+  <script type="module" crossorigin src="./assets/journal-p75d8v8e.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/portal-Pzq0vkTa.js">
   <link rel="modulepreload" crossorigin href="./assets/GeometryFactory-BcjVD_Zq.js">
   <link rel="modulepreload" crossorigin href="./assets/GeoJSONReader-T2zVj1YC.js">
   <link rel="modulepreload" crossorigin href="./assets/IsValidOp-Cc1iIhc9.js">
   <link rel="stylesheet" crossorigin href="./assets/portal-c_1sG1-7.css">
-  <link rel="stylesheet" crossorigin href="./assets/journal-3dJWsfja.css">
+  <link rel="stylesheet" crossorigin href="./assets/journal-OlesfgVB.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержимому</a>
@@ -23,7 +23,7 @@
       <a id="journal-map-nav" href="./">Карта</a>
       <a href="journal.html" aria-current="page">Журнал</a>
     </nav>
-    <button id="global-assistant" class="global-assistant" type="button" aria-label="Помощник — сказать или записать работу"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg><span>Сказать / записать</span></button>
+    <button id="global-assistant" class="global-assistant" type="button" aria-label="Добавить запись"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg><span>Добавить запись</span></button>
 
   </header>
 
@@ -35,7 +35,7 @@
 
       <section class="j-log" aria-labelledby="log-title">
         <div class="j-log-head">
-          <h1 id="log-title"><span id="feed-title">Общая лента</span> <span id="log-year"></span></h1>
+          <div class="journal-heading"><h1 id="log-title"><span id="feed-title">Общий журнал</span><span id="log-year" hidden></span></h1><p id="feed-subtitle" class="journal-subtitle">Все записи хозяйства по датам</p><button id="rename-field" type="button" class="quiet-field-action" hidden>Переименовать поле</button></div>
           <div class="j-year" role="group" aria-label="Год">
             <button type="button" class="j-btn j-icon" id="year-prev" aria-label="Предыдущий год">‹</button>
             <label class="visually-hidden" for="year-input">Год</label>
@@ -43,12 +43,10 @@
             <button type="button" class="j-btn j-icon" id="year-next" aria-label="Следующий год">›</button>
           </div>
         </div>
-        <div class="j-log-tools">
-          <label class="j-check"><input type="checkbox" id="show-cancelled"> Показывать отменённые</label>
-        </div>
+
         <div class="feed-filters">        <label class="j-field">Лента по полю
           <select id="field-select"><option value="">Все поля</option></select>
-        </label><button id="feed-all" class="j-btn j-ghost" type="button">Вся лента</button><a id="feed-map-link" class="j-btn j-ghost" href="https://love8ko.github.io/agro-monitoring/map/">На карте</a></div>
+        </label><button id="feed-all" class="j-btn j-ghost" type="button">Общий журнал</button><a id="feed-map-link" class="j-btn j-ghost" href="https://love8ko.github.io/agro-monitoring/map/">На карте</a></div>
         <details id="field-details" class="field-details" hidden>
           <summary id="field-details-label">Поле и зоны</summary>
       <aside class="j-side" aria-label="Поле">
@@ -108,42 +106,7 @@
         </article>
       </aside>
         </details>
-    <section id="view-assistant" class="j-assistant" aria-labelledby="assistant-title">
-      <div class="composer-heading"><h2 id="assistant-title">Записать работу</h2><button id="quick-manual" type="button" class="j-btn j-ghost">Вручную</button></div>
-      <p class="j-muted">Расскажите, что делали и на каких полях. После диктовки помощник сам разберёт работы, при необходимости уточнит и покажет записи на проверку.</p>
-      <details class="work-selection" id="work-selection">
-        <summary id="work-selection-label">Выбрать поля для записи</summary>
-        <p class="j-muted j-small">Отметьте поля, на которых делали эту работу.</p>
-        <div class="j-row"><button id="work-select-all" type="button" class="j-btn j-ghost">Все поля</button><button id="work-select-none" type="button" class="j-btn j-ghost">Снять выбор</button></div>
-        <div id="work-field-list" class="work-field-list" role="group" aria-label="Поля для новой работы"></div>
-      </details>
-      <div id="work-selected" class="work-selected" aria-live="polite"></div>
-      <div class="j-row composer-context"><p id="chat-context" class="j-muted j-small"></p><button id="chat-new" class="j-btn j-ghost" type="button">Новый разговор</button></div>
-      <details id="chat-history" class="j-more"><summary>Разговор с помощником</summary><div id="chat-feed" class="chat-feed" role="log" aria-label="Разговор с помощником" aria-live="polite"></div></details>
-      <div id="assistant-reply" class="assistant-reply" role="status" hidden></div>
-      <div id="assistant-result" hidden>
-        <p id="assistant-message" hidden></p>
-        <div id="assistant-drafts" class="j-list"></div>
-      </div>
-      <form id="assistant-form" novalidate>
-        <label class="j-field"><span id="assistant-input-label">Напишите или надиктуйте</span>
-          <textarea id="assistant-text" rows="2" maxlength="2000" placeholder="Сегодня пахал поле четыре…" required></textarea>
-        </label>
-        <p class="j-muted j-small" id="voice-status" role="status" aria-live="polite"></p>
-        <div class="j-row">
-          <input id="assistant-year" type="hidden">
-          <button id="voice-start" type="button" class="j-btn">Надиктовать</button>
-          <button id="voice-cancel" type="button" class="j-btn j-ghost" hidden>Отменить запись голоса</button>
-          <button id="voice-retry" type="button" class="j-btn" hidden>Повторить распознавание</button>
-          <button class="j-btn j-primary" type="submit" id="assistant-submit">Разобрать</button>
-        </div>
-      </form>
-      <p class="j-status" id="assistant-status" role="status"></p>
-      <div id="assistant-unavailable" class="j-card" hidden>
-        <p id="assistant-unavailable-text"></p>
-        <button type="button" class="j-btn j-primary" id="assistant-manual">Записать вручную</button>
-      </div>
-    </section>
+
         <p class="j-status" id="log-status" role="status"></p>
         <div id="log-list" class="j-list"></div>
       </section>
@@ -167,20 +130,39 @@
       </header>
       <div class="j-dialog-body" id="record-body">
         <p class="j-note" id="record-origin" hidden></p>
-        <fieldset class="j-ops"><legend>Что</legend>
-          <label><input type="radio" name="operation" value="tillage" required><span>Обработка почвы</span></label>
-          <label><input type="radio" name="operation" value="sowing"><span>Посев</span></label>
-          <label><input type="radio" name="operation" value="treatment"><span>Обработка</span></label>
-          <label><input type="radio" name="operation" value="harvest"><span>Уборка</span></label>
-          <label><input type="radio" name="operation" value="fuel"><span>Топливо</span></label>
-          <label><input type="radio" name="operation" value="note"><span>Заметка</span></label>
-        </fieldset>
+        <div id="editor-main">
+          <label class="j-field editor-writing"><span id="editor-label">Что произошло?</span>
+            <textarea id="rec-note" rows="5" maxlength="2000" placeholder="Например: сегодня вспахали поле 6. Вечером пошёл дождь." required></textarea>
+          </label>
+        </div>
+        <div id="voice-question" class="voice-question" role="status" hidden></div>
+        <div id="voice-drafts" class="voice-drafts" hidden></div>
+        <div class="editor-voice-row">
+          <button id="voice-start" type="button" class="j-btn editor-mic" aria-label="Надиктовать запись" title="Надиктовать запись">🎙</button>
+          <button id="voice-cancel" type="button" class="j-btn j-ghost" hidden>Отменить</button>
+          <button id="voice-retry" type="button" class="j-btn" hidden>Повторить</button>
+          <span id="voice-status" class="j-muted j-small" role="status" aria-live="polite"></span>
+        </div>
+        <p id="voice-hint" class="j-muted j-small">Можно написать текст или нажать микрофон.</p>
+        <details id="record-fields" class="editor-fields">
+          <summary id="record-fields-label">Общий журнал · выбрать поля</summary>
+
         <fieldset class="j-where"><legend>Где</legend>
           <label class="j-check j-all"><input type="checkbox" id="all-fields"> Все поля</label>
           <div id="target-list" class="j-targets"></div>
           <p class="j-muted j-small" id="target-summary" aria-live="polite"></p>
         </fieldset>
-        <fieldset class="j-when"><legend>Когда</legend>
+        </details>
+        <fieldset class="j-when">
+          <div id="when-day" class="j-row">
+            <label class="j-field">Дата<input id="rec-date" type="date"></label>
+            <label class="j-field range-field">По (если несколько дней)<input id="rec-date-to" type="date"></label>
+          </div>
+          <div class="j-row" id="when-quick">
+            <button type="button" class="j-btn j-ghost" id="date-today">Сегодня</button>
+            <button type="button" class="j-btn j-ghost" id="date-yesterday">Вчера</button>
+          </div>
+          <details class="date-options"><summary id="date-options-summary">Другой месяц или год</summary>
           <div class="j-row">
             <label class="j-field j-narrow">Год<input id="rec-year" type="number" inputmode="numeric" min="1990" max="2100" required></label>
             <label class="j-field">Точность даты
@@ -192,14 +174,6 @@
               </select>
             </label>
           </div>
-          <div id="when-day" class="j-row">
-            <label class="j-field">Дата<input id="rec-date" type="date"></label>
-            <label class="j-field">По (если несколько дней)<input id="rec-date-to" type="date"></label>
-          </div>
-          <div class="j-row" id="when-quick">
-            <button type="button" class="j-btn j-ghost" id="date-today">Сегодня</button>
-            <button type="button" class="j-btn j-ghost" id="date-yesterday">Вчера</button>
-          </div>
           <div id="when-month" class="j-row" hidden>
             <label class="j-field">Месяц
               <select id="rec-month">
@@ -208,8 +182,9 @@
             </label>
           </div>
           <p class="j-muted j-small" id="when-hint"></p>
+          </details>
         </fieldset>
-        <details class="j-more" id="rec-more">
+        <details class="j-more" id="rec-more" hidden>
           <summary>Подробнее: культура, препарат, количество, заметка</summary>
           <div class="j-row">
             <label class="j-field">Культура<input id="rec-crop" maxlength="80" autocomplete="off"></label>
@@ -224,7 +199,7 @@
             </label>
           </div>
           <label class="j-check"><input type="checkbox" id="rec-estimated"> Примерно, со слов (не взвешено)</label>
-          <label class="j-field">Заметка<textarea id="rec-note" rows="3" maxlength="2000"></textarea></label>
+
         </details>
         <section id="review" class="j-review" hidden aria-labelledby="review-title">
           <h3 id="review-title">Проверьте перед сохранением</h3>
@@ -241,7 +216,7 @@
         <button type="button" class="j-btn j-ghost" id="record-back" hidden>Назад к форме</button>
         <button type="button" class="j-btn" id="record-same" hidden>То же — не сохранять</button>
         <button type="button" class="j-btn j-ghost" data-close>Закрыть</button>
-        <button type="submit" class="j-btn j-primary" id="record-save">Сохранить</button>
+        <button type="submit" class="j-btn j-primary" id="record-save">Записать</button>
       </footer>
     </form>
   </dialog>
@@ -265,10 +240,7 @@
   </dialog>
 
   <div class="j-toast" id="toast" role="status" aria-live="polite" hidden><span id="toast-text"></span><button type="button" class="j-btn j-ghost" id="toast-action" hidden>Отменить</button></div>
-  <div class="mobile-workbar" aria-label="Запись работы">
-    <p id="mobile-work-scope">Назовите поле в рассказе</p>
-    <div><button id="mobile-voice" class="j-btn j-primary" type="button">Надиктовать работу</button><button id="mobile-manual" class="j-btn" type="button">Вручную</button></div>
-  </div>
+  <div class="mobile-workbar" aria-label="Новая запись"><button id="mobile-add" class="j-btn j-primary" type="button">＋ Добавить запись</button></div>
   <footer class="portal-footer">    <details class="j-settings" id="settings" hidden>
       <summary aria-label="Настройки и доступ"><span id="me-name">…</span></summary>
       <div class="j-settings-body">
@@ -279,6 +251,9 @@
           <p class="j-muted j-small">Можно оставить обозначение устройства. Все участники могут заполнять и исправлять журнал.</p>
           <p id="profile-error" class="j-error" role="alert" hidden></p>
         </form>
+        <div class="j-log-tools">
+          <label class="j-check"><input type="checkbox" id="show-cancelled"> Показывать отменённые</label>
+        </div>
         <section aria-labelledby="export-title">
           <h2 id="export-title">Выгрузка</h2>
           <a class="j-btn" id="export-link" href="/api/journal/export" download>Скачать журнал года</a>
