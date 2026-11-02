@@ -7,13 +7,13 @@
   <meta name="description" content="Общий журнал работ по рабочим полям хозяйства Амира.">
   <title>Журнал полей</title>
 
-  <script type="module" crossorigin src="./assets/journal-DdZpFFV9.js"></script>
+  <script type="module" crossorigin src="./assets/journal-HyvFpzfQ.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/field-name-CB1YGHs4.js">
   <link rel="modulepreload" crossorigin href="./assets/GeometryFactory-BcjVD_Zq.js">
   <link rel="modulepreload" crossorigin href="./assets/GeoJSONReader-bMp99Qah.js">
   <link rel="modulepreload" crossorigin href="./assets/IsValidOp-BKBdneu4.js">
   <link rel="stylesheet" crossorigin href="./assets/field-name-c_1sG1-7.css">
-  <link rel="stylesheet" crossorigin href="./assets/journal-Ca285wwy.css">
+  <link rel="stylesheet" crossorigin href="./assets/journal-BMR8nfNF.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержимому</a>
@@ -121,7 +121,9 @@
     </section>
     <section id="view-summary" class="report-view" hidden aria-labelledby="report-title">
       <h1 id="report-title">Расчёты</h1>
-      <p class="journal-subtitle">Спросите о работах на полях, посевах или урожае.</p>
+      <p class="journal-subtitle">Задайте вопрос или расскажите, что сделали на полях.</p>
+      <div id="farm-chat"></div>
+      <div id="legacy-report" hidden>
       <form id="report-form" class="report-question">
         <label class="j-field" for="report-text">Вопрос по журналу<textarea id="report-text" rows="3" maxlength="2000" placeholder="Сколько сои посеяли в 2026 году?" required></textarea></label>
         <div class="report-actions"><button id="report-mic" type="button" class="j-btn editor-mic" aria-label="Надиктовать вопрос"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg></button><button id="report-voice-cancel" type="button" class="j-btn j-ghost" hidden>Отменить</button><button id="report-voice-retry" type="button" class="j-btn" hidden>Повторить</button><button id="report-submit" type="submit" class="j-btn j-primary">Спросить</button></div>
@@ -131,6 +133,7 @@
       <p id="report-answer" class="report-answer" role="status" hidden></p>
       <div id="report-records" class="j-list" hidden></div>
       <div id="report-summary-host"></div>
+      </div>
     </section>
   </main>
 
