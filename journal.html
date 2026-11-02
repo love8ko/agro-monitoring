@@ -7,13 +7,13 @@
   <meta name="description" content="Общий журнал работ по рабочим полям хозяйства Амира.">
   <title>Журнал полей</title>
 
-  <script type="module" crossorigin src="./assets/journal-C7Ag3ysz.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/portal-Pzq0vkTa.js">
+  <script type="module" crossorigin src="./assets/journal-DdZpFFV9.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/field-name-CB1YGHs4.js">
   <link rel="modulepreload" crossorigin href="./assets/GeometryFactory-BcjVD_Zq.js">
-  <link rel="modulepreload" crossorigin href="./assets/GeoJSONReader-T2zVj1YC.js">
-  <link rel="modulepreload" crossorigin href="./assets/IsValidOp-Cc1iIhc9.js">
-  <link rel="stylesheet" crossorigin href="./assets/portal-c_1sG1-7.css">
-  <link rel="stylesheet" crossorigin href="./assets/journal-CyICybQj.css">
+  <link rel="modulepreload" crossorigin href="./assets/GeoJSONReader-bMp99Qah.js">
+  <link rel="modulepreload" crossorigin href="./assets/IsValidOp-BKBdneu4.js">
+  <link rel="stylesheet" crossorigin href="./assets/field-name-c_1sG1-7.css">
+  <link rel="stylesheet" crossorigin href="./assets/journal-Ca285wwy.css">
 </head>
 <body>
   <a class="skip" href="#main">К содержимому</a>
@@ -37,7 +37,8 @@
       <section class="j-log" aria-labelledby="log-title">
         <div class="j-log-head">
           <div class="journal-heading"><h1 id="log-title"><span id="feed-title">Общий журнал</span><span id="log-year" hidden></span></h1><p id="feed-subtitle" class="journal-subtitle">Все записи хозяйства по датам</p><button id="rename-field" type="button" class="quiet-field-action" hidden>Переименовать поле</button></div>
-          <div class="j-year" role="group" aria-label="Год">
+          <div id="journal-years" class="journal-years-host"></div>
+          <div class="j-year" role="group" aria-label="Год" hidden>
             <button type="button" class="j-btn j-icon" id="year-prev" aria-label="Предыдущий год">‹</button>
             <label class="visually-hidden" for="year-input">Год</label>
             <input id="year-input" type="number" inputmode="numeric" min="1990" max="2100" step="1">
